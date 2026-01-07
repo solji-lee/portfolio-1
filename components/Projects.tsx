@@ -355,19 +355,19 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
   onClick: () => void
 }) => {
   return (
-    <div className={`mb-3 overflow-hidden transition-all duration-300 rounded-2xl border ${isOpen ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-50 border-transparent hover:bg-slate-100/80'}`}>
+    <div className={`mb-2 overflow-hidden transition-all duration-300 rounded-xl border ${isOpen ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-50 border-transparent hover:bg-slate-100/80'}`}>
       <button
         onClick={onClick}
-        className="w-full px-5 py-4 flex items-center justify-between group text-left"
+        className="w-full px-4 py-3 flex items-center justify-between group text-left"
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className={`p-2 rounded-xl transition-all duration-300 ${isOpen ? colorClass : 'bg-slate-200 text-slate-500'}`}>
-            <Icon size={18} />
+            <Icon size={16} />
           </div>
-          <span className={`font-bold text-[14px] md:text-[15px] transition-colors duration-300 ${isOpen ? 'text-slate-900' : 'text-slate-500'}`}>{title}</span>
+          <span className={`font-bold text-[13px] md:text-[14px] transition-colors duration-300 ${isOpen ? 'text-slate-900' : 'text-slate-500'}`}>{title}</span>
         </div>
         <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-          <Plus size={18} className={isOpen ? 'text-brand-500' : 'text-slate-400'} />
+          <Plus size={16} className={isOpen ? 'text-brand-500' : 'text-slate-400'} />
         </div>
       </button>
 
@@ -379,15 +379,15 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="px-5 pb-6 pt-1 ml-11">
-              <ul className="space-y-4">
+            <div className="px-4 pb-4 pt-0 ml-9">
+              <ul className="space-y-3">
                 {items.map((item, i) => (
                   <motion.li
                     key={i}
                     initial={{ opacity: 0, x: -5 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="flex gap-3 text-slate-600 text-[13px] md:text-[14px] leading-relaxed"
+                    className="flex gap-2.5 text-slate-600 text-[13px] md:text-[14px] leading-relaxed"
                   >
                     <ArrowRight size={14} className="mt-1 text-brand-300 shrink-0" />
                     <span>{item}</span>
