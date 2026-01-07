@@ -58,21 +58,21 @@ export const SpecialLab: React.FC = () => {
             <span>SPECIAL LAB</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-            Cryptocurrency <br /> Auto-Trading Bot
+            국내주식 & 암호화폐 <br /> 자동매매 봇
           </h2>
 
           <div className="space-y-4 text-slate-600 leading-relaxed text-[15px]">
             <p>
-              "금융 시장에 대한 호기심으로 <strong className="text-slate-900">암호화폐 자동거래 봇</strong>을 직접 구축했습니다."
+              "금융 시장에 대한 호기심으로 <strong className="text-slate-900">국내주식과 암호화폐 자동거래 봇</strong>을 직접 구축했습니다."
             </p>
             <p>
               <strong className="text-brand-600">Binance</strong>와 <strong className="text-brand-600">Upbit</strong> API를 활용한 비트코인 자동거래,
-              국내 증권사 <strong className="text-brand-600">영웅문 API</strong>와의 연동을 통해 복잡한 실시간 데이터 처리와 트레이딩 전략을 구현했습니다.
+              국내 증권사 <strong className="text-brand-600">영웅문 API</strong>와의 연동을 통해 개인화 된 트레이딩 전략을 구현했습니다.
             </p>
             <p className="text-sm text-slate-500">
               • Git 브랜치로 트레이딩 모드 관리 (Trailing, Grid, DCA)<br />
-              • 상승장 트레일링 전략으로 수익 극대화<br />
-              • USDT/SWIFT 등 다양한 암호화폐 페어 지원
+              • USDT/SWIFT 등 다양한 암호화폐 페어 고려<br />
+              • AWS를 활용한 안정적인 24/7 자동매매<br />
             </p>
           </div>
 

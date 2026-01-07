@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Layout, Cpu, Zap, ArrowDown } from 'lucide-react';
+import { Code, Layout, Cpu, Zap, ArrowDown, Users } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const scrollToSection = (e: React.MouseEvent, id: string) => {
@@ -12,7 +12,8 @@ export const Hero: React.FC = () => {
   };
 
   const floatingTags = [
-    { icon: <Code size={14} />, text: "Engineering-Driven", color: "text-blue-600", bg: "bg-blue-50" },
+    { icon: <Users size={14} />, text: "User-Driven", color: "text-purple-600", bg: "bg-purple-50" },
+    { icon: <Code size={14} />, text: "Design Ops", color: "text-blue-600", bg: "bg-blue-50" },
     { icon: <Layout size={14} />, text: "Design Systems", color: "text-indigo-600", bg: "bg-indigo-50" },
     { icon: <Cpu size={14} />, text: "Vibe Coding", color: "text-emerald-600", bg: "bg-emerald-50" },
     { icon: <Zap size={14} />, text: "Rapid Prototyping", color: "text-amber-600", bg: "bg-amber-50" },
@@ -126,7 +127,7 @@ export const Hero: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Optimization</div>
-                  <div className="text-xl font-black text-slate-900 tracking-tight">+95%</div>
+                  <div className="text-xl font-black text-slate-900 tracking-tight">+300%</div>
                 </div>
               </motion.div>
 
@@ -141,7 +142,7 @@ export const Hero: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Tech Stack</div>
-                  <div className="text-[13px] font-extrabold text-slate-900">React • Vibe Coding • AI</div>
+                  <div className="text-[13px] font-extrabold text-slate-900">Vibe Coding • AI</div>
                 </div>
               </motion.div>
             </div>

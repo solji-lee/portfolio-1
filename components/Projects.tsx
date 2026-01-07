@@ -28,7 +28,7 @@ const projects: ProjectData[] = [
   {
     id: "hyundai-3d",
     number: "Project 01",
-    title: "Hyundai Immersive Remote Control",
+    title: "기아차 3D 원격 제어 UXUI",
     tagline: "\"3D 기술을 심미적 요소를 넘어, 사용성을 극대화하는 기능적 도구로 재해석하다.\"",
     subtitle: "Hyundai Motor Group",
     role: "UX/UI Design • System Architecture",
@@ -48,10 +48,12 @@ const projects: ProjectData[] = [
       "#1a1a1a"   // Trunk Control - very dark
     ],
     images: [
+      "/video1.mp4",
+      "/video2.mp4",
+      "/video3.mp4",
       "/input_file_0.png",
       "/input_file_1.png",
       "/input_file_2.png",
-      "/input_file_3.png",
       "/input_file_4.png"
     ],
     details: {
@@ -75,7 +77,7 @@ const projects: ProjectData[] = [
   {
     id: "design-system",
     number: "Project 02",
-    title: "Integrated Design System (H/K/G)",
+    title: "통합 디자인 시스템 구축 (H/K/G)",
     tagline: "\"3개 브랜드, 3벌의 파일을 '하나의 시스템'으로 통합하여 개발 효율과 규제 대응 속도를 혁신하다.\"",
     subtitle: "Design Ops • Multi-brand",
     role: "Design System Lead",
@@ -94,11 +96,13 @@ const projects: ProjectData[] = [
       "#f0f0f0"   // Stakeholder workflow - light gray
     ],
     images: [
+      "/p2v1.mp4",
+      "/p2v2.mp4",
+      "/p2v3.mp4",
       "/design-system-1.png",
       "/design-system-2.png",
       "/design-system-3.png",
-      "/design-system-4.png",
-      "/design-system-5.png"
+      "/design-system-4.png"
     ],
     details: {
       challenge: [
@@ -120,7 +124,7 @@ const projects: ProjectData[] = [
   {
     id: "design-ops-ai",
     number: "Project 03",
-    title: "Design Ops & Tooling Leadership",
+    title: "피그마 플러그인 & 협업 툴 혁신",
     tagline: "\"보안과 언어의 장벽을 기술로 넘다. 워크플로우를 설계하고 도구를 만드는 Design Ops.\"",
     subtitle: "Internal Productivity",
     role: "Product Owner • Tool Developer",
@@ -168,17 +172,39 @@ const projects: ProjectData[] = [
 
 const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
   const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length === 0) return;
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [images.length]);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const isVideo = (src: string) => {
     return src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov');
+  };
+
+  const goToNext = () => {
+    setIndex((prev) => (prev + 1) % images.length);
+    setIsVideoPlaying(false);
+  };
+
+  // Auto-advance timer for images only
+  useEffect(() => {
+    if (images.length === 0) return;
+    if (isVideo(images[index]) && isVideoPlaying) {
+      // Don't auto-advance while video is playing
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      goToNext();
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [images.length, index, isVideoPlaying]);
+
+  const handleVideoStart = () => {
+    setIsVideoPlaying(true);
+  };
+
+  const handleVideoEnded = () => {
+    goToNext();
   };
 
   const currentBgColor = backgroundColors && backgroundColors[index] ? backgroundColors[index] : '#e2e8f0';
@@ -192,11 +218,14 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
         {isVideo(images[index]) ? (
           <motion.video
             key={index}
+            ref={videoRef}
             src={images[index]}
             autoPlay
-            loop
+            loop={false}
             muted
             playsInline
+            onPlay={handleVideoStart}
+            onEnded={handleVideoEnded}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
