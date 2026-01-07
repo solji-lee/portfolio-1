@@ -81,8 +81,12 @@ export const Contact: React.FC = () => {
                 <div className="p-6">
                   {/* Header */}
                   <div className="mb-5 text-center">
-                    <div className="w-14 h-14 bg-gradient-to-br from-brand-500 to-accent-500 rounded-full mx-auto mb-3 flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                      S
+                    <div className="w-14 h-14 rounded-full mx-auto mb-3 overflow-hidden border-2 border-slate-200 shadow-lg">
+                      <img
+                        src="/profile-avatar.png"
+                        alt="Solji Lee"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-0.5">Solji Lee</h3>
                     <p className="text-brand-600 text-xs font-medium">Technical Product Designer</p>

@@ -6,7 +6,7 @@ const baseLogs = [
   "[INFO] Trading Bot initializing...",
   "[CONNECT] Binance API connected.",
   "[CONNECT] Upbit USDT connected.",
-  "[CONNECT] Hero API (국내거래) connected.",
+  "[CONNECT] Kiwoom API (국내거래) connected.",
   "[MODE] Switching to trailing strategy...",
   "[ANALYSIS] BTC trending upward, RSI: 58.2",
   "[EXEC] Trailing stop activated at +3.2%",
@@ -93,7 +93,7 @@ export const SpecialLab: React.FC = () => {
             </div>
             <div className="w-[1px] bg-slate-300 h-10"></div>
             <div>
-              <div className="text-lg font-mono font-bold text-slate-900">Hero API</div>
+              <div className="text-lg font-mono font-bold text-slate-900">Kiwoom API</div>
               <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Domestic</div>
             </div>
           </div>
