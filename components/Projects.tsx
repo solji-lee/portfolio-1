@@ -411,7 +411,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
   return (
     <div className={`flex flex-col lg:flex-row gap-16 lg:gap-24 items-start ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
       {/* Left: Visual Display */}
-      <div className="w-full lg:w-[50%] lg:sticky lg:top-32">
+      <div className="w-full lg:w-[50%] lg:sticky lg:top-32 order-2 lg:order-1">
         <div className="aspect-[1.25/1] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
           <ImageSlider images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
         </div>
@@ -428,7 +428,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
       </div>
 
       {/* Right: Content */}
-      <div className="w-full lg:w-[50%] py-4">
+      <div className="w-full lg:w-[50%] py-4 order-1 lg:order-2">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
