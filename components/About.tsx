@@ -23,10 +23,10 @@ export const About: React.FC = () => {
             </p>
 
             <p>
-              미국 실리콘밸리의 하이테크 스타트업(<strong className="text-slate-900">Xpanse, Motion2AI</strong>)에서
+              <strong className="text-slate-900">실리콘밸리의 스타트업</strong> (Xpanse, Motion2AI)에서
               데이터가 비즈니스 임팩트로 전환되는 기민한 과정을 체득했고,
               <strong className="text-slate-900"> 현대자동차</strong>라는 글로벌 기업에서
-              복잡한 요구사항을 정교한 시스템으로 구축하는 대규모 프로젝트를 리딩했습니다.
+              복잡한 요구사항을 애자일한 시스템으로 효율적으로 대응했습니다.
             </p>
 
             <p>
@@ -36,9 +36,9 @@ export const About: React.FC = () => {
             </p>
 
             <p className="text-slate-900 font-semibold">
-              3D 인터랙션부터 AI 기반의 Design Ops까지,
+              3D 모델 도입이라는 챌린지한 환경에서의 UXUI 경험부터 AI 기반의 Design Ops까지,
               기술적 장벽을 허물고 문제를 해결하는 <span className="text-brand-600">'테크니컬 프로덕트 디자이너'</span>로서
-              이제 가장 혁신적인 사용자 경험을 설계하고자 합니다.
+              더욱 혁신적인 사용자 경험을 설계하고자 합니다.
             </p>
           </div>
         </div>

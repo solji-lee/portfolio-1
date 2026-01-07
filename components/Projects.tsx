@@ -429,7 +429,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
 
       {/* Right: Content */}
       <div className="w-full lg:w-[50%] py-4 order-1 lg:order-2">
-        <div className="mb-4 lg:mb-10">
+        <div className="mb-0 lg:mb-10">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
             <div className="w-8 h-[2px] bg-brand-100 rounded-full" />
