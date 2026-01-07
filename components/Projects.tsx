@@ -48,9 +48,9 @@ const projects: ProjectData[] = [
       "#1a1a1a"   // Trunk Control - very dark
     ],
     images: [
-      "/video1.mp4",
-      "/video2.mp4",
-      "/video3.mp4",
+      "/video1.mov",
+      "/video2.mov",
+      "/video3.mov",
       "/input_file_0.png",
       "/input_file_1.png",
       "/input_file_2.png",
