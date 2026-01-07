@@ -288,8 +288,7 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
           />
         )}
       </AnimatePresence>
-      {/* Dim overlay for subtle background effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/20 pointer-events-none" />
+
 
       <div className="absolute inset-x-0 bottom-6 px-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button
