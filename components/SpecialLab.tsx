@@ -17,7 +17,6 @@ const baseLogs = [
 
 const images = [
   "/crypto-dashboard.png",
-  "/crypto-terminal.png",
   "/crypto-analytics.png"
 ];
 
