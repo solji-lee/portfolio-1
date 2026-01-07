@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Linkedin, Phone } from 'lucide-react';
+import { Mail, Linkedin, Phone, BookOpen } from 'lucide-react';
 
 export const Contact: React.FC = () => {
   return (
@@ -20,6 +20,9 @@ export const Contact: React.FC = () => {
           </a>
           <a href="https://www.linkedin.com/in/solji/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
             <Linkedin size={20} />
+          </a>
+          <a href="https://brunch.co.kr/@sorji091" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
+            <BookOpen size={20} />
           </a>
         </div>
       </div>
