@@ -173,6 +173,7 @@ const projects: ProjectData[] = [
 const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
   const [index, setIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -184,6 +185,7 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
   const goToNext = () => {
     setIndex((prev) => (prev + 1) % images.length);
     setIsVideoPlaying(false);
+    setIsVideoLoaded(false);
   };
 
   // Intersection Observer to detect when slider is in viewport
@@ -197,6 +199,7 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
         if (inView && index !== 0) {
           setIndex(0);
           setIsVideoPlaying(false);
+          setIsVideoLoaded(false);
         }
       },
       { threshold: 0.3 } // Trigger when 30% visible
@@ -213,11 +216,14 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
     };
   }, []);
 
-  // Auto-advance timer for images only, but only when in viewport
+  // Auto-advance timer - only when in viewport AND content is ready
   useEffect(() => {
     if (images.length === 0 || !isInView) return;
-    if (isVideo(images[index]) && isVideoPlaying) {
-      // Don't auto-advance while video is playing
+
+    const currentIsVideo = isVideo(images[index]);
+
+    // For videos: wait until loaded AND playing, or if playing has ended
+    if (currentIsVideo && (!isVideoLoaded || isVideoPlaying)) {
       return;
     }
 
@@ -226,10 +232,14 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
     }, 4000);
 
     return () => clearTimeout(timer);
-  }, [images.length, index, isVideoPlaying, isInView]);
+  }, [images.length, index, isVideoPlaying, isVideoLoaded, isInView]);
 
   const handleVideoStart = () => {
     setIsVideoPlaying(true);
+  };
+
+  const handleVideoLoaded = () => {
+    setIsVideoLoaded(true);
   };
 
   const handleVideoEnded = () => {
@@ -254,6 +264,8 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
             loop={false}
             muted
             playsInline
+            preload="auto"
+            onLoadedData={handleVideoLoaded}
             onPlay={handleVideoStart}
             onEnded={handleVideoEnded}
             initial={{ opacity: 0 }}
