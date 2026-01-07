@@ -173,7 +173,9 @@ const projects: ProjectData[] = [
 const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
   const [index, setIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const isVideo = (src: string) => {
     return src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov');
@@ -184,9 +186,36 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
     setIsVideoPlaying(false);
   };
 
-  // Auto-advance timer for images only
+  // Intersection Observer to detect when slider is in viewport
   useEffect(() => {
-    if (images.length === 0) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const inView = entry.isIntersecting;
+        setIsInView(inView);
+
+        // Reset to first slide when coming into view
+        if (inView && index !== 0) {
+          setIndex(0);
+          setIsVideoPlaying(false);
+        }
+      },
+      { threshold: 0.3 } // Trigger when 30% visible
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
+
+  // Auto-advance timer for images only, but only when in viewport
+  useEffect(() => {
+    if (images.length === 0 || !isInView) return;
     if (isVideo(images[index]) && isVideoPlaying) {
       // Don't auto-advance while video is playing
       return;
@@ -197,7 +226,7 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
     }, 4000);
 
     return () => clearTimeout(timer);
-  }, [images.length, index, isVideoPlaying]);
+  }, [images.length, index, isVideoPlaying, isInView]);
 
   const handleVideoStart = () => {
     setIsVideoPlaying(true);
@@ -211,6 +240,7 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
 
   return (
     <div
+      ref={containerRef}
       className="relative w-full h-full overflow-hidden group transition-colors duration-700"
       style={{ backgroundColor: currentBgColor }}
     >
