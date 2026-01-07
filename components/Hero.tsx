@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-36 md:pt-44 pb-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
-        
+
         {/* Left Content */}
         <div className="lg:col-span-7 space-y-10">
           <motion.div
@@ -33,10 +33,10 @@ export const Hero: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
               Technical Product Designer
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] text-slate-900 mb-8 tracking-tighter">
               Designing <br />
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
@@ -45,26 +45,26 @@ export const Hero: React.FC = () => {
                 Intelligence
               </motion.span>
             </h1>
-            
+
             <h2 className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed max-w-2xl">
               시스템을 설계하고, AI로 효율을 혁신하는 <br className="hidden md:block" />
               테크니컬 디자이너 <strong className="text-slate-900 font-bold underline decoration-brand-200 decoration-8 underline-offset-4">이솔지</strong>입니다.
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex flex-wrap gap-5"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <button 
+            <button
               onClick={(e) => scrollToSection(e, 'projects')}
               className="px-10 py-4 bg-slate-900 text-white text-base font-bold rounded-2xl hover:bg-brand-600 transition-all shadow-2xl shadow-slate-200 hover:shadow-brand-500/30 transform hover:-translate-y-1 active:scale-95"
             >
               View Projects
             </button>
-            <button 
+            <button
               onClick={(e) => scrollToSection(e, 'about')}
               className="px-10 py-4 bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 text-base font-semibold rounded-2xl hover:border-brand-300 hover:text-brand-600 transition-all shadow-sm hover:shadow-lg flex items-center gap-3 active:scale-95"
             >
@@ -72,15 +72,15 @@ export const Hero: React.FC = () => {
             </button>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex flex-wrap gap-3 pt-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 1 }}
           >
             {floatingTags.map((tag, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-100 ${tag.bg} ${tag.color} text-[12px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-shadow cursor-default`}
               >
                 {tag.icon}
@@ -100,7 +100,7 @@ export const Hero: React.FC = () => {
           >
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-brand-200/40 via-accent-100/30 to-transparent rounded-full blur-[100px] -z-10 opacity-70"></div>
-            
+
             {/* Main Character Image Container */}
             <div className="relative z-10 flex items-center justify-center h-[500px]">
               <motion.div
@@ -108,16 +108,15 @@ export const Hero: React.FC = () => {
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative z-10"
               >
-                <img 
-                  src="input_file_7.png" 
-                  alt="Solji Character" 
-                  className="w-full max-w-[420px] object-contain drop-shadow-2xl"
-                  style={{ mixBlendMode: 'multiply' }} 
+                <img
+                  src="/solji-character.png"
+                  alt="Solji Character"
+                  className="w-full max-w-[210px] object-contain"
                 />
               </motion.div>
 
               {/* Efficiency Floating Card - Top Left */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                 className="absolute top-[10%] -left-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/60 flex items-center gap-3 z-20 min-w-[180px]"
@@ -132,7 +131,7 @@ export const Hero: React.FC = () => {
               </motion.div>
 
               {/* Tech Stack Floating Card - Bottom Right */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
                 className="absolute bottom-[15%] -right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/60 flex items-center gap-3 z-20"
