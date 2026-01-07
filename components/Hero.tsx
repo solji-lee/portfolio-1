@@ -74,7 +74,7 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="flex flex-wrap gap-3 pt-6"
+            className="flex flex-wrap gap-2 md:gap-3 pt-4 md:pt-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 1 }}
@@ -82,7 +82,7 @@ export const Hero: React.FC = () => {
             {floatingTags.map((tag, i) => (
               <div
                 key={i}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-100 ${tag.bg} ${tag.color} text-[12px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-shadow cursor-default`}
+                className={`flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg md:rounded-xl border border-slate-100 ${tag.bg} ${tag.color} text-[10px] md:text-[12px] font-bold uppercase tracking-wider md:tracking-widest shadow-sm hover:shadow-md transition-shadow cursor-default ${i === 4 ? 'hidden md:flex' : ''}`}
               >
                 {tag.icon}
                 {tag.text}
