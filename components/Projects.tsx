@@ -449,7 +449,10 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
 
           <ImpactTicker items={project.impactHighlights} />
         </div>
+      </div>
 
+      {/* Challenge/Solution/Impact Accordions - Separate container for mobile ordering */}
+      <div className="w-full lg:w-[50%] order-3 lg:order-2">
         <div className="space-y-1">
           <CaseStudyAccordion
             title="The Challenge"
