@@ -44,7 +44,7 @@ export const Contact: React.FC = () => {
       </div>
 
       <div className="mt-12 text-center text-slate-600 text-xs font-mono">
-        © 2024 Solji Lee. All rights reserved. <br />
+        © 2026 Solji Lee. All rights reserved. <br />
         Built with React, Tailwind, and Framer Motion.
       </div>
 
