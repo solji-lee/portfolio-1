@@ -6,19 +6,19 @@ export const About: React.FC = () => {
     <section id="about" className="py-24 bg-white relative overflow-hidden print:bg-white print:py-0">
       <div className="max-w-4xl mx-auto px-10 lg:px-24 relative z-10 text-center">
         <div className="space-y-8 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-600 text-[10px] font-bold mb-2 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 text-brand-600 text-[11px] font-bold mb-2 uppercase tracking-widest border border-brand-100/50">
             <Sparkles size={12} />
             <span>MISSION</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
             Design that works <br/>
             <span className="text-brand-600">as good as it looks.</span>
           </h2>
           
-          <div className="space-y-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          <div className="space-y-6 text-slate-600 text-base md:text-[17px] leading-relaxed max-w-2xl mx-auto">
             <p>
-              시각적 즐거움을 넘어 <strong className="text-slate-900">시스템의 효율과 논리</strong>를 설계합니다. 
+              시각적 즐거움을 넘어 <strong className="text-slate-900 font-bold">시스템의 효율과 논리</strong>를 설계합니다. 
               기술적 요구사항을 직관적인 경험으로 번역할 때 가장 보람을 느낍니다.
             </p>
             <p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin } from 'lucide-react';
 
 export const Contact: React.FC = () => {
   return (
@@ -12,15 +12,11 @@ export const Contact: React.FC = () => {
         </div>
 
         <div className="flex gap-6">
-          <a href="mailto:leesolji82@gmail.com" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
+          <a href="mailto:sorji091@naver.com" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
             <Mail size={20} />
           </a>
-          {/* Use target="_blank" for external links to avoid iframe refused to connect errors */}
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
+          <a href="https://www.linkedin.com/in/solji/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
             <Linkedin size={20} />
-          </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
-            <Github size={20} />
           </a>
         </div>
       </div>

@@ -31,12 +31,12 @@ export const Recommendations: React.FC = () => {
     <section className="py-24 bg-white relative">
       <div className="max-w-6xl mx-auto px-8 lg:px-16 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[10px] mb-4 bg-brand-50 px-3 py-1 rounded-full uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Linkedin size={14} />
             <span>LinkedIn Recommendations</span>
           </div>
-          <h2 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">함께 일한 동료들의 한마디</h2>
-          <p className="text-slate-500 text-sm">실무에서 함께 호흡을 맞춘 동료들이 말하는 이솔지의 강점입니다.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">함께 일한 동료들의 한마디</h2>
+          <p className="text-slate-500 text-sm md:text-base">실무에서 함께 호흡을 맞춘 동료들이 말하는 이솔지의 강점입니다.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -52,10 +52,10 @@ export const Recommendations: React.FC = () => {
               <div>
                 <Quote className="text-brand-100 mb-6 group-hover:text-brand-200 transition-colors" size={32} fill="currentColor" />
                 <div className="space-y-4 mb-8">
-                  <p className="text-slate-700 font-medium text-sm leading-relaxed">
+                  <p className="text-slate-700 font-medium text-[14px] md:text-[15px] leading-relaxed italic">
                     "{item.content}"
                   </p>
-                  <p className="text-brand-600 font-bold text-xs border-l-2 border-brand-200 pl-3 leading-relaxed">
+                  <p className="text-brand-600 font-bold text-[13px] md:text-[14px] border-l-2 border-brand-200 pl-4 leading-relaxed">
                     {item.translation}
                   </p>
                 </div>
@@ -66,20 +66,19 @@ export const Recommendations: React.FC = () => {
                   <div className="font-extrabold text-slate-900 text-sm">{item.name}</div>
                   <div className="flex gap-1">
                     {item.tags.map(tag => (
-                      <span key={tag} className="text-[8px] bg-white text-slate-400 px-1.5 py-0.5 rounded border border-slate-100 uppercase font-bold tracking-tighter">
+                      <span key={tag} className="text-[10px] bg-white text-slate-400 px-2 py-0.5 rounded border border-slate-100 uppercase font-bold tracking-tight">
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="text-[10px] text-slate-400 font-semibold">{item.role}</div>
+                <div className="text-[11px] text-slate-400 font-semibold">{item.role}</div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
       
-      {/* Decorative dots for background */}
       <div className="absolute top-0 right-0 p-12 opacity-20 pointer-events-none">
         <div className="grid grid-cols-4 gap-2">
           {[...Array(16)].map((_, i) => (

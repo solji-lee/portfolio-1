@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solji Lee | Technical Product Designer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&family=Pretendard+Std:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'Pretendard Std', 'system-ui', 'sans-serif'],
+              sans: ['Pretendard', 'Inter', 'system-ui', 'sans-serif'],
               mono: ['JetBrains Mono', 'monospace'],
             },
             colors: {
               brand: {
                 50: '#eef2ff',
                 100: '#e0e7ff',
-                500: '#6366f1', // Indigo
+                500: '#6366f1',
                 600: '#4f46e5',
                 900: '#312e81',
               },
               accent: {
-                400: '#fb7185', // Soft Rose
+                400: '#fb7185',
                 500: '#f43f5e',
               }
             }
@@ -39,6 +40,13 @@
         color: #1e293b;
         background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
         background-size: 30px 30px;
+        font-family: 'Pretendard', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        word-break: keep-all; /* 한글 단어 끊김 방지 */
+      }
+      h1, h2, h3, h4 {
+        letter-spacing: -0.03em;
       }
       ::-webkit-scrollbar {
         width: 8px;

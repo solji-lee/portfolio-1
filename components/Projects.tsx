@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Plus, Minus, CheckCircle2, AlertCircle, Lightbulb, Trophy, ArrowRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Plus, CheckCircle2, AlertCircle, Lightbulb, Trophy, ArrowRight } from 'lucide-react';
 
 interface ProjectDetail {
   challenge: string[];
@@ -157,11 +157,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
           className="absolute inset-0 w-full h-full object-cover"
         />
       </AnimatePresence>
-      
-      {/* Subtle overlay */}
       <div className="absolute inset-0 bg-slate-900/5 pointer-events-none" />
-      
-      {/* Minimal controls */}
       <div className="absolute inset-x-0 bottom-6 px-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button 
           onClick={() => setIndex((index - 1 + images.length) % images.length)}
@@ -169,7 +165,6 @@ const ImageSlider = ({ images }: { images: string[] }) => {
         >
           <ChevronLeft size={16} />
         </button>
-        
         <div className="flex gap-1.5 bg-white/20 backdrop-blur-md px-2 py-1 rounded-full">
           {images.map((_, i) => (
             <button
@@ -179,7 +174,6 @@ const ImageSlider = ({ images }: { images: string[] }) => {
             />
           ))}
         </div>
-
         <button 
           onClick={() => setIndex((index + 1) % images.length)}
           className="w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full text-slate-800 shadow-sm hover:bg-white transition-colors"
@@ -202,14 +196,14 @@ const ImpactTicker = ({ items }: { items: string[] }) => {
   }, [items.length]);
 
   return (
-    <div className="h-12 overflow-hidden relative bg-brand-50/30 rounded-xl px-4 flex items-center border border-brand-100/50">
+    <div className="h-14 overflow-hidden relative bg-brand-50/30 rounded-xl px-4 flex items-center border border-brand-100/50">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          initial={{ opacity: 0, x: 5 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -5 }}
-          className="flex items-center gap-3 text-brand-700 font-bold text-sm w-full"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="flex items-center gap-3 text-brand-700 font-bold text-[13px] md:text-sm w-full"
         >
           <Trophy size={16} className="text-brand-500 shrink-0" />
           <span className="truncate">{items[index]}</span>
@@ -237,7 +231,7 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
           <div className={`p-2 rounded-xl transition-all duration-300 ${isOpen ? colorClass : 'bg-slate-200 text-slate-500'}`}>
             <Icon size={18} />
           </div>
-          <span className={`font-bold transition-colors duration-300 ${isOpen ? 'text-slate-900' : 'text-slate-500'}`}>{title}</span>
+          <span className={`font-bold text-[14px] md:text-[15px] transition-colors duration-300 ${isOpen ? 'text-slate-900' : 'text-slate-500'}`}>{title}</span>
         </div>
         <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
           <Plus size={18} className={isOpen ? 'text-brand-500' : 'text-slate-400'} />
@@ -260,9 +254,9 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
                     initial={{ opacity: 0, x: -5 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="flex gap-3 text-slate-600 text-[13px] leading-relaxed"
+                    className="flex gap-3 text-slate-600 text-[13px] md:text-[14px] leading-relaxed"
                   >
-                    <ArrowRight size={14} className="mt-0.5 text-brand-300 shrink-0" />
+                    <ArrowRight size={14} className="mt-1 text-brand-300 shrink-0" />
                     <span>{item}</span>
                   </motion.li>
                 ))}
@@ -283,50 +277,47 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
   };
 
   return (
-    <div className={`flex flex-col lg:flex-row gap-16 items-start mb-40 last:mb-0 ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
-      {/* Left: Visual Display (Sticky) */}
-      <div className="w-full lg:w-[50%] sticky top-28">
-        <div className="aspect-[1.2/1] rounded-[2rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
+    <div className={`flex flex-col lg:flex-row gap-12 lg:gap-20 items-start mb-40 last:mb-0 ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
+      {/* Left: Visual Display */}
+      <div className="w-full lg:w-[50%] lg:sticky lg:top-28">
+        <div className="aspect-[1.25/1] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
           <ImageSlider images={project.images} />
         </div>
-        
-        {/* Decorative elements under image */}
-        <div className="mt-8 flex items-center justify-between px-4">
-          <div className="flex gap-2">
+        <div className="mt-6 flex flex-wrap items-center justify-between px-2 gap-4">
+          <div className="flex flex-wrap gap-2">
             {project.tags.map(t => (
-              <span key={t} className="px-3 py-1 bg-white text-slate-500 text-[10px] font-bold border border-slate-100 rounded-full uppercase tracking-tighter">
+              <span key={t} className="px-3 py-1 bg-white text-slate-500 text-[11px] font-bold border border-slate-100 rounded-full uppercase tracking-tight">
                 {t}
               </span>
             ))}
           </div>
-          <div className="text-[10px] font-mono text-slate-300 uppercase tracking-widest">{project.role.split('•')[0]}</div>
+          <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">{project.role.split('•')[0].trim()}</div>
         </div>
       </div>
 
       {/* Right: Content */}
-      <div className="w-full lg:w-[50%] pt-4">
+      <div className="w-full lg:w-[50%]">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
             <div className="w-8 h-[2px] bg-brand-100 rounded-full" />
-            <span className="text-slate-400 font-medium text-xs">{project.subtitle}</span>
+            <span className="text-slate-400 font-medium text-xs tracking-wide">{project.subtitle}</span>
           </div>
           
-          <h3 className="text-4xl font-extrabold text-slate-900 mb-4 leading-tight tracking-tight">
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
             {project.title}
           </h3>
-          <p className="text-brand-600/80 font-medium text-sm leading-relaxed mb-6">
+          <p className="text-brand-600 font-semibold text-[14px] md:text-[15px] leading-relaxed mb-6">
             {project.tagline}
           </p>
           
-          <p className="text-slate-500 leading-relaxed text-sm max-w-lg mb-8">
+          <p className="text-slate-500 leading-relaxed text-[15px] max-w-lg mb-8">
             {project.description}
           </p>
           
           <ImpactTicker items={project.impactHighlights} />
         </div>
 
-        {/* Insight Accordion - Redesigned */}
         <div className="space-y-1">
           <CaseStudyAccordion 
             title="The Challenge" 
@@ -360,16 +351,16 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
 
 export const Projects: React.FC = () => {
   return (
-    <section id="projects" className="py-32 px-8 lg:px-24 bg-white relative">
+    <section id="projects" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-white relative">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-24 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[10px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
+          <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Trophy size={14} className="animate-bounce" />
             <span>Success Stories</span>
           </div>
-          <h2 className="text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Featured Case Studies</h2>
-          <p className="text-slate-500 text-base max-w-xl leading-relaxed">
-            심미성을 넘어 <span className="text-brand-600 font-semibold underline decoration-brand-200 decoration-2 underline-offset-4">데이터와 시스템</span>으로 <br/>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Featured Case Studies</h2>
+          <p className="text-slate-500 text-sm md:text-base max-w-xl leading-relaxed">
+            심미성을 넘어 <span className="text-brand-600 font-bold underline decoration-brand-200 decoration-2 underline-offset-4">데이터와 시스템</span>으로 <br/>
             복잡한 비즈니스 문제를 해결한 기록들입니다.
           </p>
         </div>
@@ -384,8 +375,6 @@ export const Projects: React.FC = () => {
           ))}
         </div>
       </div>
-      
-      {/* Background Grid Pattern - Subtle */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" 
            style={{ backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
     </section>
