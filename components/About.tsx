@@ -10,19 +10,35 @@ export const About: React.FC = () => {
             <Sparkles size={12} />
             <span>MISSION</span>
           </div>
-          
+
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-            Design that works <br/>
+            Design that works <br />
             <span className="text-brand-600">as good as it looks.</span>
           </h2>
-          
-          <div className="space-y-6 text-slate-600 text-base md:text-[17px] leading-relaxed max-w-2xl mx-auto">
-            <p>
-              시각적 즐거움을 넘어 <strong className="text-slate-900 font-bold">시스템의 효율과 논리</strong>를 설계합니다. 
-              기술적 요구사항을 직관적인 경험으로 번역할 때 가장 보람을 느낍니다.
+
+          <div className="space-y-6 text-slate-600 text-base md:text-[17px] leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl font-semibold text-slate-900">
+              "실리콘밸리의 속도와 글로벌 대기업의 시스템을 모두 경험하며,<br className="hidden md:block" />
+              디자인이 엔지니어링과 비즈니스를 잇는 가장 강력한 연결고리임을 증명해왔습니다."
             </p>
+
             <p>
-              실리콘밸리 SaaS와 현대자동차 프로젝트를 통해 디자인이 엔지니어링과 비즈니스의 <span className="text-brand-600 font-bold">강력한 연결고리</span>임을 증명해왔습니다.
+              미국 실리콘밸리의 하이테크 스타트업(<strong className="text-slate-900">Xpanse, Motion2AI</strong>)에서
+              데이터가 비즈니스 임팩트로 전환되는 기민한 과정을 체득했고,
+              <strong className="text-slate-900"> 현대자동차</strong>라는 글로벌 기업에서
+              복잡한 요구사항을 정교한 시스템으로 구축하는 대규모 프로젝트를 리딩했습니다.
+            </p>
+
+            <p>
+              이 과정에서 디자인은 단순히 화면을 그리는 것이 아니라,
+              복잡한 기술을 사용자가 이해 가능한 언어로 번역하고,
+              비즈니스의 효율을 극대화하는 <span className="text-brand-600 font-bold">'전략적 도구'</span>임을 확신하게 되었습니다.
+            </p>
+
+            <p className="text-slate-900 font-semibold">
+              3D 인터랙션부터 AI 기반의 Design Ops까지,
+              기술적 장벽을 허물고 문제를 해결하는 <span className="text-brand-600">'테크니컬 프로덕트 디자이너'</span>로서
+              이제 가장 혁신적인 사용자 경험을 설계하고자 합니다.
             </p>
           </div>
         </div>
