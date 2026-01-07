@@ -14,16 +14,16 @@ export const Hero: React.FC = () => {
   const floatingTags = [
     { icon: <Code size={14} />, text: "Engineering-Driven", color: "text-blue-600", bg: "bg-blue-50" },
     { icon: <Layout size={14} />, text: "Design Systems", color: "text-indigo-600", bg: "bg-indigo-50" },
-    { icon: <Cpu size={14} />, text: "AI Automation", color: "text-emerald-600", bg: "bg-emerald-50" },
+    { icon: <Cpu size={14} />, text: "Vibe Coding", color: "text-emerald-600", bg: "bg-emerald-50" },
     { icon: <Zap size={14} />, text: "Rapid Prototyping", color: "text-amber-600", bg: "bg-amber-50" },
   ];
 
   return (
-    <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-24 pb-12">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-36 md:pt-44 pb-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-center relative z-10 w-full">
         
         {/* Left Content */}
-        <div className="lg:col-span-8 space-y-10">
+        <div className="lg:col-span-7 space-y-10">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -34,13 +34,13 @@ export const Hero: React.FC = () => {
               Technical Product Designer
             </div>
             
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black leading-[0.9] text-slate-900 mb-8 tracking-tighter">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] text-slate-900 mb-8 tracking-tighter">
               Designing <br />
               <motion.span 
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
-                className="inline-block italic text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-500 to-accent-500 pr-4"
+                className="inline-block italic text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-500 to-accent-500 pr-4 pb-2"
               >
                 Intelligence
               </motion.span>
@@ -90,73 +90,62 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right Visual Element */}
-        <div className="lg:col-span-4 relative hidden lg:block">
+        {/* Right Visual Element - Character Image */}
+        <div className="lg:col-span-5 relative hidden lg:block">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 1, ease: "circOut" }}
             className="relative"
           >
-            <div className="absolute -inset-10 bg-gradient-to-tr from-brand-200 to-accent-100 rounded-[3rem] blur-3xl opacity-40"></div>
+            {/* Background Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-brand-200/40 via-accent-100/30 to-transparent rounded-full blur-[100px] -z-10 opacity-70"></div>
             
-            <div className="relative glass-panel rounded-[2.5rem] p-10 border border-white/60 shadow-2xl space-y-8">
-              <div className="flex items-center justify-between">
-                <div className="flex gap-2">
-                  <div className="w-3.5 h-3.5 rounded-full bg-red-400 shadow-inner"></div>
-                  <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 shadow-inner"></div>
-                  <div className="w-3.5 h-3.5 rounded-full bg-green-400 shadow-inner"></div>
+            {/* Main Character Image Container */}
+            <div className="relative z-10 flex items-center justify-center h-[500px]">
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-10"
+              >
+                <img 
+                  src="input_file_7.png" 
+                  alt="Solji Character" 
+                  className="w-full max-w-[420px] object-contain drop-shadow-2xl"
+                  style={{ mixBlendMode: 'multiply' }} 
+                />
+              </motion.div>
+
+              {/* Efficiency Floating Card - Top Left */}
+              <motion.div 
+                animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="absolute top-[10%] -left-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/60 flex items-center gap-3 z-20 min-w-[180px]"
+              >
+                <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
+                  <Zap size={20} />
                 </div>
-                <div className="text-[11px] font-mono text-slate-400 font-medium">solji_workflow.sys</div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="h-5 bg-slate-100 rounded-lg w-3/4 animate-pulse"></div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="h-24 bg-brand-50 rounded-2xl border border-brand-100 flex items-center justify-center hover:scale-105 transition-transform">
-                    <Zap className="text-brand-500" size={32} />
-                  </div>
-                  <div className="h-24 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center hover:scale-105 transition-transform">
-                    <Layout className="text-slate-400" size={32} />
-                  </div>
-                  <div className="h-24 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center justify-center hover:scale-105 transition-transform">
-                    <Code className="text-indigo-500" size={32} />
-                  </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Optimization</div>
+                  <div className="text-xl font-black text-slate-900 tracking-tight">+95%</div>
                 </div>
-                <div className="h-14 bg-slate-900 rounded-2xl w-full flex items-center px-6 justify-between shadow-xl">
-                  <div className="text-[11px] font-mono text-white/70 font-bold uppercase tracking-widest">System Ready</div>
-                  <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></div>
+              </motion.div>
+
+              {/* Tech Stack Floating Card - Bottom Right */}
+              <motion.div 
+                animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-[15%] -right-4 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/60 flex items-center gap-3 z-20"
+              >
+                <div className="p-2.5 bg-brand-50 text-brand-600 rounded-xl">
+                  <Cpu size={24} />
                 </div>
-              </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">Tech Stack</div>
+                  <div className="text-[13px] font-extrabold text-slate-900">React • Vibe Coding • AI</div>
+                </div>
+              </motion.div>
             </div>
-
-            <motion.div 
-              animate={{ y: [0, -15, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute -top-10 -right-10 bg-white p-5 rounded-3xl shadow-2xl border border-slate-100 flex items-center gap-4"
-            >
-              <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl">
-                <Zap size={24} />
-              </div>
-              <div>
-                <div className="text-[11px] text-slate-400 font-bold uppercase tracking-tighter">Efficiency</div>
-                <div className="text-2xl font-black text-slate-900">+95%</div>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              animate={{ y: [0, 15, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-14 -left-10 bg-white p-5 rounded-3xl shadow-2xl border border-slate-100 flex items-center gap-4"
-            >
-              <div className="p-3 bg-brand-50 text-brand-600 rounded-2xl">
-                <Cpu size={24} />
-              </div>
-              <div>
-                <div className="text-[11px] text-slate-400 font-bold uppercase tracking-tighter">Tech Stack</div>
-                <div className="text-[14px] font-bold text-slate-900">React • Python • AI</div>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>

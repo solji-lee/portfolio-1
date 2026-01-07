@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
+import { SpecialLab } from './components/SpecialLab';
 import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Recommendations } from './components/Recommendations';
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <main className="relative z-10">
         <Hero />
         <Projects />
+        <SpecialLab />
         <About />
         <Recommendations />
       </main>

@@ -20,6 +20,7 @@ interface ProjectData {
   tags: string[];
   images: string[];
   details: ProjectDetail;
+  cropFocus?: boolean;
 }
 
 const projects: ProjectData[] = [
@@ -30,17 +31,20 @@ const projects: ProjectData[] = [
     tagline: "\"3D 기술을 심미적 요소를 넘어, 사용성을 극대화하는 기능적 도구로 재해석하다.\"",
     subtitle: "Hyundai Motor Group",
     role: "UX/UI Design • System Architecture",
-    description: "2D 평면적 제어를 넘어 Unity 기반 3D 경험을 모바일 UI에 이식했습니다. 차량의 상태를 실시간으로 시각화하여 직관성을 높였습니다.",
+    description: "2D 평면적 제어를 넘어 Unity 기반 3D 경험을 모바일 UI에 이식했습니다. 차량의 상태(도어, 트렁크, 공조, 충전)를 실시간으로 시각화하여 직관성을 높였습니다.",
     impactHighlights: [
       "디자인 특허 출원: 3D 모델 & 애니메이션 결합 UI",
       "현대차 EV9 등 플래그십 전기차 실제 서비스 탑재",
       "차량 상태 인지 속도 및 브랜드 이미지 평가 획득"
     ],
-    tags: ["3D Interaction", "Unity", "Patent"],
+    tags: ["3D Interaction", "Unity", "Real-time Sync"],
+    cropFocus: true,
     images: [
-      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=2072&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=2101&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop"
+      "input_file_0.png",
+      "input_file_1.png",
+      "input_file_2.png",
+      "input_file_3.png",
+      "input_file_4.png"
     ],
     details: {
       challenge: [
@@ -50,8 +54,8 @@ const projects: ProjectData[] = [
       ],
       solution: [
         "Immersive Interaction: 0.5초 이내 반응하는 실시간 동기화 애니메이션",
-        "UI와 3D의 시각적 통합: 독창적 UI 구조로 화상 디자인 특허 출원",
-        "Technical Directing: 폴리곤 수, 텍스처 베이킹 가이드라인 수립으로 개발 부하 절감"
+        "다양한 상태 제어: 도어/트렁크 개폐, 공조 및 배터리 충전 상태의 3D 시각화",
+        "Technical Directing: 폴리곤 수 및 텍스처 가이드라인 수립으로 개발 부하 절감"
       ],
       impact: [
         "특허 출원: 독자적인 UI 디자인 권리 보호",
@@ -134,10 +138,11 @@ const projects: ProjectData[] = [
   }
 ];
 
-const ImageSlider = ({ images }: { images: string[] }) => {
+const ImageSlider = ({ images, cropFocus }: { images: string[], cropFocus?: boolean }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    if (images.length === 0) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, 4000);
@@ -145,7 +150,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-slate-100 group">
+    <div className="relative w-full h-full overflow-hidden bg-slate-200 group">
       <AnimatePresence mode="wait">
         <motion.img
           key={index}
@@ -153,32 +158,34 @@ const ImageSlider = ({ images }: { images: string[] }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="absolute inset-0 w-full h-full object-cover"
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${cropFocus ? 'scale-110 origin-center' : ''}`}
+          style={cropFocus ? { objectPosition: 'center center' } : {}}
         />
       </AnimatePresence>
       <div className="absolute inset-0 bg-slate-900/5 pointer-events-none" />
+      
       <div className="absolute inset-x-0 bottom-6 px-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button 
           onClick={() => setIndex((index - 1 + images.length) % images.length)}
-          className="w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full text-slate-800 shadow-sm hover:bg-white transition-colors"
+          className="w-10 h-10 flex items-center justify-center bg-white/95 backdrop-blur-sm rounded-full text-slate-800 shadow-md hover:bg-white transition-all transform active:scale-90"
         >
-          <ChevronLeft size={16} />
+          <ChevronLeft size={20} />
         </button>
-        <div className="flex gap-1.5 bg-white/20 backdrop-blur-md px-2 py-1 rounded-full">
+        <div className="flex gap-2 bg-slate-900/20 backdrop-blur-md px-3 py-1.5 rounded-full">
           {images.map((_, i) => (
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className={`h-1 rounded-full transition-all duration-300 ${i === index ? 'w-4 bg-white' : 'w-1 bg-white/40'}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? 'w-6 bg-white shadow-sm' : 'w-1.5 bg-white/50'}`}
             />
           ))}
         </div>
         <button 
           onClick={() => setIndex((index + 1) % images.length)}
-          className="w-8 h-8 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full text-slate-800 shadow-sm hover:bg-white transition-colors"
+          className="w-10 h-10 flex items-center justify-center bg-white/95 backdrop-blur-sm rounded-full text-slate-800 shadow-md hover:bg-white transition-all transform active:scale-90"
         >
-          <ChevronRight size={16} />
+          <ChevronRight size={20} />
         </button>
       </div>
     </div>
@@ -277,11 +284,11 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
   };
 
   return (
-    <div className={`flex flex-col lg:flex-row gap-12 lg:gap-20 items-start mb-40 last:mb-0 ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
+    <div className={`flex flex-col lg:flex-row gap-16 lg:gap-24 items-start ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
       {/* Left: Visual Display */}
-      <div className="w-full lg:w-[50%] lg:sticky lg:top-28">
+      <div className="w-full lg:w-[50%] lg:sticky lg:top-32">
         <div className="aspect-[1.25/1] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
-          <ImageSlider images={project.images} />
+          <ImageSlider images={project.images} cropFocus={project.cropFocus} />
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-between px-2 gap-4">
           <div className="flex flex-wrap gap-2">
@@ -296,7 +303,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
       </div>
 
       {/* Right: Content */}
-      <div className="w-full lg:w-[50%]">
+      <div className="w-full lg:w-[50%] py-4">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-6">
             <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
@@ -351,9 +358,9 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
 
 export const Projects: React.FC = () => {
   return (
-    <section id="projects" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-white relative">
+    <section id="projects" className="py-24 md:py-40 px-6 md:px-12 lg:px-24 bg-white relative">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-24 flex flex-col items-center text-center">
+        <div className="mb-32 md:mb-48 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Trophy size={14} className="animate-bounce" />
             <span>Success Stories</span>
@@ -365,7 +372,7 @@ export const Projects: React.FC = () => {
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-48 md:space-y-80">
           {projects.map((project, idx) => (
             <ProjectCard 
               key={project.id} 
