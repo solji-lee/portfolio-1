@@ -195,14 +195,14 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
         const inView = entry.isIntersecting;
         setIsInView(inView);
 
-        // Reset to first slide when coming into view
-        if (inView && index !== 0) {
+        // Reset to first slide when leaving view
+        if (!inView) {
           setIndex(0);
           setIsVideoPlaying(false);
           setIsVideoLoaded(false);
         }
       },
-      { threshold: 0.3 } // Trigger when 30% visible
+      { threshold: 0.4 } // Trigger when 40% visible
     );
 
     if (containerRef.current) {
@@ -215,6 +215,28 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
       }
     };
   }, []);
+
+  // Force play video when index changes
+  useEffect(() => {
+    if (isVideo(images[index]) && videoRef.current) {
+      // Reset video state
+      setIsVideoPlaying(false);
+      setIsVideoLoaded(false);
+
+      // Force reload and play
+      videoRef.current.load();
+      const playPromise = videoRef.current.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .catch(error => {
+            console.log("Video play failed:", error);
+            // Auto-advance if play fails (e.g. low power mode)
+            // setTimeout(() => goToNext(), 2000); 
+          });
+      }
+    }
+  }, [index, images]);
 
   // Auto-advance timer - only when in viewport AND content is ready
   useEffect(() => {
