@@ -389,7 +389,22 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
                     className="flex gap-2.5 text-slate-600 text-[13px] md:text-[14px] leading-relaxed"
                   >
                     <ArrowRight size={14} className="mt-1 text-brand-400 shrink-0" />
-                    <span className="text-slate-700 font-medium">{item}</span>
+                    <span className="text-slate-700">
+                      {(() => {
+                        const colonIndex = item.indexOf(':');
+                        if (colonIndex > 0) {
+                          const label = item.substring(0, colonIndex + 1);
+                          const content = item.substring(colonIndex + 1);
+                          return (
+                            <>
+                              <strong className="font-bold text-slate-900">{label}</strong>
+                              {content}
+                            </>
+                          );
+                        }
+                        return item;
+                      })()}
+                    </span>
                   </motion.li>
                 ))}
               </ul>
