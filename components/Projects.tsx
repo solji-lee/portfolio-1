@@ -498,7 +498,7 @@ export const Projects: React.FC = () => {
           </p>
         </div>
 
-        <div className="space-y-48 md:space-y-80">
+        <div className="space-y-32 md:space-y-48">
           {projects.map((project, idx) => (
             <ProjectCard
               key={project.id}
