@@ -61,13 +61,13 @@ export const Hero: React.FC = () => {
           >
             <button
               onClick={(e) => scrollToSection(e, 'projects')}
-              className="px-10 py-4 bg-slate-900 text-white text-base font-bold rounded-2xl hover:bg-brand-600 transition-all shadow-2xl shadow-slate-200 hover:shadow-brand-500/30 transform hover:-translate-y-1 active:scale-95"
+              className="px-6 py-3 md:px-10 md:py-4 bg-slate-900 text-white text-sm md:text-base font-bold rounded-xl md:rounded-2xl hover:bg-brand-600 transition-all shadow-2xl shadow-slate-200 hover:shadow-brand-500/30 transform hover:-translate-y-1 active:scale-95"
             >
               View Projects
             </button>
             <button
               onClick={(e) => scrollToSection(e, 'about')}
-              className="px-10 py-4 bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 text-base font-semibold rounded-2xl hover:border-brand-300 hover:text-brand-600 transition-all shadow-sm hover:shadow-lg flex items-center gap-3 active:scale-95"
+              className="px-6 py-3 md:px-10 md:py-4 bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 text-sm md:text-base font-semibold rounded-xl md:rounded-2xl hover:border-brand-300 hover:text-brand-600 transition-all shadow-sm hover:shadow-lg flex items-center gap-2 md:gap-3 active:scale-95"
             >
               About Me <ArrowDown size={18} className="animate-bounce" />
             </button>
