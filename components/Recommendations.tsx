@@ -36,12 +36,12 @@ export const Recommendations: React.FC = () => {
             <span>LinkedIn Recommendations</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">함께 일한 동료들의 한마디</h2>
-          <p className="text-slate-500 text-sm md:text-base">실무에서 함께 호흡을 맞춘 동료들이 말하는 이솔지의 강점입니다.</p>
+          <p className="text-slate-500 text-sm md:text-base">실무에서 함께 호흡을 맞춘 동료들에게 직접 물어봤습니다.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((item, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export const Recommendations: React.FC = () => {
           ))}
         </div>
       </div>
-      
+
       <div className="absolute top-0 right-0 p-12 opacity-20 pointer-events-none">
         <div className="grid grid-cols-4 gap-2">
           {[...Array(16)].map((_, i) => (
