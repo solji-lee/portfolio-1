@@ -41,11 +41,13 @@ const projects: ProjectData[] = [
     tags: ["3D Interaction", "glTF", "Real-time Sync"],
     cropFocus: true,
     backgroundColors: [
-      "#1a1a1a",  // Battery Charging - very dark
-      "#252525",  // Climate Control - slightly lighter
-      "#1f1f1f",  // Speed Dynamics - dark
-      "#2d2d2d",  // Image 3 - medium dark
-      "#1a1a1a"   // Trunk Control - very dark
+      "#1a1a1a",  // video1 - very dark
+      "#252525",  // video2 - slightly lighter
+      "#1f1f1f",  // video3 - dark
+      "#2d2d2d",  // input_file_0 - medium dark
+      "#1a1a1a",  // input_file_1 - very dark
+      "#252525",  // input_file_2 - slightly lighter
+      "#1f1f1f"   // input_file_4 - dark
     ],
     images: [
       "/video1.mov",
@@ -89,11 +91,13 @@ const projects: ProjectData[] = [
     ],
     tags: ["Figma Variables", "Multi-brand", "EAA Compliance"],
     backgroundColors: [
-      "#2a2a2a",  // Figma Variables view - dark
-      "#f5f5f5",  // Design framework diagram - light
-      "#1a1a1a",  // Multi-brand screens - very dark
-      "#f8f8f8",  // System architecture - very light
-      "#f0f0f0"   // Stakeholder workflow - light gray
+      "#1a1a1a",  // p2v1 - dark
+      "#1a1a1a",  // p2v2 - dark
+      "#1a1a1a",  // p2v3 - dark
+      "#f5f5f5",  // design-system-1 - light
+      "#f8f8f8",  // design-system-2 - very light
+      "#f0f0f0",  // design-system-3 - light gray
+      "#f5f5f5"   // design-system-4 - light
     ],
     images: [
       "/p2v1.mp4",

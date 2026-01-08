@@ -23,7 +23,7 @@ export const About: React.FC = () => {
             </p>
 
             <p>
-              <strong className="text-slate-900">실리콘밸리의 스타트업</strong> (Xpanse, Motion2AI)에서
+              <strong className="text-slate-900">미국 스타트업</strong> (Xpanse, Motion2AI)에서
               데이터가 비즈니스 임팩트로 전환되는 기민한 과정을 체득했고,
               <strong className="text-slate-900"> 현대자동차</strong>라는 글로벌 기업에서
               복잡한 요구사항을 애자일한 시스템으로 효율적으로 대응했습니다.
