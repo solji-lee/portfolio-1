@@ -104,7 +104,7 @@ export const SpecialLab: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900 aspect-[4/3] group"
+            className="relative rounded-xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900 aspect-[4/3] group"
           >
             <AnimatePresence mode="wait">
               <motion.img

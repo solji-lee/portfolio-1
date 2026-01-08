@@ -136,18 +136,18 @@ const projects: ProjectData[] = [
     ],
     tags: ["Lokalise", "MCP", "Figma Plugin"],
     backgroundColors: [
-      "#4a4a4a",  // Lokalise Variables - medium gray
-      "#3a3a3a",  // Jira-Figma Sync - dark gray
-      "#5a5a5a",  // Icon Changer - lighter gray
-      "#f5f5f5",  // Lokalise Plugin setup - light
-      "#2a2a2a",  // LokaVarLink - very dark
-      "#1a1a1a"   // Original image - darkest
+      "#1a1a1a",  // Video 1 (p3v1)
+      "#1a1a1a",  // Video 2 (p3v2)
+      "#1a1a1a",  // Video 3 (p3v3)
+      "#3a3a3a",  // design-ops-2
+      "#2a2a2a",  // design-ops-5
+      "#1a1a1a"   // unsplash image
     ],
     images: [
-      "/design-ops-1.jpg",
+      "/p3v1.mp4",
+      "/p3v2.mp4",
+      "/p3v3.mp4",
       "/design-ops-2.jpg",
-      "/design-ops-3.jpg",
-      "/design-ops-4.jpg",
       "/design-ops-5.jpg",
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
     ],
@@ -215,28 +215,6 @@ const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[]
       }
     };
   }, []);
-
-  // Force play video when index changes
-  useEffect(() => {
-    if (isVideo(images[index]) && videoRef.current) {
-      // Reset video state
-      setIsVideoPlaying(false);
-      setIsVideoLoaded(false);
-
-      // Force reload and play
-      videoRef.current.load();
-      const playPromise = videoRef.current.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .catch(error => {
-            console.log("Video play failed:", error);
-            // Auto-advance if play fails (e.g. low power mode)
-            // setTimeout(() => goToNext(), 2000); 
-          });
-      }
-    }
-  }, [index, images]);
 
   // Auto-advance timer - only when in viewport AND content is ready
   useEffect(() => {
@@ -446,10 +424,10 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
   };
 
   return (
-    <div className={`flex flex-col lg:flex-row gap-4 lg:gap-24 items-start ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
+    <div className={`flex flex-col lg:flex-row gap-4 lg:gap-16 items-start ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
       {/* Left: Visual Display */}
-      <div className="w-full lg:w-[50%] lg:sticky lg:top-32 order-2 lg:order-1">
-        <div className="aspect-[1.25/1] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
+      <div className="w-full lg:w-[55%] lg:sticky lg:top-32 order-2 lg:order-1">
+        <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
           <ImageSlider images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-between px-2 gap-4">
@@ -464,57 +442,60 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
         </div>
       </div>
 
-      {/* Right: Content */}
-      <div className="w-full lg:w-[50%] py-4 order-1 lg:order-2">
-        <div className="mb-0 lg:mb-10">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
-            <div className="w-8 h-[2px] bg-brand-100 rounded-full" />
-            <span className="text-slate-400 font-medium text-xs tracking-wide">{project.subtitle}</span>
+      {/* Right: Content & Accordions wrapper */}
+      <div className="w-full lg:w-[45%] py-4 flex flex-col gap-4">
+        {/* Content - order-1 on mobile, natural flow on desktop */}
+        <div className="order-1 lg:order-none">
+          <div className="mb-0 lg:mb-10">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
+              <div className="w-8 h-[2px] bg-brand-100 rounded-full" />
+              <span className="text-slate-400 font-medium text-xs tracking-wide">{project.subtitle}</span>
+            </div>
+
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
+              {project.title}
+            </h3>
+            <p className="text-brand-600 font-semibold text-[14px] md:text-[15px] leading-relaxed mb-6">
+              {project.tagline}
+            </p>
+
+            <p className="text-slate-500 leading-relaxed text-[15px] max-w-lg mb-2 lg:mb-8">
+              {project.description}
+            </p>
+
+            <ImpactTicker items={project.impactHighlights} />
           </div>
-
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
-            {project.title}
-          </h3>
-          <p className="text-brand-600 font-semibold text-[14px] md:text-[15px] leading-relaxed mb-6">
-            {project.tagline}
-          </p>
-
-          <p className="text-slate-500 leading-relaxed text-[15px] max-w-lg mb-2 lg:mb-8">
-            {project.description}
-          </p>
-
-          <ImpactTicker items={project.impactHighlights} />
         </div>
-      </div>
 
-      {/* Challenge/Solution/Impact Accordions - Separate container for mobile ordering */}
-      <div className="w-full lg:w-[50%] order-3 lg:order-2">
-        <div className="space-y-1">
-          <CaseStudyAccordion
-            title="The Challenge"
-            items={project.details.challenge}
-            icon={AlertCircle}
-            colorClass="bg-red-50 text-red-500"
-            isOpen={openSection === 'challenge'}
-            onClick={() => toggleSection('challenge')}
-          />
-          <CaseStudyAccordion
-            title="The Solution"
-            items={project.details.solution}
-            icon={Lightbulb}
-            colorClass="bg-indigo-50 text-brand-600"
-            isOpen={openSection === 'solution'}
-            onClick={() => toggleSection('solution')}
-          />
-          <CaseStudyAccordion
-            title="The Impact"
-            items={project.details.impact}
-            icon={CheckCircle2}
-            colorClass="bg-emerald-50 text-emerald-600"
-            isOpen={openSection === 'impact'}
-            onClick={() => toggleSection('impact')}
-          />
+        {/* Accordions - order-3 on mobile, natural flow on desktop */}
+        <div className="order-3 lg:order-none">
+          <div className="space-y-1">
+            <CaseStudyAccordion
+              title="The Challenge"
+              items={project.details.challenge}
+              icon={AlertCircle}
+              colorClass="bg-red-50 text-red-500"
+              isOpen={openSection === 'challenge'}
+              onClick={() => toggleSection('challenge')}
+            />
+            <CaseStudyAccordion
+              title="The Solution"
+              items={project.details.solution}
+              icon={Lightbulb}
+              colorClass="bg-indigo-50 text-brand-600"
+              isOpen={openSection === 'solution'}
+              onClick={() => toggleSection('solution')}
+            />
+            <CaseStudyAccordion
+              title="The Impact"
+              items={project.details.impact}
+              icon={CheckCircle2}
+              colorClass="bg-emerald-50 text-emerald-600"
+              isOpen={openSection === 'impact'}
+              onClick={() => toggleSection('impact')}
+            />
+          </div>
         </div>
       </div>
     </div>
