@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from './components/Navbar';
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react"
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
 import { SpecialLab } from './components/SpecialLab';
@@ -13,6 +14,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-slate-50 text-slate-800 selection:bg-brand-100 selection:text-brand-900 font-sans overflow-x-hidden">
       <Navbar />
       <SpeedInsights />
+      <Analytics />
 
       <main className="relative z-10">
         <Hero />
