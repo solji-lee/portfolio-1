@@ -13,15 +13,14 @@ const translations: Record<Language, Translations> = {
         'nav.contact': 'Contact',
 
         // Hero
-        'hero.badge': 'DESIGN TECHNOLOGIST',
-        'hero.title.1': 'Systematizing',
-        'hero.title.2': 'Design,',
-        'hero.title.3': 'Automating',
-        'hero.title.4': 'Intelligence.',
-        'hero.desc': '반복적인 작업을 시스템으로 해결하고, 디자인의 비즈니스 임팩트를 가속화하는 프로덕트 디자이너 솔지입니다.',
+        'hero.badge': 'Technical Product Designer',
+        'hero.title.1': 'Designing',
+        'hero.title.2': 'Intelligence',
+        'hero.desc': '시스템을 설계하고, AI로 효율을 혁신하는 ',
+        'hero.desc.strong': '테크니컬 디자이너 ',
+        'hero.desc.name': '이솔지',
+        'hero.desc.end': '입니다.',
         'hero.currently': 'Currently scaling global design systems',
-        'hero.btn.projects': '프로젝트 보기',
-        'hero.btn.about': 'About Me',
 
         // Playground & Insights
         'insights.badge': 'PLAYGROUND & INSIGHTS',
@@ -95,15 +94,14 @@ const translations: Record<Language, Translations> = {
         'nav.contact': 'Contact',
 
         // Hero
-        'hero.badge': 'DESIGN TECHNOLOGIST',
-        'hero.title.1': 'Systematizing',
-        'hero.title.2': 'Design,',
-        'hero.title.3': 'Automating',
-        'hero.title.4': 'Intelligence.',
-        'hero.desc': 'I am Solji, a product designer resolving repetitive tasks with systems and accelerating the business impact of design.',
+        'hero.badge': 'Technical Product Designer',
+        'hero.title.1': 'Designing',
+        'hero.title.2': 'Intelligence',
+        'hero.desc': 'Designing systems and accelerating efficiency with AI, ',
+        'hero.desc.strong': 'Technical Designer ',
+        'hero.desc.name': 'Solji Lee',
+        'hero.desc.end': '.',
         'hero.currently': 'Currently scaling global design systems',
-        'hero.btn.projects': 'View Projects',
-        'hero.btn.about': 'About Me',
 
         // Playground & Insights
         'insights.badge': 'PLAYGROUND & INSIGHTS',

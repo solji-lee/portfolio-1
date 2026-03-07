@@ -128,6 +128,8 @@ export const PlaygroundInsights: React.FC = () => {
                                         <a
                                             key={idx}
                                             href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="inline-flex items-center gap-2 px-3 py-2 bg-slate-50 hover:bg-brand-50 text-sm font-medium rounded-lg border border-slate-200 hover:border-brand-200 transition-colors group/link"
                                         >
                                             <Icon size={16} className={

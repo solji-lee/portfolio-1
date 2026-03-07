@@ -568,9 +568,9 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
 export const Projects: React.FC = () => {
   const { t, language } = useTranslation();
   return (
-    <section id="projects" className="py-24 md:py-40 px-6 md:px-12 lg:px-24 bg-white relative">
+    <section id="projects" className="py-12 md:py-20 px-6 md:px-12 lg:px-24 bg-white relative">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-32 md:mb-48 flex flex-col items-center text-center">
+        <div className="mb-20 md:mb-32 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Trophy size={14} className="animate-bounce" />
             <span>{t('projects.badge')}</span>

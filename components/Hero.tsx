@@ -38,44 +38,27 @@ export const Hero: React.FC = () => {
               {t('hero.badge')}
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.05] text-slate-900 mb-8 tracking-tighter">
+            <h1 className="text-5xl md:text-7xl lg:text-[100px] font-black leading-[0.9] text-slate-900 mb-8 tracking-tighter">
               {t('hero.title.1')} <br />
-              <span className="text-slate-400 font-bold pr-3">{t('hero.title.2')}</span>
-              {t('hero.title.3')} <br />
               <motion.span
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="inline-block italic text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-500 to-accent-500 pr-4 pb-2"
               >
-                {t('hero.title.4')}
+                {t('hero.title.2')}
               </motion.span>
             </h1>
 
             <h2 className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed max-w-2xl">
               {t('hero.desc')}
+              <div className="font-bold mt-2">
+                {t('hero.desc.strong')} <strong className="text-slate-900 text-2xl border-b-4 border-slate-900 pb-0.5">{t('hero.desc.name')}</strong>{t('hero.desc.end')}
+              </div>
             </h2>
           </motion.div>
 
-          <motion.div
-            className="flex flex-wrap gap-5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            <button
-              onClick={(e) => scrollToSection(e, 'projects')}
-              className="px-6 py-3 md:px-10 md:py-4 bg-slate-900 text-white text-sm md:text-base font-bold rounded-xl md:rounded-2xl hover:bg-brand-600 transition-all shadow-2xl shadow-slate-200 hover:shadow-brand-500/30 transform hover:-translate-y-1 active:scale-95"
-            >
-              {t('hero.btn.projects')}
-            </button>
-            <button
-              onClick={(e) => scrollToSection(e, 'about')}
-              className="px-6 py-3 md:px-10 md:py-4 bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 text-sm md:text-base font-semibold rounded-xl md:rounded-2xl hover:border-brand-300 hover:text-brand-600 transition-all shadow-sm hover:shadow-lg flex items-center gap-2 md:gap-3 active:scale-95"
-            >
-              {t('hero.btn.about')} <ArrowDown size={18} className="animate-bounce" />
-            </button>
-          </motion.div>
+
 
           <motion.div
             className="flex flex-wrap gap-2 md:gap-3 pt-4 md:pt-6"
