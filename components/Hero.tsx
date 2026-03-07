@@ -38,7 +38,7 @@ export const Hero: React.FC = () => {
               {t('hero.badge')}
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] text-slate-900 mb-8 tracking-tighter">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.05] text-slate-900 mb-8 tracking-tighter">
               {t('hero.title.1')} <br />
               <span className="text-slate-400 font-bold pr-3">{t('hero.title.2')}</span>
               {t('hero.title.3')} <br />
