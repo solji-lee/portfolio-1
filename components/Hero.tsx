@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Code, Layout, Cpu, Zap, ArrowDown, Users } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 export const Hero: React.FC = () => {
+  const { t } = useTranslation();
+
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
@@ -12,11 +15,11 @@ export const Hero: React.FC = () => {
   };
 
   const floatingTags = [
-    { icon: <Users size={14} />, text: "User-Driven", color: "text-purple-600", bg: "bg-purple-50" },
+    { icon: <Users size={14} />, text: "Figma MCP", color: "text-purple-600", bg: "bg-purple-50" },
     { icon: <Code size={14} />, text: "Design Ops", color: "text-blue-600", bg: "bg-blue-50" },
     { icon: <Layout size={14} />, text: "Design Systems", color: "text-indigo-600", bg: "bg-indigo-50" },
     { icon: <Cpu size={14} />, text: "Vibe Coding", color: "text-emerald-600", bg: "bg-emerald-50" },
-    { icon: <Zap size={14} />, text: "Rapid Prototyping", color: "text-amber-600", bg: "bg-amber-50" },
+    { icon: <Zap size={14} />, text: "User-Driven", color: "text-amber-600", bg: "bg-amber-50" },
   ];
 
   return (
@@ -32,24 +35,25 @@ export const Hero: React.FC = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200 text-brand-600 text-xs font-bold mb-8 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-              Technical Product Designer
+              {t('hero.badge')}
             </div>
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] text-slate-900 mb-8 tracking-tighter">
-              Designing <br />
+              {t('hero.title.1')} <br />
+              <span className="text-slate-400 font-bold pr-3">{t('hero.title.2')}</span>
+              {t('hero.title.3')} <br />
               <motion.span
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="inline-block italic text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-500 to-accent-500 pr-4 pb-2"
               >
-                Intelligence
+                {t('hero.title.4')}
               </motion.span>
             </h1>
 
             <h2 className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed max-w-2xl">
-              시스템을 설계하고, AI로 효율을 혁신하는 <br className="hidden md:block" />
-              테크니컬 디자이너 <strong className="text-slate-900 font-bold underline decoration-brand-200 decoration-8 underline-offset-4">이솔지</strong>입니다.
+              {t('hero.desc')}
             </h2>
           </motion.div>
 
@@ -63,13 +67,13 @@ export const Hero: React.FC = () => {
               onClick={(e) => scrollToSection(e, 'projects')}
               className="px-6 py-3 md:px-10 md:py-4 bg-slate-900 text-white text-sm md:text-base font-bold rounded-xl md:rounded-2xl hover:bg-brand-600 transition-all shadow-2xl shadow-slate-200 hover:shadow-brand-500/30 transform hover:-translate-y-1 active:scale-95"
             >
-              View Projects
+              {t('hero.btn.projects')}
             </button>
             <button
               onClick={(e) => scrollToSection(e, 'about')}
               className="px-6 py-3 md:px-10 md:py-4 bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 text-sm md:text-base font-semibold rounded-xl md:rounded-2xl hover:border-brand-300 hover:text-brand-600 transition-all shadow-sm hover:shadow-lg flex items-center gap-2 md:gap-3 active:scale-95"
             >
-              About Me <ArrowDown size={18} className="animate-bounce" />
+              {t('hero.btn.about')} <ArrowDown size={18} className="animate-bounce" />
             </button>
           </motion.div>
 

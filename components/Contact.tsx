@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Mail, Linkedin, Phone, BookOpen, X, Copy, Check } from 'lucide-react';
+import { Mail, Linkedin, Phone, BookOpen, X as CloseIcon, Copy, Check, Twitter, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '../lib/i18n';
 
 export const Contact: React.FC = () => {
+  const { t } = useTranslation();
   const [showCard, setShowCard] = useState(false);
   const [copied, setCopied] = useState<'phone' | 'email' | null>(null);
+  const [showBlogMenu, setShowBlogMenu] = useState(false);
 
   const copyToClipboard = (text: string, type: 'phone' | 'email') => {
     navigator.clipboard.writeText(text);
@@ -17,35 +20,66 @@ export const Contact: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
 
         <div className="text-center md:text-left">
-          <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Let's Build Together</h3>
-          <p className="text-slate-400 text-sm">Designing Intelligence, Automating Workflows.</p>
+          <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">{t('contact.title')}</h3>
+          <p className="text-slate-400 text-sm">{t('contact.desc')}</p>
         </div>
 
         <div className="flex gap-6">
           <button
             onClick={() => setShowCard(true)}
             className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white"
+            title="Contact Info"
           >
-            <Phone size={20} />
+            <UserCircle size={20} />
           </button>
-          <button
-            onClick={() => setShowCard(true)}
-            className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white"
-          >
-            <Mail size={20} />
-          </button>
+          <a href="https://x.com/solji_design" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
+            <Twitter size={20} />
+          </a>
           <a href="https://www.linkedin.com/in/solji/" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
             <Linkedin size={20} />
           </a>
-          <a href="https://brunch.co.kr/@sorji091" target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white">
-            <BookOpen size={20} />
-          </a>
+          <div className="relative">
+            <button
+              onClick={() => setShowBlogMenu(!showBlogMenu)}
+              className="p-3 bg-slate-800/50 rounded-full text-slate-400 hover:bg-white hover:text-slate-900 transition-all border border-slate-700/50 hover:border-white focus:outline-none"
+            >
+              <BookOpen size={20} />
+            </button>
+            <AnimatePresence>
+              {showBlogMenu && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute bottom-full right-0 origin-bottom-right mb-4 w-32 bg-slate-800 rounded-xl shadow-xl border border-slate-700 overflow-hidden flex flex-col z-50"
+                >
+                  <a
+                    href="https://medium.com/@solji-lee-design"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-center font-medium border-b border-slate-700/50"
+                  >
+                    Medium
+                  </a>
+                  <a
+                    href="https://brunch.co.kr/@sorji091"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 text-sm text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-center font-medium"
+                  >
+                    Brunch
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
       <div className="mt-12 text-center text-slate-600 text-xs font-mono">
-        © 2026 Solji Lee. All rights reserved. <br />
-        Built with React, Tailwind, and Framer Motion.
+        {t('contact.rights')} <br />
+        {t('contact.built')}
       </div>
 
       {/* Business Card Popup */}
@@ -74,7 +108,7 @@ export const Contact: React.FC = () => {
                   onClick={() => setShowCard(false)}
                   className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition-all"
                 >
-                  <X size={16} />
+                  <CloseIcon size={16} />
                 </button>
 
                 {/* Card Content */}
@@ -89,7 +123,7 @@ export const Contact: React.FC = () => {
                       />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-0.5">Solji Lee</h3>
-                    <p className="text-brand-600 text-xs font-medium">Technical Product Designer</p>
+                    <p className="text-brand-600 text-xs font-medium">{t('contact.card.role')}</p>
                   </div>
 
                   {/* Contact Info */}
@@ -124,11 +158,11 @@ export const Contact: React.FC = () => {
                           </div>
                           <div className="min-w-0">
                             <p className="text-slate-500 text-[10px] uppercase tracking-wide font-medium">Email</p>
-                            <p className="text-slate-900 font-mono text-sm font-medium truncate">sorji091@naver.com</p>
+                            <p className="text-slate-900 font-mono text-sm font-medium truncate">solji.lee.design@gmail.com</p>
                           </div>
                         </div>
                         <button
-                          onClick={() => copyToClipboard('sorji091@naver.com', 'email')}
+                          onClick={() => copyToClipboard('solji.lee.design@gmail.com', 'email')}
                           className="p-1.5 rounded-md bg-white hover:bg-brand-50 text-slate-500 hover:text-brand-600 transition-all border border-slate-200 flex-shrink-0 ml-2"
                         >
                           {copied === 'email' ? <Check size={14} /> : <Copy size={14} />}
@@ -139,7 +173,7 @@ export const Contact: React.FC = () => {
 
                   {/* Footer */}
                   <div className="mt-4 pt-4 border-t border-slate-200 text-center">
-                    <p className="text-slate-400 text-[10px] font-medium">Designing Intelligence, Automating Workflows</p>
+                    <p className="text-slate-400 text-[10px] font-medium">{t('contact.desc')}</p>
                   </div>
                 </div>
               </motion.div>

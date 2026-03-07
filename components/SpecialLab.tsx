@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 const baseLogs = [
   "[INFO] Trading Bot initializing...",
@@ -21,6 +22,7 @@ const images = [
 ];
 
 export const SpecialLab: React.FC = () => {
+  const { t } = useTranslation();
   const [logs, setLogs] = useState<string[]>([]);
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -54,24 +56,38 @@ export const SpecialLab: React.FC = () => {
         <div className="order-2 lg:order-1 space-y-6">
           <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-3 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Activity size={14} className="animate-pulse" />
-            <span>SPECIAL LAB</span>
+            <span>{t('lab.badge')}</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-            국내주식 & 암호화폐 <br /> 자동매매 봇
+            {t('lab.title.1')} <br /> {t('lab.title.2')}
           </h2>
 
           <div className="space-y-4 text-slate-600 leading-relaxed text-[15px]">
             <p>
-              "금융 시장에 대한 호기심으로 <strong className="text-slate-900">국내주식과 암호화폐 자동거래 봇</strong>을 직접 구축했습니다."
+              {t('lab.p1').split(t('lab.highlight.1')).map((part, i, arr) =>
+                i === arr.length - 1 ? part : <React.Fragment key={i}>{part}<strong className="text-slate-900">{t('lab.highlight.1')}</strong></React.Fragment>
+              )}
             </p>
             <p>
-              <strong className="text-brand-600">Binance</strong>와 <strong className="text-brand-600">Upbit</strong> API를 활용한 비트코인 자동거래,
-              국내 증권사 <strong className="text-brand-600">영웅문 API</strong>와의 연동을 통해 개인화 된 트레이딩 전략을 구현했습니다.
+              {(() => {
+                const text = t('lab.p2');
+                const h2 = t('lab.highlight.2');
+                const h3 = t('lab.highlight.3');
+                const h4 = t('lab.highlight.4');
+                const parts = text.split(new RegExp(`(${h2}|${h3}|${h4})`, 'g'));
+
+                return parts.map((part, i) => {
+                  if (part === h2 || part === h3 || part === h4) {
+                    return <strong key={i} className="text-brand-600">{part}</strong>;
+                  }
+                  return <React.Fragment key={i}>{part}</React.Fragment>;
+                });
+              })()}
             </p>
             <p className="text-sm text-slate-500">
-              • Git 브랜치로 트레이딩 모드 관리 (Trailing, Grid, DCA)<br />
-              • USDT/SWIFT 등 다양한 암호화폐 페어 고려<br />
-              • AWS를 활용한 안정적인 24/7 자동매매<br />
+              {t('lab.list.1')}<br />
+              {t('lab.list.2')}<br />
+              {t('lab.list.3')}<br />
             </p>
           </div>
 

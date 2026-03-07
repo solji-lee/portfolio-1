@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, Plus, CheckCircle2, AlertCircle, Lightbulb, Trophy, ArrowRight } from 'lucide-react';
+import { useTranslation } from '../lib/i18n';
 
 interface ProjectDetail {
-  challenge: string[];
-  solution: string[];
-  impact: string[];
+  challenge: { ko: string[]; en: string[] };
+  solution: { ko: string[]; en: string[] };
+  impact: { ko: string[]; en: string[] };
 }
 
 interface ProjectData {
   id: string;
   number: string;
-  title: string;
-  tagline: string;
+  title: { ko: string; en: string };
+  tagline: { ko: string; en: string };
   subtitle: string;
   role: string;
-  description: string;
-  impactHighlights: string[];
+  description: { ko: string; en: string };
+  impactHighlights: { ko: string[]; en: string[] };
   tags: string[];
   images: string[];
   details: ProjectDetail;
@@ -28,148 +29,205 @@ const projects: ProjectData[] = [
   {
     id: "hyundai-3d",
     number: "Project 01",
-    title: "기아차 3D 원격 제어 UXUI",
-    tagline: "\"3D 기술을 심미적 요소를 넘어, 사용성을 극대화하는 기능적 도구로 재해석하다.\"",
+    title: { ko: "기아차 3D 원격 제어 UXUI", en: "Kia 3D Remote Control UX/UI" },
+    tagline: { ko: "\"3D 기술을 심미적 요소를 넘어, 사용성을 극대화하는 기능적 도구로 재해석하다.\"", en: "\"Reinterpreting 3D technology as a functional tool to maximize usability beyond aesthetics.\"" },
     subtitle: "Hyundai Motor Group",
     role: "UX/UI Design • System Architecture",
-    description: "2D 평면적 제어를 넘어 glTF 기반 3D 경험을 모바일 UI에 이식했습니다. 차량의 상태(도어, 트렁크, 공조, 충전)를 실시간으로 시각화하여 직관성을 높였습니다.",
-    impactHighlights: [
-      "디자인 특허 출원: 3D 모델 & 애니메이션 결합 UI",
-      "현대차 EV9 등 플래그십 전기차 실제 서비스 탑재",
-      "차량 상태 인지 속도 및 브랜드 이미지 평가 획득"
-    ],
+    description: {
+      ko: "2D 평면적 제어를 넘어 glTF 기반 3D 경험을 모바일 UI에 이식했습니다. 차량의 상태(도어, 트렁크, 공조, 충전)를 실시간으로 시각화하여 직관성을 높였습니다.",
+      en: "Transplanted glTF-based 3D experiences beyond flat 2D control into a mobile UI. Real-time visualization of vehicle status (doors, trunk, climate, charging) enhanced intuitiveness."
+    },
+    impactHighlights: {
+      ko: [
+        "디자인 특허 출원: 3D 모델 & 애니메이션 결합 UI",
+        "현대차 EV9 등 플래그십 전기차 실제 서비스 탑재",
+        "차량 상태 인지 속도 및 브랜드 이미지 평가 획득"
+      ],
+      en: [
+        "Design Patent Pending: UI combining 3D models & animation",
+        "Deployed on flagship EVs like Hyundai EV9",
+        "Improved recognition speed and brand image evaluation"
+      ]
+    },
     tags: ["3D Interaction", "glTF", "Real-time Sync"],
     cropFocus: true,
     backgroundColors: [
-      "#1a1a1a",  // video1 - very dark
-      "#252525",  // video2 - slightly lighter
-      "#1f1f1f",  // video3 - dark
-      "#2d2d2d",  // input_file_0 - medium dark
-      "#1a1a1a",  // input_file_1 - very dark
-      "#252525",  // input_file_2 - slightly lighter
-      "#1f1f1f"   // input_file_4 - dark
+      "#1a1a1a", "#252525", "#1f1f1f", "#2d2d2d", "#1a1a1a", "#252525", "#1f1f1f"
     ],
     images: [
-      "/video1.mov",
-      "/video2.mov",
-      "/video3.mov",
-      "/input_file_0.png",
-      "/input_file_1.png",
-      "/input_file_2.png",
-      "/input_file_4.png"
+      "/video1.mov", "/video2.mov", "/video3.mov", "/input_file_0.png", "/input_file_1.png", "/input_file_2.png", "/input_file_4.png"
     ],
     details: {
-      challenge: [
-        "기존 2D 화면의 직관성 부족 (문 개폐, 라이트 상태 등 파악 어려움)",
-        "모바일 환경에서의 고품질 3D 실시간 렌더링 최적화 (발열, 속도)",
-        "단순 뷰어를 넘어선 실질적 상호작용 경험 설계"
-      ],
-      solution: [
-        "Immersive Interaction: 0.5초 이내 반응하는 실시간 동기화 애니메이션",
-        "다양한 상태 제어: 도어/트렁크 개폐, 공조 및 배터리 충전 상태의 3D 시각화",
-        "Technical Directing: 폴리곤 수 및 텍스처 가이드라인 수립으로 개발 부하 절감"
-      ],
-      impact: [
-        "특허 출원: 독자적인 UI 디자인 권리 보호",
-        "양산 적용: EV9 등 주요 모델 실제 서비스 탑재",
-        "정성적 성과: 인지 속도 향상 및 첨단 이미지 구현 평가"
-      ]
+      challenge: {
+        ko: [
+          "기존 2D 화면의 직관성 부족 (문 개폐, 라이트 상태 등 파악 어려움)",
+          "모바일 환경에서의 고품질 3D 실시간 렌더링 최적화 (발열, 속도)",
+          "단순 뷰어를 넘어선 실질적 상호작용 경험 설계"
+        ],
+        en: [
+          "Lack of intuition in existing 2D screens (difficulty in checking doors, lights)",
+          "Optimization of high-quality 3D real-time rendering on mobile (heat, speed)",
+          "Designing substantial interactive experiences beyond simple viewers"
+        ]
+      },
+      solution: {
+        ko: [
+          "Immersive Interaction: 0.5초 이내 반응하는 실시간 동기화 애니메이션",
+          "다양한 상태 제어: 도어/트렁크 개폐, 공조 및 배터리 충전 상태의 3D 시각화",
+          "Technical Directing: 폴리곤 수 및 텍스처 가이드라인 수립으로 개발 부하 절감"
+        ],
+        en: [
+          "Immersive Interaction: Real-time syncing animation reacting under 0.5 seconds",
+          "Various State Controls: 3D visualization of door/trunk status, climate, and EV charging",
+          "Technical Directing: Guidelines for polygon count and textures to reduce dev load"
+        ]
+      },
+      impact: {
+        ko: [
+          "특허 출원: 독자적인 UI 디자인 권리 보호",
+          "양산 적용: EV9 등 주요 모델 실제 서비스 탑재",
+          "정성적 성과: 인지 속도 향상 및 첨단 이미지 구현 평가"
+        ],
+        en: [
+          "Patent Pending: Protection of exclusive UI design rights",
+          "Mass Production: Actual service deployment on key models like EV9",
+          "Qualitative Results: Improved recognition speed and high-tech image realization"
+        ]
+      }
     }
   },
   {
     id: "design-system",
     number: "Project 02",
-    title: "통합 디자인 시스템 구축 (H/K/G)",
-    tagline: "\"3개 브랜드, 3벌의 파일을 '하나의 시스템'으로 통합하여 개발 효율과 규제 대응 속도를 혁신하다.\"",
+    title: { ko: "통합 디자인 시스템 구축 (H/K/G)", en: "Unified Design System (H/K/G)" },
+    tagline: { ko: "\"3개 브랜드, 3벌의 파일을 '하나의 시스템'으로 통합하여 개발 효율과 규제 대응 속도를 혁신하다.\"", en: "\"Innovating dev efficiency and compliance speed by unifying 3 brands and 3 file sets into 'One System'.\"" },
     subtitle: "Design Ops • Multi-brand",
     role: "Design System Lead",
-    description: "현대, 기아, 제네시스 3개 브랜드의 디자인 파일을 Figma Variables로 통합하여 단 1벌의 마스터 파일로 운영. 모드 전환만으로 3개 브랜드 디자인을 즉시 산출하고, 갑작스러운 EAA 규제에도 지연 없이 대응했습니다.",
-    impactHighlights: [
-      "파일 관리 리소스 66% 절감: 3벌 → 1벌 통합",
-      "개발 생산성 향상: 공통 컴포넌트로 동시 업데이트 가능",
-      "민첩한 리스크 관리: EAA 대응 프로세스 표준화"
-    ],
+    description: {
+      ko: "현대, 기아, 제네시스 3개 브랜드의 디자인 파일을 Figma Variables로 통합하여 단 1벌의 마스터 파일로 운영. 모드 전환만으로 3개 브랜드 디자인을 즉시 산출하고, 갑작스러운 EAA 규제에도 지연 없이 대응했습니다.",
+      en: "Unified design files for Hyundai, Kia, and Genesis using Figma Variables to operate as a single master file. Instantly produced 3 brand designs simply by switching modes, handling sudden EAA regulations without delay."
+    },
+    impactHighlights: {
+      ko: [
+        "파일 관리 리소스 66% 절감: 3벌 → 1벌 통합",
+        "개발 생산성 향상: 공통 컴포넌트로 동시 업데이트 가능",
+        "민첩한 리스크 관리: EAA 대응 프로세스 표준화"
+      ],
+      en: [
+        "File Management Resources Cut by 66%: Unified 3 sets into 1",
+        "Improved Dev Productivity: Shared components enabled simultaneous updates",
+        "Agile Risk Management: Standardized EAA compliance process"
+      ]
+    },
     tags: ["Figma Variables", "Multi-brand", "EAA Compliance"],
     backgroundColors: [
-      "#1a1a1a",  // p2v1 - dark
-      "#1a1a1a",  // p2v2 - dark
-      "#1a1a1a",  // p2v3 - dark
-      "#f5f5f5",  // design-system-1 - light
-      "#f8f8f8",  // design-system-2 - very light
-      "#f0f0f0",  // design-system-3 - light gray
-      "#f5f5f5"   // design-system-4 - light
+      "#1a1a1a", "#1a1a1a", "#1a1a1a", "#f5f5f5", "#f8f8f8", "#f0f0f0", "#f5f5f5"
     ],
     images: [
-      "/p2v1.mp4",
-      "/p2v2.mp4",
-      "/p2v3.mp4",
-      "/design-system-1.png",
-      "/design-system-2.png",
-      "/design-system-3.png",
-      "/design-system-4.png"
+      "/p2v1.mp4", "/p2v2.mp4", "/p2v3.mp4", "/design-system-1.png", "/design-system-2.png", "/design-system-3.png", "/design-system-4.png"
     ],
     details: {
-      challenge: [
-        "리소스의 파편화 (N x 3의 비효율): 3개 브랜드가 각각 별도의 디자인 라이브러리와 3벌의 스크린 파일을 운영하여 단순 수정에도 3번 반복 작업 필요, 휴먼 에러 발생 확률 증가",
-        "프로젝트 중간에 떨어진 'EAA 규제': 유럽 접근성 법안(EAA) 준수 요건 추가로, 기존 방식으로는 수백 장의 스크린을 수동 조절하거나 별도 라이브러리 스왑이 필요한 일정 지연 불가피 상황"
-      ],
-      solution: [
-        "Variable 기반의 파일 통합 (3 to 1): Figma Variables로 브랜드별 컬러·폰트·코너 라운드를 토큰화하여 3벌의 파일을 1벌의 마스터 파일로 통합, 모드 전환만으로 3개 브랜드 디자인 즉시 산출",
-        "EAA 대응 시뮬레이션 시스템: 별도 라이브러리 스왑 없이 'EAA Mode' 배리어블 추가로 명도 대비·텍스트 크기 이슈를 즉시 시뮬레이션 및 수정, 수동 작업 0으로 단축",
-        "개발 공통 컴포넌트(Common Component) 구축: 코드 레벨에서도 공통 컴포넌트 구조 수립, 브랜드별 스타일 값(CSS/Theme)만 호출하는 방식으로 디자인-개발 리드타임 최소화"
-      ],
-      impact: [
-        "운영 효율 극대화: 3벌의 디자인 원본 파일을 1벌로 통합하여 파일 관리 및 유지보수 리소스 66% 절감",
-        "개발 생산성 향상: 공통 컴포넌트 도입으로 중복 코딩 방지, 3사 브랜드 앱의 동시 업데이트 가능한 배포 파이프라인 구축 기여",
-        "민첩한 리스크 관리: 갑작스러운 EAA 이슈에도 프로젝트 지연 없이 대응 완료, 배리어블 모드 기반 테스트 프로세스는 글로벌 확장 시 표준 매뉴얼로 채택"
-      ]
+      challenge: {
+        ko: [
+          "리소스의 파편화 (N x 3의 비효율): 3개 브랜드가 각각 별도의 디자인 라이브러리와 3벌의 스크린 파일을 운영하여 단순 수정에도 3번 반복 작업 필요, 휴먼 에러 발생 확률 증가",
+          "프로젝트 중간에 떨어진 'EAA 규제': 유럽 접근성 법안(EAA) 준수 요건 추가로, 기존 방식으로는 수백 장의 스크린을 수동 조절하거나 별도 라이브러리 스왑이 필요한 일정 지연 불가피 상황"
+        ],
+        en: [
+          "Resource Fragmentation (Inefficiency of N x 3): 3 brands operating separate libraries meant repetitive work and higher human errors",
+          "Unexpected EAA Regulation: Sudden addition of European Accessibility Act compliance requirements causing inevitable schedule delays"
+        ]
+      },
+      solution: {
+        ko: [
+          "Variable 기반의 파일 통합 (3 to 1): Figma Variables로 브랜드별 컬러·폰트·코너 라운드를 토큰화하여 3벌의 파일을 1벌의 마스터 파일로 통합, 모드 전환만으로 3개 브랜드 디자인 즉시 산출",
+          "EAA 대응 시뮬레이션 시스템: 별도 라이브러리 스왑 없이 'EAA Mode' 배리어블 추가로 명도 대비·텍스트 크기 이슈를 즉시 시뮬레이션 및 수정, 수동 작업 0으로 단축",
+          "개발 공통 컴포넌트(Common Component) 구축: 코드 레벨에서도 공통 컴포넌트 구조 수립, 브랜드별 스타일 값(CSS/Theme)만 호출하는 방식으로 디자인-개발 리드타임 최소화"
+        ],
+        en: [
+          "Variable-based File Unification (3 to 1): Tokenized brand colors, fonts, and corner radii with Figma Variables, compiling 3 files into 1 master",
+          "EAA Compliance Simulation System: Added 'EAA Mode' variables to instantly simulate contrast ratios and text sizing without swapping libraries",
+          "Common Component Construction: Established a common component structure at the code level, minimizing design-to-dev lead time"
+        ]
+      },
+      impact: {
+        ko: [
+          "운영 효율 극대화: 3벌의 디자인 원본 파일을 1벌로 통합하여 파일 관리 및 유지보수 리소스 66% 절감",
+          "개발 생산성 향상: 공통 컴포넌트 도입으로 중복 코딩 방지, 3사 브랜드 앱의 동시 업데이트 가능한 배포 파이프라인 구축 기여",
+          "민첩한 리스크 관리: 갑작스러운 EAA 이슈에도 프로젝트 지연 없이 대응 완료, 배리어블 모드 기반 테스트 프로세스는 글로벌 확장 시 표준 매뉴얼로 채택"
+        ],
+        en: [
+          "Operational Efficiency: 66% reduction in maintenance resources by unifying the source files",
+          "Dev Productivity: Prevented duplicate coding and contributed to a deployment pipeline capable of simultaneous multi-brand updates",
+          "Agile Risk Management: Dealt with sudden EAA requirements without delay, adopted as a standard manual for global expansion"
+        ]
+      }
     }
   },
   {
     id: "design-ops-ai",
     number: "Project 03",
-    title: "피그마 플러그인 & 협업 툴 혁신",
-    tagline: "\"보안과 언어의 장벽을 기술로 넘다. 워크플로우를 설계하고 도구를 만드는 Design Ops.\"",
+    title: { ko: "피그마 플러그인 & 협업 툴 혁신", en: "Figma Plugin & Tool Innovation" },
+    tagline: { ko: "\"보안과 언어의 장벽을 기술로 넘다. 워크플로우를 설계하고 도구를 만드는 Design Ops.\"", en: "\"Overcoming security and language barriers with tech. DesignOps that builds tools and workflows.\"" },
     subtitle: "Internal Productivity",
     role: "Product Owner • Tool Developer",
-    description: "32개 언어 관리와 보안망 제약을 내부 툴 개발로 해결. Lokalise-Figma 파이프라인과 Jira 연동 플러그인을 직접 설계하여 글로벌 워크플로우를 혁신했습니다.",
-    impactHighlights: [
-      "협업 속도 증대: 보안망 단절 해소, 기획-디자인-개발 연결",
-      "AI 자동화 준비: MCP 기반 32개국어 QA 시스템 설계",
-      "Design Ops 문화: 기술로 불편함을 해결하는 리더십 정착"
-    ],
+    description: {
+      ko: "32개 언어 관리와 보안망 제약을 내부 툴 개발로 해결. Lokalise-Figma 파이프라인과 Jira 연동 플러그인을 직접 설계하여 글로벌 워크플로우를 혁신했습니다.",
+      en: "Solved 32-language management and security constraints by developing internal tools. Innovated global workflows by designing a Lokalise-Figma pipeline and Jira plugin firsthand."
+    },
+    impactHighlights: {
+      ko: [
+        "협업 속도 증대: 보안망 단절 해소, 기획-디자인-개발 연결",
+        "AI 자동화 준비: MCP 기반 32개국어 QA 시스템 설계",
+        "Design Ops 문화: 기술로 불편함을 해결하는 리더십 정착"
+      ],
+      en: [
+        "Boosted Synergy: Connected planning, design, and dev teams despite security walls",
+        "AI Automation Prep: Designed an MCP-based QA system for 32 languages",
+        "DesignOps Culture: Established leadership resolving issues through tech"
+      ]
+    },
     tags: ["Lokalise", "MCP", "Figma Plugin"],
     backgroundColors: [
-      "#1a1a1a",  // Video 1 (p3v1)
-      "#1a1a1a",  // Video 2 (p3v2)
-      "#1a1a1a",  // Video 3 (p3v3)
-      "#3a3a3a",  // design-ops-2
-      "#2a2a2a",  // design-ops-5
-      "#1a1a1a"   // unsplash image
+      "#1a1a1a", "#1a1a1a", "#1a1a1a", "#3a3a3a", "#2a2a2a", "#1a1a1a"
     ],
     images: [
-      "/p3v1.mp4",
-      "/p3v2.mp4",
-      "/p3v3.mp4",
-      "/design-ops-2.jpg",
-      "/design-ops-5.jpg",
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
+      "/p3v1.mp4", "/p3v2.mp4", "/p3v3.mp4", "/design-ops-2.jpg", "/design-ops-5.jpg", "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
     ],
     details: {
-      challenge: [
-        "32개국어 검수의 한계: 글로벌 서비스 운영 시 각 언어별 UI 깨짐과 오역을 사람이 일일이 검수하는 것은 불가능에 가까웠고, 품질 리스크로 직결",
-        "보안망에 갇힌 비효율: 높은 보안 정책으로 Jira-Figma 표준 연동 차단, 디자이너들이 보안망을 넘나들며 티켓 상태를 확인해야 하는 커뮤니케이션 로스 발생"
-      ],
-      solution: [
-        "Product Owner of Internal Tools: 디자인 팀 병목을 해결하는 내부 툴의 PO 역할 수행, 문제 정의부터 로직 설계까지 사내 개발팀과 협업",
-        "Lokalise Pipeline & AI Vision: (Step 1) Lokalise 스트링을 Figma Variable로 자동 변환/주입하는 플러그인 개발, (Step 2 - Future) MCP(Model Context Protocol) 활용, 32개국어의 UI 오버플로우 및 문맥 오류를 AI가 자동 탐지하는 QA 자동화 시스템 준비 중",
-        "Security-Compliant Jira Plugin: 보안망을 우회하지 않으면서 Jira 데이터를 안전하게 호출하는 로직 고안, 피그마 내에서 디자인과 연결된 Jira 티켓 상태를 실시간 동기화·관리하는 커스텀 플러그인 구축"
-      ],
-      impact: [
-        "Workflow Innovation: 보안 이슈로 단절된 기획-디자인-개발 연결 고리를 잇는 플러그인 도입으로 협업 속도 증대 및 히스토리 관리 자동화",
-        "Scalability for AI: 단순 다국어 적용을 넘어 AI(LLM)가  디자인 데이터를 읽고 검수할 수 있는 'Machine Readable'한 Variable 구조 마련, 차세대 자동화 초석 구축",
-        "Leadership: '불편함은 감수하는 것이 아니라 기술로 해결하는 것'이라는 Design Ops 문화를 팀 내 정착"
-      ]
+      challenge: {
+        ko: [
+          "32개국어 검수의 한계: 글로벌 서비스 운영 시 각 언어별 UI 깨짐과 오역을 사람이 일일이 검수하는 것은 불가능에 가까웠고, 품질 리스크로 직결",
+          "보안망에 갇힌 비효율: 높은 보안 정책으로 Jira-Figma 표준 연동 차단, 디자이너들이 보안망을 넘나들며 티켓 상태를 확인해야 하는 커뮤니케이션 로스 발생"
+        ],
+        en: [
+          "Limits of 32 Language QA: Impossible to manually inspect UI breaks and mistranslations for global services, leading to quality risks",
+          "Inefficiency Trapped by Security: Strict policies blocked Jira-Figma standard integration, causing communication loss as designers crossed security networks"
+        ]
+      },
+      solution: {
+        ko: [
+          "Product Owner of Internal Tools: 디자인 팀 병목을 해결하는 내부 툴의 PO 역할 수행, 문제 정의부터 로직 설계까지 사내 개발팀과 협업",
+          "Lokalise Pipeline & AI Vision: (Step 1) Lokalise 스트링을 Figma Variable로 자동 변환/주입하는 플러그인 개발, (Step 2 - Future) MCP(Model Context Protocol) 활용, 32개국어의 UI 오버플로우 및 문맥 오류를 AI가 자동 탐지하는 QA 자동화 시스템 준비 중",
+          "Security-Compliant Jira Plugin: 보안망을 우회하지 않으면서 Jira 데이터를 안전하게 호출하는 로직 고안, 피그마 내에서 디자인과 연결된 Jira 티켓 상태를 실시간 동기화·관리하는 커스텀 플러그인 구축"
+        ],
+        en: [
+          "Product Owner of Internal Tools: Acted as PO for internal tools to resolve design team bottlenecks, collaborating with developers from problem definition to logic design",
+          "Lokalise Pipeline & AI Vision: (1) Developed a plugin automating localization string injection into Figma Variables. (2) Exploring an MCP-based QA automation system for 32 languages.",
+          "Security-Compliant Jira Plugin: Designed logic to safely fetch Jira data without bypassing the firewall, syncing ticket statuses directly within Figma"
+        ]
+      },
+      impact: {
+        ko: [
+          "Workflow Innovation: 보안 이슈로 단절된 기획-디자인-개발 연결 고리를 잇는 플러그인 도입으로 협업 속도 증대 및 히스토리 관리 자동화",
+          "Scalability for AI: 단순 다국어 적용을 넘어 AI(LLM)가  디자인 데이터를 읽고 검수할 수 있는 'Machine Readable'한 Variable 구조 마련, 차세대 자동화 초석 구축",
+          "Leadership: '불편함은 감수하는 것이 아니라 기술로 해결하는 것'이라는 Design Ops 문화를 팀 내 정착"
+        ],
+        en: [
+          "Workflow Innovation: Reconnected planning, design, and dev teams broken by security walls, boosting synergy and automating history management",
+          "Scalability for AI: Laid the foundation for next-gen automation via 'Machine Readable' variables that LLMs can digest and QA",
+          "Leadership: Established a DesignOps culture that 'inconvenience is not endured, but solved with tech'"
+        ]
+      }
     }
   }
 ];
@@ -421,6 +479,7 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
 };
 
 const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> = ({ project, align }) => {
+  const { language } = useTranslation();
   const [openSection, setOpenSection] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
@@ -458,17 +517,17 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
             </div>
 
             <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
-              {project.title}
+              {project.title[language]}
             </h3>
             <p className="text-brand-600 font-semibold text-[14px] md:text-[15px] leading-relaxed mb-6">
-              {project.tagline}
+              {project.tagline[language]}
             </p>
 
             <p className="text-slate-500 leading-relaxed text-[15px] max-w-lg mb-2 lg:mb-8">
-              {project.description}
+              {project.description[language]}
             </p>
 
-            <ImpactTicker items={project.impactHighlights} />
+            <ImpactTicker items={project.impactHighlights[language]} />
           </div>
         </div>
 
@@ -477,7 +536,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
           <div className="space-y-1">
             <CaseStudyAccordion
               title="The Challenge"
-              items={project.details.challenge}
+              items={project.details.challenge[language]}
               icon={AlertCircle}
               colorClass="bg-red-50 text-red-500"
               isOpen={openSection === 'challenge'}
@@ -485,7 +544,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
             />
             <CaseStudyAccordion
               title="The Solution"
-              items={project.details.solution}
+              items={project.details.solution[language]}
               icon={Lightbulb}
               colorClass="bg-indigo-50 text-brand-600"
               isOpen={openSection === 'solution'}
@@ -493,7 +552,7 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
             />
             <CaseStudyAccordion
               title="The Impact"
-              items={project.details.impact}
+              items={project.details.impact[language]}
               icon={CheckCircle2}
               colorClass="bg-emerald-50 text-emerald-600"
               isOpen={openSection === 'impact'}
@@ -507,18 +566,28 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
 };
 
 export const Projects: React.FC = () => {
+  const { t, language } = useTranslation();
   return (
     <section id="projects" className="py-24 md:py-40 px-6 md:px-12 lg:px-24 bg-white relative">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-32 md:mb-48 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Trophy size={14} className="animate-bounce" />
-            <span>Success Stories</span>
+            <span>{t('projects.badge')}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Featured Case Studies</h2>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">{t('projects.title')}</h2>
           <p className="text-slate-500 text-sm md:text-base max-w-xl leading-relaxed">
-            심미성을 넘어 <span className="text-brand-600 font-bold underline decoration-brand-200 decoration-2 underline-offset-4">데이터와 시스템</span>으로 <br />
-            복잡한 비즈니스 문제를 해결한 기록들입니다.
+            {language === 'ko' ? (
+              <>
+                심미성을 넘어 <span className="text-brand-600 font-bold underline decoration-brand-200 decoration-2 underline-offset-4">데이터와 시스템</span>으로 <br />
+                복잡한 비즈니스 문제를 해결한 기록들입니다.
+              </>
+            ) : (
+              <>
+                Solving complex business problems with <span className="text-brand-600 font-bold underline decoration-brand-200 decoration-2 underline-offset-4">data and systems</span>, <br />
+                beyond mere aesthetics.
+              </>
+            )}
           </p>
         </div>
 

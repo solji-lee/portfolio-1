@@ -1,6 +1,7 @@
 import React from 'react';
 import { Quote, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../lib/i18n';
 
 const testimonials = [
   {
@@ -27,16 +28,19 @@ const testimonials = [
 ];
 
 export const Recommendations: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-24 bg-white relative">
       <div className="max-w-6xl mx-auto px-8 lg:px-16 relative z-10">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
             <Linkedin size={14} />
-            <span>LinkedIn Recommendations</span>
+            <span>{t('rec.badge')}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">함께 일한 동료들의 한마디</h2>
-          <p className="text-slate-500 text-sm md:text-base">실무에서 함께 호흡을 맞춘 동료들에게 직접 물어봤습니다.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">{t('rec.title')}</h2>
+          <p className="text-slate-500 text-sm md:text-base">
+            {t('language') === 'ko' ? "실무에서 함께 호흡을 맞춘 동료들에게 직접 물어봤습니다." : "Insights from colleagues I've worked closely with."}
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
