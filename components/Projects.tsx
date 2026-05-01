@@ -27,8 +27,73 @@ interface ProjectData {
 
 const projects: ProjectData[] = [
   {
-    id: "hyundai-3d",
+    id: "systemic-icon",
     number: "Project 01",
+    title: { ko: "Systemic Icon", en: "Systemic Icon" },
+    tagline: { ko: "\"혼자서도 대기업 규모의 아이콘 시스템을 운용할 수 있다면?\"", en: "\"What if one designer could run an enterprise-scale icon system alone?\"" },
+    subtitle: "Side Project • Intelligent IconOps",
+    role: "Technical Designer • Developer",
+    description: {
+      ko: "디자이너가 아이콘 삽입 크기를 바꿀 때마다 선 두께를 수동으로 조정해야 하는 문제를 해결했습니다. Auto-Weight 엔진이 삽입 규칙을 기억하고, 피그마 5MB 용량 한계 내에서 4만 개 이상의 아이콘을 팀 전체가 버튼 하나로 동기화합니다.",
+      en: "Solved the pain of manually re-adjusting stroke weights every time an icon is resized. The Auto-Weight engine remembers insertion rules automatically, while the whole team syncs 40,000+ icons in one click—all within Figma's 5MB storage limit."
+    },
+    impactHighlights: {
+      ko: [
+        "피그마 저장 용량 한계(5MB) 극복: 4만개 아이콘 인덱싱",
+        "지능형 Auto-Weight 엔진으로 픽셀 완벽 대응",
+        "128바이트 초경량 데이터 포맷으로 팀 동기화 혁신"
+      ],
+      en: [
+        "Overcame Figma's 5MB limit: Indexed 40,000+ icons",
+        "Pixel-perfect response via Auto-Weight engine",
+        "Ultra-light 128-byte data format for team sync innovation"
+      ]
+    },
+    tags: ["Figma Plugin", "IconOps", "Data Compression", "React"],
+    backgroundColors: ["#0a0e1a", "#1e1b4b", "#1a1a1a"],
+    images: ["/SI_screen_gifs/2_Auto_Stroke_Demo.gif", "/systemic-icon-mockup.png"],
+    details: {
+      challenge: {
+        ko: [
+          "피그마 플러그인의 5MB 데이터 저장 용량 제한으로 대규모 아이콘 뱅크 운영 불가",
+          "아이콘 삽입 시마다 시스템에 맞는 선 두께(Stroke)를 일일이 수동 조절해야 하는 번거로움",
+          "Outline/Filled 등 다양한 스타일 파편화로 인한 관리 복잡성"
+        ],
+        en: [
+          "Inability to operate large icon banks due to Figma plugin's 5MB storage limit",
+          "Manual stroke adjustment for every inserted icon to match system rules",
+          "Management complexity due to fragmented styles (Outline/Filled)"
+        ]
+      },
+      solution: {
+        ko: [
+          "1비트 비트마스크 압축 알고리즘: 데이터 크기를 혁신적으로 절감하여 4만 개 아이콘 수용",
+          "지능형 Auto-Weight 엔진: 삽입 크기를 감지하여 선 두께(1px, 1.5px 등) 실시간 자동 설정",
+          "Unified Naming System: 아웃라인과 필드 타입을 단일 규칙으로 통합 관리하는 로직 구현"
+        ],
+        en: [
+          "1-bit Bitmask Compression: Reduced data size to accommodate 40,000+ icons",
+          "Auto-Weight Engine: Real-time stroke adjustment based on insertion size",
+          "Unified Naming System: Consolidated Outline/Filled styles under a single rule"
+        ]
+      },
+      impact: {
+        ko: [
+          "아이콘 관리 리소스 90% 이상 절감: 4만 개 아이콘의 즉각적인 인덱싱 및 검색",
+          "디자인 일관성 확보: 시스템화 된 선 두께 강제로 휴먼 에러 원천 차단",
+          "팀 협업 생산성 향상: 비트마스크 기반의 초고속 동기화로 협업 병목 해소"
+        ],
+        en: [
+          "90%+ Reduction in Icon Management: Instant indexing and search of 40,000+ icons",
+          "Guaranteed Design Consistency: Forced system stroke rules eliminate human error",
+          "Enhanced Team Synergy: Ultra-fast bitmask-based sync resolved collaboration bottlenecks"
+        ]
+      }
+    }
+  },
+  {
+    id: "hyundai-3d",
+    number: "Project 02",
     title: { ko: "기아차 3D 원격 제어 UXUI", en: "Kia 3D Remote Control UX/UI" },
     tagline: { ko: "\"3D 기술을 심미적 요소를 넘어, 사용성을 극대화하는 기능적 도구로 재해석하다.\"", en: "\"Reinterpreting 3D technology as a functional tool to maximize usability beyond aesthetics.\"" },
     subtitle: "Hyundai Motor Group",
@@ -98,7 +163,7 @@ const projects: ProjectData[] = [
   },
   {
     id: "design-system",
-    number: "Project 02",
+    number: "Project 03",
     title: { ko: "통합 디자인 시스템 구축 (H/K/G)", en: "Unified Design System (H/K/G)" },
     tagline: { ko: "\"3개 브랜드, 3벌의 파일을 '하나의 시스템'으로 통합하여 개발 효율과 규제 대응 속도를 혁신하다.\"", en: "\"Innovating dev efficiency and compliance speed by unifying 3 brands and 3 file sets into 'One System'.\"" },
     subtitle: "Design Ops • Multi-brand",
@@ -165,7 +230,7 @@ const projects: ProjectData[] = [
   },
   {
     id: "design-ops-ai",
-    number: "Project 03",
+    number: "Project 04",
     title: { ko: "피그마 플러그인 & 협업 툴 혁신", en: "Figma Plugin & Tool Innovation" },
     tagline: { ko: "\"보안과 언어의 장벽을 기술로 넘다. 워크플로우를 설계하고 도구를 만드는 Design Ops.\"", en: "\"Overcoming security and language barriers with tech. DesignOps that builds tools and workflows.\"" },
     subtitle: "Internal Productivity",
@@ -478,13 +543,15 @@ const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onCl
   );
 };
 
-const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> = ({ project, align }) => {
+const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right', onViewCaseStudy?: () => void }> = ({ project, align, onViewCaseStudy }) => {
   const { language } = useTranslation();
   const [openSection, setOpenSection] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
   };
+
+  const isSystemicIcon = project.id === 'systemic-icon';
 
   return (
     <div className={`flex flex-col lg:flex-row gap-4 lg:gap-16 items-start ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
@@ -531,41 +598,77 @@ const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right' }> =
           </div>
         </div>
 
-        {/* Accordions - order-3 on mobile, natural flow on desktop */}
+        {/* Accordions or Case Study Banner */}
         <div className="order-3 lg:order-none">
-          <div className="space-y-1">
-            <CaseStudyAccordion
-              title="The Challenge"
-              items={project.details.challenge[language]}
-              icon={AlertCircle}
-              colorClass="bg-red-50 text-red-500"
-              isOpen={openSection === 'challenge'}
-              onClick={() => toggleSection('challenge')}
-            />
-            <CaseStudyAccordion
-              title="The Solution"
-              items={project.details.solution[language]}
-              icon={Lightbulb}
-              colorClass="bg-indigo-50 text-brand-600"
-              isOpen={openSection === 'solution'}
-              onClick={() => toggleSection('solution')}
-            />
-            <CaseStudyAccordion
-              title="The Impact"
-              items={project.details.impact[language]}
-              icon={CheckCircle2}
-              colorClass="bg-emerald-50 text-emerald-600"
-              isOpen={openSection === 'impact'}
-              onClick={() => toggleSection('impact')}
-            />
-          </div>
+          {isSystemicIcon ? (
+            /* ── Case Study Banner for Systemic Icon ── */
+            <motion.button
+              onClick={onViewCaseStudy}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              className="w-full group overflow-hidden rounded-xl border border-slate-200 bg-white hover:border-brand-300 hover:shadow-md transition-all duration-300 cursor-pointer text-left"
+            >
+              <div className="w-full px-4 py-4 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="p-2.5 rounded-xl bg-brand-50 text-brand-600 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300 shrink-0">
+                    <ArrowRight size={18} />
+                  </div>
+                  <div>
+                    <div className="text-slate-900 font-bold text-[14px] md:text-[15px] mb-0.5 group-hover:text-brand-600 transition-colors duration-300">
+                      {language === 'ko' ? '풀 케이스 스터디 보기' : 'View Full Case Study'}
+                    </div>
+                    <div className="text-[12px] text-slate-500">
+                      {language === 'ko'
+                        ? 'Auto-Weight 엔진, 1비트 압축, 팀 협업 시스템 상세 분석'
+                        : 'Auto-Weight engine, 1-bit compression, team sync deep dive'}
+                    </div>
+                  </div>
+                </div>
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  className="text-brand-400 group-hover:text-brand-600 transition-colors duration-300"
+                >
+                  <ChevronRight size={18} />
+                </motion.div>
+              </div>
+            </motion.button>
+          ) : (
+            /* ── Standard Accordion for other projects ── */
+            <div className="space-y-1">
+              <CaseStudyAccordion
+                title="The Challenge"
+                items={project.details.challenge[language]}
+                icon={AlertCircle}
+                colorClass="bg-red-50 text-red-500"
+                isOpen={openSection === 'challenge'}
+                onClick={() => toggleSection('challenge')}
+              />
+              <CaseStudyAccordion
+                title="The Solution"
+                items={project.details.solution[language]}
+                icon={Lightbulb}
+                colorClass="bg-indigo-50 text-brand-600"
+                isOpen={openSection === 'solution'}
+                onClick={() => toggleSection('solution')}
+              />
+              <CaseStudyAccordion
+                title="The Impact"
+                items={project.details.impact[language]}
+                icon={CheckCircle2}
+                colorClass="bg-emerald-50 text-emerald-600"
+                isOpen={openSection === 'impact'}
+                onClick={() => toggleSection('impact')}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export const Projects: React.FC = () => {
+export const Projects: React.FC<{ onViewCaseStudy?: () => void }> = ({ onViewCaseStudy }) => {
   const { t, language } = useTranslation();
   return (
     <section id="projects" className="py-12 md:py-20 px-6 md:px-12 lg:px-24 bg-white relative">
@@ -597,6 +700,7 @@ export const Projects: React.FC = () => {
               key={project.id}
               project={project}
               align={idx % 2 === 0 ? 'left' : 'right'}
+              onViewCaseStudy={onViewCaseStudy}
             />
           ))}
         </div>

@@ -23,6 +23,20 @@ const STORAGE_KEY = 'solji-insights-data-v2';
 
 export const defaultData: InsightItem[] = [
     {
+        id: 0,
+        type: 'resource',
+        titleKo: 'Systemic Icon — 기업용 고성능 아이콘 엔진',
+        titleEn: 'Systemic Icon — High-Performance Icon Engine for Enterprise',
+        descriptionKo: '4만 개 이상의 아이콘을 피그마 라이브러리 없이 관리하세요. 삽입 크기에 따라 선 두께를 자동 조절하는 Auto-Weight, 선형/면형 스타일 통합 검색, 서버리스 팀 공유까지. 1비트 비트마스크 압축 기술로 가볍고 빠르게.',
+        descriptionEn: 'Manage 40,000+ icons without a Figma library. Features Auto-Weight (automatic stroke scaling on insert), unified Outlined & Filled search, and serverless team sharing — all powered by 1-bit bitmask compression for maximum performance.',
+        tags: ['Figma Plugin', 'IconOps', 'Open Source'],
+        links: [
+            { lang: 'Figma Community', platform: 'Figma', url: '#', iconName: 'Figma' },
+            { lang: 'GitHub', platform: 'Github', url: 'https://github.com/solji-lee/systemic-icon', iconName: 'Github' }
+        ],
+        createdAt: '2026-04-01T00:00:00Z'
+    },
+    {
         id: 1,
         type: 'article',
         titleKo: '디자인 시스템에 AI 도입하기: Vibe Coding과 MCP 활용기',

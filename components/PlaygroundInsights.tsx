@@ -32,8 +32,16 @@ export const PlaygroundInsights: React.FC = () => {
         { id: 'press', label: t('insights.filter.press') }
     ];
 
+    const loadData = () => setAllData(getInsightsData());
+
     useEffect(() => {
-        setAllData(getInsightsData());
+        loadData();
+        // Admin 탭에서 localStorage 변경 시 실시간 반영
+        const handleStorage = (e: StorageEvent) => {
+            if (e.key === 'solji-insights-data-v2') loadData();
+        };
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
     }, []);
 
     const filteredData = allData

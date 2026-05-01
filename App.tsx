@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
@@ -10,8 +10,48 @@ import { Contact } from './components/Contact';
 import { Recommendations } from './components/Recommendations';
 import { PlaygroundInsights } from './components/PlaygroundInsights';
 import { LanguageProvider } from './lib/i18n';
+import { SystemicIconPage } from './components/SystemicIconPage';
+
+type Page = 'home' | 'systemic-icon';
 
 const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<Page>(() => {
+    // Support direct linking via hash
+    return window.location.hash === '#systemic-icon' ? 'systemic-icon' : 'home';
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentPage(window.location.hash === '#systemic-icon' ? 'systemic-icon' : 'home');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const navigateToCaseStudy = () => {
+    window.location.hash = '#systemic-icon';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const navigateHome = () => {
+    window.location.hash = '';
+    // Small delay to let state update, then scroll to projects
+    setTimeout(() => {
+      const el = document.getElementById('projects');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  if (currentPage === 'systemic-icon') {
+    return (
+      <LanguageProvider>
+        <SpeedInsights />
+        <Analytics />
+        <SystemicIconPage onBack={navigateHome} />
+      </LanguageProvider>
+    );
+  }
+
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-slate-50 text-slate-800 selection:bg-brand-100 selection:text-brand-900 font-sans overflow-x-hidden">
@@ -22,7 +62,7 @@ const App: React.FC = () => {
         <main className="relative z-10">
           <Hero />
           <PlaygroundInsights />
-          <Projects />
+          <Projects onViewCaseStudy={navigateToCaseStudy} />
           <SpecialLab />
           <About />
           <Recommendations />
