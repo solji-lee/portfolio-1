@@ -1,10 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Layout, Cpu, Zap, ArrowDown, Users } from 'lucide-react';
+import { ArrowUpRight, Code, Layout, Cpu, Zap, Users } from 'lucide-react';
 import { useTranslation } from '../lib/i18n';
+import { PortfolioExportPacket, getPacketHeroAssetSrc } from '../lib/portfolioPacket';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  featuredPacket?: PortfolioExportPacket | null;
+  onOpenCaseStudy?: (slug: string) => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ featuredPacket, onOpenCaseStudy }) => {
   const { t } = useTranslation();
+  const featuredAssetSrc = featuredPacket ? getPacketHeroAssetSrc(featuredPacket) : null;
 
   const scrollToSection = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -76,6 +83,73 @@ export const Hero: React.FC = () => {
               </div>
             ))}
           </motion.div>
+
+          {featuredPacket?.homePromotions.hero.enabled && (
+            <motion.button
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              onClick={() => onOpenCaseStudy?.(featuredPacket.sourceSlug)}
+              className="w-full max-w-3xl overflow-hidden rounded-[28px] border border-slate-200 bg-white/90 text-left shadow-[0_24px_80px_-36px_rgba(15,23,42,0.42)] backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-slate-300"
+            >
+              <div className="grid gap-6 p-5 md:grid-cols-[1.1fr_0.9fr] md:p-6">
+                <div className="flex flex-col justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.28em] text-indigo-600">
+                      <span className="h-2 w-2 rounded-full bg-indigo-500" />
+                      From sj_tool export packet
+                    </div>
+                    <h3 className="mt-4 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+                      {featuredPacket.homePromotions.hero.title}
+                    </h3>
+                    {featuredPacket.homePromotions.hero.subtitle && (
+                      <p className="mt-3 text-[15px] font-medium leading-7 text-slate-500">
+                        {featuredPacket.homePromotions.hero.subtitle}
+                      </p>
+                    )}
+                    <p className="mt-4 text-sm leading-7 text-slate-600">
+                      {featuredPacket.homePromotions.hero.summary}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <span className="rounded-full border border-slate-200 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                      Case Study
+                    </span>
+                    <span className="rounded-full border border-slate-200 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                      {featuredPacket.meta.contentSource}
+                    </span>
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+                      {featuredPacket.homePromotions.hero.ctaLabel || '케이스 스터디 보기'}
+                      <ArrowUpRight size={16} />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="relative min-h-[220px] overflow-hidden rounded-[22px] border border-slate-200 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-800">
+                  {featuredAssetSrc ? (
+                    <img
+                      src={featuredAssetSrc}
+                      alt={featuredPacket.homePromotions.hero.asset?.alt || featuredPacket.homePromotions.hero.title}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full flex-col justify-end p-5 text-white">
+                      <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-indigo-200">
+                        Portfolio Hero
+                      </p>
+                      <p className="mt-3 text-2xl font-black tracking-tight">
+                        {featuredPacket.meta.title}
+                      </p>
+                      <p className="mt-3 text-sm leading-7 text-slate-200">
+                        브런치 원고 기반으로 생성된 포트폴리오 packet을 홈에서 바로 소비합니다.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.button>
+          )}
         </div>
 
         {/* Right Visual Element - Character Image */}

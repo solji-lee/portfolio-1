@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
@@ -11,25 +11,100 @@ import { Recommendations } from './components/Recommendations';
 import { PlaygroundInsights } from './components/PlaygroundInsights';
 import { LanguageProvider } from './lib/i18n';
 import { SystemicIconPage } from './components/SystemicIconPage';
+import { PortfolioPacketCaseStudyPage } from './components/PortfolioPacketCaseStudyPage';
+import {
+  PortfolioExportPacket,
+  fetchPortfolioPacket,
+  getFeaturedPacketSlugs,
+} from './lib/portfolioPacket';
 
-type Page = 'home' | 'systemic-icon';
+type Page =
+  | { kind: 'home' }
+  | { kind: 'systemic-icon' }
+  | { kind: 'packet-case-study'; slug: string };
+
+const FEATURED_PACKET_SLUGS = getFeaturedPacketSlugs();
+
+function parseHash(hash: string): Page {
+  const normalized = hash.replace(/^#/, '').trim();
+
+  if (normalized === 'systemic-icon') {
+    return { kind: 'systemic-icon' };
+  }
+
+  if (normalized.startsWith('case-study/')) {
+    const slug = decodeURIComponent(normalized.slice('case-study/'.length));
+    if (slug) {
+      return { kind: 'packet-case-study', slug };
+    }
+  }
+
+  return { kind: 'home' };
+}
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>(() => {
-    // Support direct linking via hash
-    return window.location.hash === '#systemic-icon' ? 'systemic-icon' : 'home';
-  });
+  const [currentPage, setCurrentPage] = useState<Page>(() => parseHash(window.location.hash));
+  const [packetMap, setPacketMap] = useState<Record<string, PortfolioExportPacket>>({});
+  const [packetErrors, setPacketErrors] = useState<Record<string, string>>({});
+  const [loadingSlugs, setLoadingSlugs] = useState<string[]>([]);
+  const requestedSlugsRef = useRef(new Set<string>());
 
   useEffect(() => {
     const handleHashChange = () => {
-      setCurrentPage(window.location.hash === '#systemic-icon' ? 'systemic-icon' : 'home');
+      setCurrentPage(parseHash(window.location.hash));
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  const loadPacket = useEffectEvent(async (slug: string) => {
+    if (!slug || requestedSlugsRef.current.has(slug)) {
+      return;
+    }
+
+    requestedSlugsRef.current.add(slug);
+    setLoadingSlugs((prev) => [...prev, slug]);
+    setPacketErrors((prev) => {
+      const next = { ...prev };
+      delete next[slug];
+      return next;
+    });
+
+    try {
+      const packet = await fetchPortfolioPacket(slug);
+      setPacketMap((prev) => ({ ...prev, [slug]: packet }));
+    } catch (error) {
+      requestedSlugsRef.current.delete(slug);
+      setPacketErrors((prev) => ({
+        ...prev,
+        [slug]: error instanceof Error ? error.message : 'Failed to load export packet',
+      }));
+    } finally {
+      setLoadingSlugs((prev) => prev.filter((item) => item !== slug));
+    }
+  });
+
+  useEffect(() => {
+    FEATURED_PACKET_SLUGS.forEach((slug) => {
+      void loadPacket(slug);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (currentPage.kind === 'packet-case-study') {
+      void loadPacket(currentPage.slug);
+    }
+  }, [currentPage]);
+
+  const featuredPacket = packetMap[FEATURED_PACKET_SLUGS[0] || ''] || null;
+
   const navigateToCaseStudy = () => {
     window.location.hash = '#systemic-icon';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const navigateToPacketCaseStudy = (slug: string) => {
+    window.location.hash = `#case-study/${encodeURIComponent(slug)}`;
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -42,12 +117,31 @@ const App: React.FC = () => {
     }, 100);
   };
 
-  if (currentPage === 'systemic-icon') {
+  if (currentPage.kind === 'systemic-icon') {
     return (
       <LanguageProvider>
         <SpeedInsights />
         <Analytics />
         <SystemicIconPage onBack={navigateHome} />
+      </LanguageProvider>
+    );
+  }
+
+  if (currentPage.kind === 'packet-case-study') {
+    const packet = packetMap[currentPage.slug] || null;
+    const packetError = packetErrors[currentPage.slug] || null;
+    const isPacketLoading = loadingSlugs.includes(currentPage.slug);
+
+    return (
+      <LanguageProvider>
+        <SpeedInsights />
+        <Analytics />
+        <PortfolioPacketCaseStudyPage
+          packet={packet}
+          onBack={navigateHome}
+          isLoading={isPacketLoading}
+          error={packetError}
+        />
       </LanguageProvider>
     );
   }
@@ -60,10 +154,10 @@ const App: React.FC = () => {
         <Analytics />
 
         <main className="relative z-10">
-          <Hero />
+          <Hero featuredPacket={featuredPacket} onOpenCaseStudy={navigateToPacketCaseStudy} />
           <PlaygroundInsights />
           <Projects onViewCaseStudy={navigateToCaseStudy} />
-          <SpecialLab />
+          <SpecialLab featuredPacket={featuredPacket} onOpenCaseStudy={navigateToPacketCaseStudy} />
           <About />
           <Recommendations />
         </main>
