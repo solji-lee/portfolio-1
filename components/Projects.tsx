@@ -33,23 +33,23 @@ const projects: ProjectData[] = [
     id: "hyundai-3d",
     number: "Project 01",
     title: { ko: "기아 EV9 3D 원격 제어", en: "Kia EV9 3D Remote Control" },
-    tagline: { ko: "공용 2D 이미지와 버튼 나열에서, 내 차를 보면서 제어하는 화면으로", en: "From a generic 2D silhouette and a stack of buttons to controlling the car while looking at it" },
+    tagline: { ko: "공용 2D 이미지와 버튼 나열 대신, 내 차를 보면서 제어하는 화면", en: "Instead of a shared 2D silhouette and a stack of buttons, a screen where you control the car while looking at it" },
     subtitle: "Kia · Hyundai · Genesis App",
     role: "Product Design • 3D Interaction",
     description: {
-      ko: "EV9 전용 서비스. 세단·SUV·해치백 세 종류로 공용화돼 있던 2D 원격 제어 페이지에 3D 모델을 도입해, 차량 상태와 제어 상태를 텍스트가 아니라 눈으로 확인하게 했습니다.",
-      en: "An EV9-only service. The remote control page shared one of three 2D silhouettes across all models. A 3D model replaced it, so vehicle and control states are seen, not read."
+      ko: "EV9 전용. 원격 제어 화면은 세단·SUV·해치백 3종 공용 2D 이미지에 버튼을 나열한 구조였음. 여기에 3D 모델을 넣어 도어·트렁크·공조·충전 상태를 차 위에서 바로 보이게 함.",
+      en: "EV9 only. The remote control screen was one of three shared 2D silhouettes with buttons stacked on top. A 3D model replaced it, so door, trunk, climate and charging states show on the car itself."
     },
     impactHighlights: {
       ko: [
         "3D 모델 + 애니메이션 UI, 디자인 특허 출원",
-        "EV9 양산 탑재, 최초 실행 웰커밍 애니메이션",
-        "차종별 카메라 높이·중심점·회전 범위 규칙화"
+        "EV9 양산 적용, 최초 실행 웰커밍 애니메이션",
+        "차종별 카메라 높이·중심점·회전 범위 규칙 정의"
       ],
       en: [
         "Design patent filed for the 3D + animation UI",
-        "Shipped on EV9, with a first-launch welcome animation",
-        "Per-model camera height, pivot and rotation rules"
+        "Shipped on EV9, welcome animation on first launch",
+        "Per-model rules for camera height, pivot and rotation range"
       ]
     },
     tags: ["3D Interaction", "Real-time Status", "Motion"],
@@ -63,54 +63,54 @@ const projects: ProjectData[] = [
     details: {
       challenge: {
         ko: [
-          "공용 2D 이미지 + 버튼 중심 제어: 도어·충전 같은 상태가 한눈에 안 읽힘, '내 차'라는 느낌 없음",
-          "차종별 색상·크기 상이: 2D UI 안에서 높이·중심점·최대 회전 범위를 모델마다 따로 잡아야 함",
-          "모바일 3D 렌더링 부하: 발열·로딩 없이 0.5초 내 반응"
+          "공용 2D 이미지: 문 열림, 충전 중 같은 상태가 텍스트와 버튼 색으로만 표시돼 한눈에 안 들어옴. 내 차 같지도 않음",
+          "차종별 형상 차이: 모델마다 색·크기·비율이 달라 같은 2D 레이아웃 안에서 카메라 높이, 중심점, 회전 한계를 모델별로 따로 잡아야 했음",
+          "모바일 3D 부하: 발열·로딩 없이 0.5초 안에 상태 변화가 보여야 함"
         ],
         en: [
-          "Generic 2D image + button-centric control: door and charging states hard to read at a glance, no sense of 'my car'",
-          "Colour and size differ per model: height, pivot and max rotation had to be set per model inside one 2D layout",
-          "3D rendering cost on mobile: respond within 0.5s without heat or loading"
+          "Shared 2D image: open doors or charging shown only as text and button colour, hard to read at a glance, and it never looks like your car",
+          "Every model differs: colour, size and proportions change per model, so camera height, pivot and rotation limits had to be set one by one inside the same 2D layout",
+          "3D on a phone: state changes must appear within 0.5 s with no heat or loading"
         ]
       },
       solution: {
         ko: [
-          "상태의 시각화: 도어·트렁크·공조·충전 상태를 텍스트 대신 3D 모델 위에 표시, 주행 중에도 빠르게 확인",
-          "차량 중심 트랜지션: 제어 페이지 이동 시 차량을 축으로 카메라 이동, 화면 연결성 유지",
-          "차종별 파라미터: 카메라 높이·중심점·회전 범위를 규칙으로 정의, 폴리곤·텍스처 가이드 수립",
-          "3D 전용 UI: 버튼 state·레이아웃·플로우·색상을 2D 버전과 다르게 설계"
+          "상태 시각화: 도어·트렁크·공조·충전 상태를 텍스트 대신 3D 모델 위에 표시. 주행 중에도 흘깃 보면 읽힘",
+          "차량 중심 트랜지션: 제어 페이지로 들어갈 때 카메라가 차를 축으로 돌아 화면이 끊기지 않음",
+          "차종별 파라미터: 카메라 높이·중심점·회전 범위를 모델별 값으로 정의. 모델이 추가돼도 레이아웃이 안 깨짐. 폴리곤·텍스처 가이드로 개발 부하 줄임",
+          "3D 전용 UI: 모델이 주인공이 되도록 버튼 상태, 레이아웃, 플로우, 색을 2D 버전과 다르게 잡음"
         ],
         en: [
-          "Visualised state: door, trunk, climate and charging shown on the 3D model instead of text, quick to check even while driving",
-          "Vehicle-centred transitions: camera orbits the car when entering a control page, keeping continuity",
-          "Per-model parameters: camera height, pivot and rotation defined as rules, plus polygon and texture guidelines",
-          "3D-specific UI: button states, layout, flow and colour designed apart from the 2D version"
+          "State on the model: door, trunk, climate and charging shown on the 3D car instead of text. A glance while driving is enough",
+          "Car-centred transitions: entering a control page orbits the camera around the car, so the screen never cuts",
+          "Per-model parameters: camera height, pivot and rotation range defined per model. New models don't break the layout. Polygon and texture guidelines keep dev load down",
+          "UI built for 3D: button states, layout, flow and colour set apart from the 2D version so the model stays the hero"
         ]
       },
       impact: {
         ko: [
           "디자인 특허 출원",
-          "기아 EV9 양산 서비스 탑재",
-          "상태 인지 속도 향상, 첨단 브랜드 이미지 (정성 평가)"
+          "기아 EV9 양산 탑재",
+          "내부 평가: 상태 인지 빨라짐, 기술 브랜드 이미지에 기여"
         ],
         en: [
           "Design patent filed",
-          "Shipped in the Kia EV9 production service",
-          "Faster state recognition, stronger tech image (qualitative)"
+          "Shipped in the Kia EV9",
+          "Internal review: faster state recognition, stronger tech image"
         ]
       }
     }
   },
   {
     id: "design-system",
-    number: "Project 02",
+    number: "Project 04",
     title: { ko: "현대·기아·제네시스 통합 디자인 시스템", en: "Hyundai · Kia · Genesis Unified Design System" },
-    tagline: { ko: "세 브랜드, 세 벌의 파일을 한 벌로. 모드 전환으로 세 앱의 디자인 산출", en: "Three brands, three file sets, one master. Switch a mode, get all three apps" },
+    tagline: { ko: "세 브랜드 세 벌의 파일을 한 벌로. 모드 전환 하나로 세 앱 디자인이 나옴", en: "Three brands, three file sets, one master. Switch a mode and all three apps come out" },
     subtitle: "Design Ops · Multi-brand",
     role: "Design System Lead",
     description: {
-      ko: "브랜드별로 따로 운영하던 디자인 파일을 Figma Variables로 토큰화해 마스터 파일 한 벌로 통합. 프로젝트 중간에 들어온 유럽 접근성 법안(EAA) 대응도 일정 지연 없이 처리했습니다.",
-      en: "Separate brand design files tokenised with Figma Variables and merged into one master. The European Accessibility Act (EAA) requirement that landed mid-project was handled without delay."
+      ko: "브랜드별로 따로 굴리던 디자인 파일을 Figma Variables로 토큰화해 마스터 파일 한 벌로 합침. 프로젝트 중간에 들어온 유럽 접근성 법안(EAA) 대응도 일정 지연 없이 처리.",
+      en: "Design files run separately per brand, tokenised with Figma Variables and merged into one master. The European Accessibility Act (EAA) requirement that landed mid-project was handled with no schedule slip."
     },
     impactHighlights: {
       ko: [
@@ -125,6 +125,7 @@ const projects: ProjectData[] = [
       ]
     },
     tags: ["Design System", "Figma Variables", "Multi-brand"],
+    
     backgroundColors: [
       "#1a1a1a", "#1a1a1a", "#1a1a1a", "#f5f5f5", "#f8f8f8", "#f0f0f0", "#f5f5f5"
     ],
@@ -134,50 +135,50 @@ const projects: ProjectData[] = [
     details: {
       challenge: {
         ko: [
-          "N × 3 비효율: 브랜드마다 라이브러리·스크린 파일 별도 운영, 단순 수정도 3회 반복, 휴먼 에러 증가",
-          "중간에 들어온 EAA: 기존 방식이면 수백 장 수동 수정 또는 라이브러리 스왑, 일정 지연 불가피"
+          "N × 3: 브랜드마다 라이브러리와 스크린 파일을 따로 운영. 단순 수정도 세 번 반복, 그만큼 실수도 늘어남",
+          "중간에 들어온 EAA: 기존 방식이면 수백 장을 손으로 고치거나 라이브러리를 통째로 바꿔야 했음. 일정 지연 확정"
         ],
         en: [
-          "N × 3 inefficiency: separate libraries and screen files per brand, every change done three times, more human error",
-          "EAA landed mid-project: hundreds of screens to hand-edit or a full library swap under the old setup"
+          "N × 3: separate libraries and screen files per brand. Every change done three times, three chances to slip",
+          "EAA mid-project: under the old setup, hundreds of screens to hand-edit or a full library swap. A guaranteed delay"
         ]
       },
       solution: {
         ko: [
-          "변수 기반 통합 (3 → 1): 컬러·폰트·코너 라운드를 토큰화, 모드 전환으로 브랜드별 디자인 즉시 산출",
-          "EAA 모드: 라이브러리 스왑 없이 변수 추가로 명도 대비·텍스트 크기 시뮬레이션",
-          "공통 컴포넌트: 코드에서도 브랜드별 스타일 값만 호출하는 구조"
+          "변수 기반 통합(3 → 1): 컬러·폰트·코너 라운드를 토큰화. 모드 전환으로 브랜드별 디자인이 바로 나옴",
+          "EAA 모드: 라이브러리를 바꾸지 않고 변수만 추가해 명도 대비·텍스트 크기 이슈를 파일 안에서 바로 확인",
+          "공통 컴포넌트: 코드에서도 브랜드별 스타일 값만 호출하는 구조. 디자인–개발 리드타임 줄임"
         ],
         en: [
-          "Variable-based merge (3 → 1): colour, type and radius tokenised, brand designs output by switching a mode",
-          "EAA mode: contrast and text-size simulation by adding variables, no library swap",
-          "Shared components: code structure that calls only brand style values"
+          "Variable-based merge (3 → 1): colour, type and radius tokenised. Switch a mode, get each brand's design",
+          "EAA mode: variables added instead of swapping libraries, contrast and text-size issues checked inside the file",
+          "Shared components: code calls only brand style values. Shorter design-to-dev lead time"
         ]
       },
       impact: {
         ko: [
           "파일 관리·유지보수 리소스 66% 절감",
           "세 브랜드 앱 동시 업데이트 가능한 배포 흐름",
-          "EAA 지연 없이 대응, 변수 모드 테스트 방식은 글로벌 표준 매뉴얼로 채택"
+          "EAA 지연 없이 대응. 변수 모드 테스트 방식은 글로벌 확장 표준 매뉴얼로 채택"
         ],
         en: [
           "66% less file management and maintenance",
           "A release flow that updates all three brand apps together",
-          "EAA met without delay; the variable-mode test approach adopted as the global standard"
+          "EAA met without delay. The variable-mode test became the standard manual for global rollout"
         ]
       }
     }
   },
   {
     id: "design-ops-ai",
-    number: "Project 03",
+    number: "Project 05",
     title: { ko: "32개 언어 디자인 워크플로우", en: "32-language Design Workflow" },
-    tagline: { ko: "32개 언어 검수와 끊어진 Jira 연동을, 디자인 팀이 직접 만든 플러그인으로", en: "32-language QA and a severed Jira link, solved with plugins the design team built itself" },
+    tagline: { ko: "32개 언어 검수와 끊어진 Jira 연동, 디자인 팀이 직접 만든 플러그인으로 해결", en: "32-language QA and a severed Jira link, fixed with plugins the design team built" },
     subtitle: "Hyundai Motor Group · Internal Tools",
     role: "Product Owner • Tool Design",
     description: {
-      ko: "글로벌 앱은 32개 언어로 나갑니다. 언어별 UI 깨짐을 사람이 다 볼 수 없었고, 보안 정책 때문에 Jira와 Figma 연동도 막혀 있었습니다. 둘 다 내부 도구로 풀기로 하고, 기획부터 로직 설계까지 PO 역할로 사내 개발팀과 함께 만들었습니다.",
-      en: "The app ships in 32 languages. Nobody could check every layout break by eye, and security policy blocked the Jira to Figma integration. Both became internal tools; I took the product owner role from spec to logic design, working with the in-house dev team."
+      ko: "글로벌 앱은 32개 언어로 나감. 언어별 UI 깨짐을 사람이 다 볼 수 없었고, 보안 정책 때문에 Jira–Figma 연동도 막혀 있었음. 둘 다 내부 도구로 풀기로 하고 기획부터 로직 설계까지 PO로 참여, 사내 개발팀과 함께 만듦.",
+      en: "The app ships in 32 languages. Nobody could check every layout break by eye, and security policy blocked the Jira–Figma integration. Both became internal tools. I was product owner from spec to logic design, building with the in-house dev team."
     },
     impactHighlights: {
       ko: [
@@ -202,36 +203,36 @@ const projects: ProjectData[] = [
     details: {
       challenge: {
         ko: [
-          "32개 언어 검수: 언어별 UI 깨짐·오역을 사람이 일일이 확인, 놓친 건 QA에서 되돌아옴",
-          "보안망 단절: Jira–Figma 표준 연동 차단, 디자이너가 보안망 안팎을 오가며 티켓 확인"
+          "32개 언어 검수: 언어별 UI 깨짐·오역을 사람이 눈으로 확인. 놓친 건 QA에서 되돌아옴",
+          "보안망 단절: Jira–Figma 표준 연동이 막혀 디자이너가 보안망 안팎을 오가며 티켓 확인"
         ],
         en: [
-          "32-language QA: layout breaks and mistranslations checked by eye, misses bounced back from QA",
-          "Firewall gap: standard Jira–Figma integration blocked, designers crossing networks to check tickets"
+          "32-language QA: layout breaks and mistranslations checked by eye. Misses came back from QA",
+          "Firewall gap: the standard Jira–Figma integration blocked, designers crossing networks just to check a ticket"
         ]
       },
       solution: {
         ko: [
-          "Lokalise 파이프라인: 번역 스트링을 Figma Variables로 자동 변환·주입, 모드 전환으로 32개 언어 미리보기",
-          "Jira 플러그인: 보안 정책 허용 범위 안에서 티켓 데이터를 호출, 피그마 안에서 디자인에 연결된 티켓 상태 동기화",
-          "AI QA (진행 중): MCP로 LLM이 언어별 오버플로우·문맥 오류를 먼저 걸러내는 구조"
+          "Lokalise 파이프라인: 번역 스트링을 Figma Variables로 자동 변환·주입. 모드 전환으로 32개 언어를 화면에서 바로 봄",
+          "Jira 플러그인: 보안 정책이 허용하는 범위에서 티켓 데이터를 호출. 피그마 안에서 디자인에 연결된 티켓 상태를 봄",
+          "AI QA(진행 중): MCP로 LLM이 언어별 오버플로우·문맥 오류를 먼저 걸러내는 구조"
         ],
         en: [
-          "Lokalise pipeline: translation strings converted and injected as Figma Variables, 32 languages previewed by switching modes",
-          "Jira plugin: ticket data fetched within what security policy allows, ticket status synced to designs inside Figma",
-          "AI QA (in progress): MCP lets an LLM flag per-language overflow and context errors first"
+          "Lokalise pipeline: translation strings converted and injected as Figma Variables. Switch a mode, see any of 32 languages on screen",
+          "Jira plugin: ticket data fetched within what security policy allows. Ticket status visible on the design inside Figma",
+          "AI QA (in progress): an LLM via MCP flags per-language overflow and context errors first"
         ]
       },
       impact: {
         ko: [
-          "QA에서 돌아오던 다국어 이슈를 디자인 단계로 앞당김",
-          "기획–디자인–개발 사이 끊긴 연결 복구, 히스토리 자동 기록",
-          "'불편은 기술로 푼다'는 팀 문화 정착"
+          "QA에서 돌아오던 다국어 이슈를 디자인 단계에서 잡음",
+          "기획–디자인–개발 연결 복구, 히스토리 자동 기록",
+          "'불편은 기술로 푼다'는 팀 습관"
         ],
         en: [
           "Localisation issues caught at design time instead of QA",
-          "Planning–design–dev link restored, history recorded automatically",
-          "A team habit of solving friction with tools"
+          "Planning–design–dev link restored, history recorded on its own",
+          "A team habit: fix friction with tools"
         ]
       }
     }
