@@ -23,7 +23,7 @@ export const Hero: React.FC = () => {
 
           {/* w-fit container takes the title's width; the paragraph (w-0 min-w-full) wraps to it at every breakpoint */}
           <div className="w-fit">
-            <h1 className="font-display italic text-[52px] md:text-[80px] lg:text-[96px] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
+            <h1 className="font-display italic text-[clamp(60px,10vw,96px)] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
               {t('hero.title.1')}<br />
               <span className="text-brand-600">{t('hero.title.2')}</span>
             </h1>
@@ -32,19 +32,19 @@ export const Hero: React.FC = () => {
               {t('hero.desc')}
               <span className="text-slate-900 font-medium">{t('hero.desc.strong')}<span className="border-b-2 border-slate-900 pb-0.5">{t('hero.desc.name')}</span>{t('hero.desc.end')}</span>
             </p>
+
+            <motion.ul
+              className="w-0 min-w-full flex flex-wrap gap-x-5 gap-y-2 mt-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              {skills.map((s) => (
+                <li key={s} className="text-[13px] text-slate-500 whitespace-nowrap before:content-['—'] before:mr-2 before:text-slate-300">{s}</li>
+              ))}
+            </motion.ul>
           </div>
         </motion.div>
-
-        <motion.ul
-          className="flex flex-wrap gap-x-5 gap-y-2 mt-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-        >
-          {skills.map((s) => (
-            <li key={s} className="text-[13px] text-slate-500 before:content-['—'] before:mr-2 before:text-slate-300">{s}</li>
-          ))}
-        </motion.ul>
 
         <motion.a
           href="#projects"
