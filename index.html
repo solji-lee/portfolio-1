@@ -110,13 +110,14 @@
 
     /* Hero title: blue → deep navy → purple, drifting slowly across the text */
     .text-flow {
-      background-image: linear-gradient(100deg, #2b5cff 0%, #1b2d7a 28%, #6d3df5 55%, #3f7bff 78%, #2b5cff 100%);
-      background-size: 250% 100%;
+      /* electric blue → deep navy → indigo → a brief cyan highlight → back to blue */
+      background-image: linear-gradient(100deg, #2f5bff 0%, #15245e 26%, #4f5df0 50%, #38b6ff 66%, #2f5bff 84%, #15245e 100%);
+      background-size: 300% 100%;
       background-position: 0% 50%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: text-flow 9s ease-in-out infinite alternate;
+      animation: text-flow 12s ease-in-out infinite alternate;
     }
 
     @keyframes text-flow {
@@ -126,22 +127,23 @@
 
     /* Dot-matrix texture: the glyphs are 45% solid + a grid of dots that drifts diagonally */
     .text-dots {
+      /* fine grain: 72% solid base + a 5px micro-dot grid, so it reads as texture, not a display */
       -webkit-mask-image:
-        radial-gradient(circle, #000 1.15px, transparent 1.6px),
-        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
+        radial-gradient(circle, #000 0.75px, transparent 1.15px),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72));
       mask-image:
-        radial-gradient(circle, #000 1.15px, transparent 1.6px),
-        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
-      -webkit-mask-size: 7px 7px, 100% 100%;
-      mask-size: 7px 7px, 100% 100%;
+        radial-gradient(circle, #000 0.75px, transparent 1.15px),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72));
+      -webkit-mask-size: 5px 5px, 100% 100%;
+      mask-size: 5px 5px, 100% 100%;
       -webkit-mask-position: 0 0, 0 0;
       mask-position: 0 0, 0 0;
-      animation: text-flow 9s ease-in-out infinite alternate, text-dots 14s linear infinite;
+      animation: text-flow 12s ease-in-out infinite alternate, text-dots 24s linear infinite;
     }
 
     @keyframes text-dots {
       from { -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; }
-      to { -webkit-mask-position: 70px 35px, 0 0; mask-position: 70px 35px, 0 0; }
+      to { -webkit-mask-position: 50px 25px, 0 0; mask-position: 50px 25px, 0 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
