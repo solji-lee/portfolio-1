@@ -25,7 +25,7 @@ export const Hero: React.FC = () => {
           <div className="w-fit">
             <h1 className="font-display italic text-[clamp(60px,10vw,96px)] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
               {t('hero.title.1')}<br />
-              <span className="text-brand-600">{t('hero.title.2')}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-brand-500 to-[#6b9bff] pr-1">{t('hero.title.2')}</span>
             </h1>
 
             <p className="w-0 min-w-full text-[15px] md:text-[17px] text-slate-600 leading-[1.7]">
