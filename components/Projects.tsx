@@ -171,6 +171,7 @@ const projects: ProjectData[] = [
   },
   {
     id: "design-ops-ai",
+    hidden: true,
     number: "Project 05",
     title: { ko: "32개 언어 디자인 워크플로우", en: "32-language Design Workflow" },
     tagline: { ko: "32개 언어 검수와 끊어진 Jira 연동, 디자인 팀이 직접 만든 플러그인으로 해결", en: "32-language QA and a severed Jira link, fixed with plugins the design team built" },
