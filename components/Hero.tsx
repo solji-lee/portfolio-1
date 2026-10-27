@@ -21,15 +21,18 @@ export const Hero: React.FC = () => {
             {t('hero.badge')}
           </div>
 
-          <h1 className="font-display italic text-[52px] md:text-[80px] lg:text-[96px] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-4">
-            {t('hero.title.1')}<br />
-            <span className="text-brand-600">{t('hero.title.2')}</span>
-          </h1>
+          {/* w-fit container takes the title's width; the paragraph (w-0 min-w-full) wraps to it at every breakpoint */}
+          <div className="w-fit">
+            <h1 className="font-display italic text-[52px] md:text-[80px] lg:text-[96px] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
+              {t('hero.title.1')}<br />
+              <span className="text-brand-600">{t('hero.title.2')}</span>
+            </h1>
 
-          <p className="text-[15px] md:text-[17px] text-slate-600 leading-[1.7] max-w-[36rem]">
-            {t('hero.desc')}
-            <span className="text-slate-900 font-medium">{t('hero.desc.strong')}<span className="border-b-2 border-slate-900 pb-0.5">{t('hero.desc.name')}</span>{t('hero.desc.end')}</span>
-          </p>
+            <p className="w-0 min-w-full text-[15px] md:text-[17px] text-slate-600 leading-[1.7]">
+              {t('hero.desc')}
+              <span className="text-slate-900 font-medium">{t('hero.desc.strong')}<span className="border-b-2 border-slate-900 pb-0.5">{t('hero.desc.name')}</span>{t('hero.desc.end')}</span>
+            </p>
+          </div>
         </motion.div>
 
         <motion.ul
