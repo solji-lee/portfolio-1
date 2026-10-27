@@ -108,6 +108,26 @@
       background: #94a3b8;
     }
 
+    /* Hero title: blue → deep navy → purple, drifting slowly across the text */
+    .text-flow {
+      background-image: linear-gradient(100deg, #2b5cff 0%, #1b2d7a 28%, #6d3df5 55%, #3f7bff 78%, #2b5cff 100%);
+      background-size: 250% 100%;
+      background-position: 0% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: text-flow 9s ease-in-out infinite alternate;
+    }
+
+    @keyframes text-flow {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .text-flow { animation: none; background-position: 40% 50%; }
+    }
+
     .glass-panel {
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(16px);
