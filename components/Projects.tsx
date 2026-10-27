@@ -601,17 +601,20 @@ const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => {
   const { language } = useTranslation();
   const [open, setOpen] = useState(false);
   const L = language === 'ko'
-    ? { problem: '문제', approach: '접근', result: '결과', highlights: '요약', more: '과정 보기', less: '접기' }
-    : { problem: 'Problem', approach: 'Approach', result: 'Result', highlights: 'Highlights', more: 'Process', less: 'Close' };
+    ? { problem: '문제', approach: '접근', result: '결과', highlights: '요약', toggle: '펼치기' }
+    : { problem: 'Problem', approach: 'Approach', result: 'Result', highlights: 'Highlights', toggle: 'Expand' };
 
   return (
-    <article className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-      <div className="lg:col-span-7 lg:sticky lg:top-28">
-        <MediaViewer images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 px-0.5">
-          {project.tags.map(t => (
-            <span key={t} className="text-[11px] font-mono tracking-wide text-slate-400">{t}</span>
-          ))}
+    <article className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+      {/* Grid cell stretches to the row; the inner wrapper sticks while the text column scrolls */}
+      <div className="lg:col-span-7">
+        <div className="lg:sticky lg:top-24">
+          <MediaViewer images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 px-0.5">
+            {project.tags.map(t => (
+              <span key={t} className="text-[11px] font-mono tracking-wide text-slate-400">{t}</span>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -647,15 +650,13 @@ const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => {
         <button
           onClick={() => setOpen(o => !o)}
           aria-expanded={open}
-          className="group w-full flex items-center justify-between py-4 border-b border-slate-200 text-[13px] font-medium text-slate-900 hover:text-brand-600 transition-colors"
+          aria-label={L.toggle}
+          className="group w-full flex items-center justify-between py-4 border-b border-slate-200 text-slate-900 hover:text-brand-600 transition-colors"
         >
-          <span className="flex items-center gap-3">
-            <span className="font-mono text-[11px] tracking-[0.18em] text-slate-400">{L.problem} · {L.approach} · {L.result}</span>
+          <span className="font-mono text-[11px] tracking-[0.18em] text-slate-500 group-hover:text-brand-600 transition-colors">
+            {L.problem} · {L.approach} · {L.result}
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            {open ? L.less : L.more}
-            <ChevronDown size={14} className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
-          </span>
+          <ChevronDown size={16} className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
         </button>
 
         <AnimatePresence initial={false}>
