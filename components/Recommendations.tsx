@@ -1,92 +1,62 @@
 import React from 'react';
-import { Quote, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../lib/i18n';
+import { Eyebrow } from './Eyebrow';
 
 const testimonials = [
   {
     name: "Seungmin Baek",
-    role: "CEO @ Ribotics",
+    role: "CEO, Ribotics",
     content: "Solji is capable of rapid prototyping when building new product features with high uncertainties. Recommended for agile development.",
-    translation: "솔지는 불확실성이 높은 신규 기능을 구축할 때 신속한 프로토타이핑이 가능한 디자이너입니다. 애자일 개발에 강력 추천합니다.",
-    tags: ["Agile", "Rapid Proto"]
+    translation: "불확실성이 높은 신규 기능을 만들 때 빠르게 프로토타입을 내놓는 디자이너입니다. 애자일 개발에 추천합니다."
   },
   {
     name: "Sully Malik",
     role: "Design Lead",
     content: "Remarkable designer whose skill translates across virtually any medium. She led her team and never hesitated to turn down feedback.",
-    translation: "어떤 매체에서도 빛나는 놀라운 실력을 갖춘 디자이너입니다. 팀을 훌륭히 이끌며 피드백을 수용하는 데 주저함이 없습니다.",
-    tags: ["Leadership", "Versatile"]
+    translation: "어떤 매체에서든 실력이 통하는 디자이너입니다. 팀을 이끌었고, 피드백을 받아들이는 데 주저함이 없었습니다."
   },
   {
     name: "Paul Taylor",
-    role: "SW Developer",
+    role: "Software Developer",
     content: "I've been impressed by Solji's work ethic. Her talent in design and consistency make her a pleasure to work with.",
-    translation: "솔지의 직업 윤리에 깊은 인상을 받았습니다. 뛰어난 디자인 실력과 성실함 덕분에 함께 일하는 것이 즐거웠습니다.",
-    tags: ["Work Ethic", "Consistent"]
+    translation: "일하는 태도에 늘 감탄했습니다. 디자인 실력과 꾸준함 덕분에 함께 일하는 게 즐거웠습니다."
   }
 ];
 
 export const Recommendations: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   return (
-    <section className="py-24 bg-white relative">
-      <div className="max-w-6xl mx-auto px-8 lg:px-16 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
-            <Linkedin size={14} />
-            <span>{t('rec.badge')}</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">{t('rec.title')}</h2>
-          <p className="text-slate-500 text-sm md:text-base">
-            {t('language') === 'ko' ? "실무에서 함께 호흡을 맞춘 동료들에게 직접 물어봤습니다." : "Insights from colleagues I've worked closely with."}
-          </p>
+    <section className="py-20 md:py-28 px-6 md:px-12 lg:px-24 bg-white border-t border-slate-200">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-14">
+          <Eyebrow>{t('rec.badge')}</Eyebrow>
+          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight leading-[1.1]">{t('rec.title')}</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-px bg-slate-200 border border-slate-200">
           {testimonials.map((item, idx) => (
-            <motion.div
+            <motion.blockquote
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1, duration: 0.6 }}
+              transition={{ delay: idx * 0.08, duration: 0.5 }}
               viewport={{ once: true }}
-              className="bg-slate-50/50 p-8 rounded-3xl border border-slate-100 flex flex-col justify-between hover:bg-white hover:shadow-xl hover:shadow-brand-500/5 transition-all group"
+              className="bg-white p-7 md:p-8 flex flex-col justify-between"
             >
-              <div>
-                <Quote className="text-brand-100 mb-6 group-hover:text-brand-200 transition-colors" size={32} fill="currentColor" />
-                <div className="space-y-4 mb-8">
-                  <p className="text-slate-700 font-medium text-[14px] md:text-[15px] leading-relaxed italic">
-                    "{item.content}"
-                  </p>
-                  <p className="text-brand-600 font-bold text-[13px] md:text-[14px] border-l-2 border-brand-200 pl-4 leading-relaxed">
-                    {item.translation}
-                  </p>
-                </div>
+              <div className="space-y-4 mb-10">
+                <p className="text-[15px] leading-[1.75] text-slate-900">
+                  {language === 'ko' ? item.translation : item.content}
+                </p>
+                <p className="text-[13px] leading-relaxed text-slate-400">
+                  {language === 'ko' ? item.content : item.translation}
+                </p>
               </div>
-
-              <div className="pt-6 border-t border-slate-100">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="font-extrabold text-slate-900 text-sm">{item.name}</div>
-                  <div className="flex gap-1">
-                    {item.tags.map(tag => (
-                      <span key={tag} className="text-[10px] bg-white text-slate-400 px-2 py-0.5 rounded border border-slate-100 uppercase font-bold tracking-tight">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="text-[11px] text-slate-400 font-semibold">{item.role}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <div className="absolute top-0 right-0 p-12 opacity-20 pointer-events-none">
-        <div className="grid grid-cols-4 gap-2">
-          {[...Array(16)].map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-brand-500"></div>
+              <footer className="pt-5 border-t border-slate-100">
+                <div className="text-[14px] font-semibold text-slate-900">{item.name}</div>
+                <div className="font-mono text-[11px] tracking-wide text-slate-400 mt-0.5">{item.role}</div>
+              </footer>
+            </motion.blockquote>
           ))}
         </div>
       </div>

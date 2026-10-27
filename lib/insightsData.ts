@@ -24,6 +24,7 @@ const STORAGE_KEY = 'solji-insights-data-v2';
 export const defaultData: InsightItem[] = [
     {
         id: 0,
+        hidden: true,
         type: 'resource',
         titleKo: 'Systemic Icon — 기업용 고성능 아이콘 엔진',
         titleEn: 'Systemic Icon — High-Performance Icon Engine for Enterprise',
@@ -52,6 +53,7 @@ export const defaultData: InsightItem[] = [
     },
     {
         id: 2,
+        hidden: true,
         type: 'resource',
         titleKo: 'EAA 대응을 위한 다이나믹 폰트 스케일러',
         titleEn: 'Dynamic Font Scaler for EAA Compliance',
@@ -65,6 +67,7 @@ export const defaultData: InsightItem[] = [
     },
     {
         id: 3,
+        hidden: true,
         type: 'resource',
         titleKo: 'Figma to React Token Exporter',
         titleEn: 'Figma to React Token Exporter',
@@ -78,6 +81,7 @@ export const defaultData: InsightItem[] = [
     },
     {
         id: 4,
+        hidden: true,
         type: 'press',
         titleKo: '"3D 인터페이스로 모빌리티 경험을 혁신하다" - 솔지 수석 디자이너 인터뷰',
         titleEn: '"Innovating Mobility Experiences with 3D Interfaces" - Interview with Solji',

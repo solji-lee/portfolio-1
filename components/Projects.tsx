@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Plus, CheckCircle2, AlertCircle, Lightbulb, Trophy, ArrowRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ChevronDown, Play, Image as ImageIcon } from 'lucide-react';
 import { useTranslation } from '../lib/i18n';
+import { Eyebrow } from './Eyebrow';
 
 interface ProjectDetail {
   challenge: { ko: string[]; en: string[] };
@@ -23,12 +24,292 @@ interface ProjectData {
   details: ProjectDetail;
   cropFocus?: boolean;
   backgroundColors?: string[];
+  hidden?: boolean;
 }
 
 const projects: ProjectData[] = [
   {
-    id: "systemic-icon",
+    id: "hyundai-3d",
     number: "Project 01",
+    title: { ko: "기아 EV9 3D 원격 제어", en: "Kia EV9 3D Remote Control" },
+    tagline: { ko: "공용 2D 이미지와 버튼 나열에서, 내 차를 보면서 제어하는 화면으로", en: "From a generic 2D silhouette and a stack of buttons to controlling the car while looking at it" },
+    subtitle: "Kia · Hyundai · Genesis App",
+    role: "Product Design • 3D Interaction",
+    description: {
+      ko: "EV9 전용 서비스. 세단·SUV·해치백 세 종류로 공용화돼 있던 2D 원격 제어 페이지에 3D 모델을 도입해, 차량 상태와 제어 상태를 텍스트가 아니라 눈으로 확인하게 했습니다.",
+      en: "An EV9-only service. The remote control page shared one of three 2D silhouettes across all models. A 3D model replaced it, so vehicle and control states are seen, not read."
+    },
+    impactHighlights: {
+      ko: [
+        "3D 모델 + 애니메이션 UI, 디자인 특허 출원",
+        "EV9 양산 탑재, 최초 실행 웰커밍 애니메이션",
+        "차종별 카메라 높이·중심점·회전 범위 규칙화"
+      ],
+      en: [
+        "Design patent filed for the 3D + animation UI",
+        "Shipped on EV9, with a first-launch welcome animation",
+        "Per-model camera height, pivot and rotation rules"
+      ]
+    },
+    tags: ["3D Interaction", "Real-time Status", "Motion"],
+    cropFocus: true,
+    backgroundColors: [
+      "#1a1a1a", "#252525", "#1f1f1f", "#2d2d2d", "#1a1a1a", "#252525", "#1f1f1f"
+    ],
+    images: [
+      "/video1.mov", "/video2.mov", "/video3.mov", "/input_file_0.png", "/input_file_1.png", "/input_file_2.png", "/input_file_4.png"
+    ],
+    details: {
+      challenge: {
+        ko: [
+          "공용 2D 이미지 + 버튼 중심 제어: 도어·충전 같은 상태가 한눈에 안 읽힘, '내 차'라는 느낌 없음",
+          "차종별 색상·크기 상이: 2D UI 안에서 높이·중심점·최대 회전 범위를 모델마다 따로 잡아야 함",
+          "모바일 3D 렌더링 부하: 발열·로딩 없이 0.5초 내 반응"
+        ],
+        en: [
+          "Generic 2D image + button-centric control: door and charging states hard to read at a glance, no sense of 'my car'",
+          "Colour and size differ per model: height, pivot and max rotation had to be set per model inside one 2D layout",
+          "3D rendering cost on mobile: respond within 0.5s without heat or loading"
+        ]
+      },
+      solution: {
+        ko: [
+          "상태의 시각화: 도어·트렁크·공조·충전 상태를 텍스트 대신 3D 모델 위에 표시, 주행 중에도 빠르게 확인",
+          "차량 중심 트랜지션: 제어 페이지 이동 시 차량을 축으로 카메라 이동, 화면 연결성 유지",
+          "차종별 파라미터: 카메라 높이·중심점·회전 범위를 규칙으로 정의, 폴리곤·텍스처 가이드 수립",
+          "3D 전용 UI: 버튼 state·레이아웃·플로우·색상을 2D 버전과 다르게 설계"
+        ],
+        en: [
+          "Visualised state: door, trunk, climate and charging shown on the 3D model instead of text, quick to check even while driving",
+          "Vehicle-centred transitions: camera orbits the car when entering a control page, keeping continuity",
+          "Per-model parameters: camera height, pivot and rotation defined as rules, plus polygon and texture guidelines",
+          "3D-specific UI: button states, layout, flow and colour designed apart from the 2D version"
+        ]
+      },
+      impact: {
+        ko: [
+          "디자인 특허 출원",
+          "기아 EV9 양산 서비스 탑재",
+          "상태 인지 속도 향상, 첨단 브랜드 이미지 (정성 평가)"
+        ],
+        en: [
+          "Design patent filed",
+          "Shipped in the Kia EV9 production service",
+          "Faster state recognition, stronger tech image (qualitative)"
+        ]
+      }
+    }
+  },
+  {
+    id: "car-remote",
+    number: "Project 02",
+    title: { ko: "근거리 차량 리모컨", en: "Short-range Car Remote" },
+    tagline: { ko: "로그인 없이, 차 밖 30m에서도. 핵심 제어만 빠르게, IVI와 같은 손맛으로", en: "No login, works 30 m outside the car. Core controls only, with the same feel as the IVI" },
+    subtitle: "Hyundai Motor Group · Wi-Fi Remote",
+    role: "Product Design • IVI Consistency",
+    description: {
+      ko: "Wi-Fi 근거리 연결 리모컨. 내비 미러링, 간단 제어(도어·공조·시트 폴딩·창문), 미디어 컨트롤. 원격제어 앱과 후석 제어기(RSE) 사이의 빈 자리를 겨냥했습니다.",
+      en: "A Wi-Fi short-range remote: navigation mirroring, quick controls (doors, climate, seat folding, windows) and media. Aimed at the gap between the remote-control app and the rear-seat unit (RSE)."
+    },
+    impactHighlights: {
+      ko: [
+        "원격제어 앱 · RSE와 다른 세 번째 포지셔닝",
+        "Connect IVI와 동일한 버튼 인터랙션·디자인 언어",
+        "주행·정차·라디오 상태를 모션으로 표현"
+      ],
+      en: [
+        "A third position apart from the remote app and RSE",
+        "Same button interaction and visual language as the Connect IVI",
+        "Driving, parked and radio states expressed with motion"
+      ]
+    },
+    tags: ["Mobile ↔ IVI Consistency", "Quick Control", "Motion"],
+    backgroundColors: [
+      "#111318", "#15181f", "#111318", "#15181f", "#111318"
+    ],
+    images: [
+      "/remote/remote-1.png", "/remote/remote-2.png", "/remote/remote-3.png", "/remote/remote-4.png", "/remote/remote-5.png"
+    ],
+    details: {
+      challenge: {
+        ko: [
+          "포지셔닝: 원격제어 앱, RSE가 이미 있는 상황에서 세 번째 제어 수단의 역할 정의",
+          "속도: 복잡한 로그인·연결 과정을 거치면 리모컨의 의미가 없음",
+          "일관성: IVI와 리모컨을 번갈아 쓰는 사용자, 버튼 동작이 조금만 달라도 혼란"
+        ],
+        en: [
+          "Positioning: define the role of a third control surface next to the remote app and RSE",
+          "Speed: a long login and pairing flow defeats the point of a remote",
+          "Consistency: people switch between IVI and remote, small differences in button behaviour confuse"
+        ]
+      },
+      solution: {
+        ko: [
+          "포지셔닝: 빠른 연결 · 로그인 없음 · 30m 근거리 → RSE 미제공 차량의 후석 제어, 차박·오토캠핑 등 차 밖 활용",
+          "IoT 리모컨 패턴: 홈은 빠른 제어 + 자주 쓰는 버튼 편집, 세부 제어는 다음 페이지",
+          "IVI 통일: Connect 차량 IVI와 같은 버튼 인터랙션·state·디자인 언어",
+          "모션 그래픽: 주행 중·정차 중·라디오 등 핵심 정보에 생동감"
+        ],
+        en: [
+          "Positioning: fast pairing, no login, 30 m range → rear-seat control for cars without RSE, outside-the-car use like camping",
+          "IoT remote pattern: quick controls and editable favourites on home, detailed control one page deeper",
+          "Matched to IVI: same button interaction, states and visual language as the Connect IVI",
+          "Motion graphics: driving, parked and radio states brought to life"
+        ]
+      },
+      impact: {
+        ko: [
+          "RSE 미제공 차량까지 후석 제어 경험 확장",
+          "IVI ↔ 리모컨 간 일관된 사용성",
+          "주행·정차 상태별 정보 우선순위와 제어 제한 기준 정리"
+        ],
+        en: [
+          "Rear-seat control extended to cars without RSE",
+          "Consistent usability between IVI and remote",
+          "Information priority and control limits defined per driving/parked state"
+        ]
+      }
+    }
+  },
+  {
+    id: "geo-fence",
+    number: "Project 03",
+    title: { ko: "Geo-fence 알림 설정", en: "Geo-fence Alert Settings" },
+    tagline: { ko: "흩어진 설정 페이지를 지도 위 한 화면으로. 조정하면서 결과를 바로 본다", en: "Scattered settings brought onto one map screen. Adjust and see the result at once" },
+    subtitle: "Kia · Hyundai · Genesis App · MyCar · Europe",
+    role: "Product Design • Information Architecture",
+    description: {
+      ko: "유럽 특화 기능. 범위(in/out)와 시간을 설정해 두면 차량 사용 시 알림이 옵니다. 자녀 통학용으로 차를 넘길 때 쓰는 기능인데, 같은 목적의 알림이 페이지와 저장 버튼마다 따로 흩어져 있었습니다.",
+      en: "Europe-only. Set a boundary (in/out) and time window and get alerted when the car is used, typically after handing it to a teenager. Alerts for the same purpose were split across pages and save buttons."
+    },
+    impactHighlights: {
+      ko: [
+        "여러 알림을 한 설정 페이지에서 바로 on/off",
+        "지도 위 바텀시트에서 반경·명칭·in/out 동시 설정",
+        "설정 → 저장 → 확인 왕복 제거"
+      ],
+      en: [
+        "All alerts toggled from one settings page",
+        "Radius, name and in/out set together in a map bottom sheet",
+        "Set → save → verify round-trips removed"
+      ]
+    },
+    tags: ["Settings Flow Redesign", "Live Preview"],
+    backgroundColors: [
+      "#f4f5f7", "#eef0f3", "#f4f5f7", "#eef0f3"
+    ],
+    images: [
+      "/geofence/geofence-1.png", "/geofence/geofence-2.png", "/geofence/geofence-3.png", "/geofence/geofence-4.png"
+    ],
+    details: {
+      challenge: {
+        ko: [
+          "끊어진 연결성: 같은 목적의 Geo-fence 기능들이 별도 페이지, 별도 저장 버튼으로 관리",
+          "보이지 않는 반경: 지도 위치·radius·명칭·in/out을 함께 정해야 하는데 페이지가 쪼개져 범위를 확인하려면 화면을 오가야 함"
+        ],
+        en: [
+          "Broken continuity: geo-fence features with the same purpose managed on separate pages with separate save buttons",
+          "Invisible radius: location, radius, name and in/out had to be set together, yet split pages meant bouncing between screens to see the boundary"
+        ]
+      },
+      solution: {
+        ko: [
+          "설정 통합: 한 페이지에서 여러 알림을 바로 on/off",
+          "지도 위 바텀시트: 반경·명칭·in/out 옵션을 조정하면 지도 위 바운드가 즉시 반영",
+          "직접 조작: 숫자 입력이 아니라 지도 위 시각 피드백 중심"
+        ],
+        en: [
+          "Unified settings: several alerts toggled from one page",
+          "Bottom sheet over the map: radius, name and in/out options update the boundary on the map instantly",
+          "Direct manipulation: visual feedback on the map instead of numeric input"
+        ]
+      },
+      impact: {
+        ko: [
+          "페이지 이동·개별 저장 제거, 설정 단계 축소",
+          "반경이 바로 보여 오설정 감소",
+          "'조정과 결과를 한 화면에' → 공조·미디어 제어에도 적용 가능한 구조"
+        ],
+        en: [
+          "Fewer steps: page hops and per-item saves removed",
+          "Fewer mis-settings: the boundary is visible immediately",
+          "'Adjust and result on one screen' → a structure reusable for climate and media control"
+        ]
+      }
+    }
+  },
+  {
+    id: "design-system",
+    number: "Project 04",
+    title: { ko: "현대·기아·제네시스 통합 디자인 시스템", en: "Hyundai · Kia · Genesis Unified Design System" },
+    tagline: { ko: "세 브랜드, 세 벌의 파일을 한 벌로. 모드 전환으로 세 앱의 디자인 산출", en: "Three brands, three file sets, one master. Switch a mode, get all three apps" },
+    subtitle: "Design Ops · Multi-brand",
+    role: "Design System Lead",
+    description: {
+      ko: "브랜드별로 따로 운영하던 디자인 파일을 Figma Variables로 토큰화해 마스터 파일 한 벌로 통합. 프로젝트 중간에 들어온 유럽 접근성 법안(EAA) 대응도 일정 지연 없이 처리했습니다.",
+      en: "Separate brand design files tokenised with Figma Variables and merged into one master. The European Accessibility Act (EAA) requirement that landed mid-project was handled without delay."
+    },
+    impactHighlights: {
+      ko: [
+        "파일 3벌 → 1벌, 관리 리소스 66% 절감",
+        "공통 컴포넌트로 세 앱 동시 업데이트",
+        "EAA 모드 변수로 접근성 검증을 파일 안에서"
+      ],
+      en: [
+        "Three file sets → one, 66% less maintenance",
+        "Shared components update all three apps at once",
+        "EAA mode variables check accessibility inside the file"
+      ]
+    },
+    tags: ["Design System", "Figma Variables", "Multi-brand"],
+    backgroundColors: [
+      "#1a1a1a", "#1a1a1a", "#1a1a1a", "#f5f5f5", "#f8f8f8", "#f0f0f0", "#f5f5f5"
+    ],
+    images: [
+      "/p2v1.mp4", "/p2v2.mp4", "/p2v3.mp4", "/design-system-1.png", "/design-system-2.png", "/design-system-3.png", "/design-system-4.png"
+    ],
+    details: {
+      challenge: {
+        ko: [
+          "N × 3 비효율: 브랜드마다 라이브러리·스크린 파일 별도 운영, 단순 수정도 3회 반복, 휴먼 에러 증가",
+          "중간에 들어온 EAA: 기존 방식이면 수백 장 수동 수정 또는 라이브러리 스왑, 일정 지연 불가피"
+        ],
+        en: [
+          "N × 3 inefficiency: separate libraries and screen files per brand, every change done three times, more human error",
+          "EAA landed mid-project: hundreds of screens to hand-edit or a full library swap under the old setup"
+        ]
+      },
+      solution: {
+        ko: [
+          "변수 기반 통합 (3 → 1): 컬러·폰트·코너 라운드를 토큰화, 모드 전환으로 브랜드별 디자인 즉시 산출",
+          "EAA 모드: 라이브러리 스왑 없이 변수 추가로 명도 대비·텍스트 크기 시뮬레이션",
+          "공통 컴포넌트: 코드에서도 브랜드별 스타일 값만 호출하는 구조"
+        ],
+        en: [
+          "Variable-based merge (3 → 1): colour, type and radius tokenised, brand designs output by switching a mode",
+          "EAA mode: contrast and text-size simulation by adding variables, no library swap",
+          "Shared components: code structure that calls only brand style values"
+        ]
+      },
+      impact: {
+        ko: [
+          "파일 관리·유지보수 리소스 66% 절감",
+          "세 브랜드 앱 동시 업데이트 가능한 배포 흐름",
+          "EAA 지연 없이 대응, 변수 모드 테스트 방식은 글로벌 표준 매뉴얼로 채택"
+        ],
+        en: [
+          "66% less file management and maintenance",
+          "A release flow that updates all three brand apps together",
+          "EAA met without delay; the variable-mode test approach adopted as the global standard"
+        ]
+      }
+    }
+  },
+  // Hidden from the site. Remove `hidden` to bring one back.
+  {
+    id: "systemic-icon",
+    hidden: true,
+    number: "Project 04",
     title: { ko: "Systemic Icon", en: "Systemic Icon" },
     tagline: { ko: "\"혼자서도 대기업 규모의 아이콘 시스템을 운용할 수 있다면?\"", en: "\"What if one designer could run an enterprise-scale icon system alone?\"" },
     subtitle: "Side Project • Intelligent IconOps",
@@ -92,145 +373,9 @@ const projects: ProjectData[] = [
     }
   },
   {
-    id: "hyundai-3d",
-    number: "Project 02",
-    title: { ko: "기아차 3D 원격 제어 UXUI", en: "Kia 3D Remote Control UX/UI" },
-    tagline: { ko: "\"3D 기술을 심미적 요소를 넘어, 사용성을 극대화하는 기능적 도구로 재해석하다.\"", en: "\"Reinterpreting 3D technology as a functional tool to maximize usability beyond aesthetics.\"" },
-    subtitle: "Hyundai Motor Group",
-    role: "UX/UI Design • System Architecture",
-    description: {
-      ko: "2D 평면적 제어를 넘어 glTF 기반 3D 경험을 모바일 UI에 이식했습니다. 차량의 상태(도어, 트렁크, 공조, 충전)를 실시간으로 시각화하여 직관성을 높였습니다.",
-      en: "Transplanted glTF-based 3D experiences beyond flat 2D control into a mobile UI. Real-time visualization of vehicle status (doors, trunk, climate, charging) enhanced intuitiveness."
-    },
-    impactHighlights: {
-      ko: [
-        "디자인 특허 출원: 3D 모델 & 애니메이션 결합 UI",
-        "현대차 EV9 등 플래그십 전기차 실제 서비스 탑재",
-        "차량 상태 인지 속도 및 브랜드 이미지 평가 획득"
-      ],
-      en: [
-        "Design Patent Pending: UI combining 3D models & animation",
-        "Deployed on flagship EVs like Hyundai EV9",
-        "Improved recognition speed and brand image evaluation"
-      ]
-    },
-    tags: ["3D Interaction", "glTF", "Real-time Sync"],
-    cropFocus: true,
-    backgroundColors: [
-      "#1a1a1a", "#252525", "#1f1f1f", "#2d2d2d", "#1a1a1a", "#252525", "#1f1f1f"
-    ],
-    images: [
-      "/video1.mov", "/video2.mov", "/video3.mov", "/input_file_0.png", "/input_file_1.png", "/input_file_2.png", "/input_file_4.png"
-    ],
-    details: {
-      challenge: {
-        ko: [
-          "기존 2D 화면의 직관성 부족 (문 개폐, 라이트 상태 등 파악 어려움)",
-          "모바일 환경에서의 고품질 3D 실시간 렌더링 최적화 (발열, 속도)",
-          "단순 뷰어를 넘어선 실질적 상호작용 경험 설계"
-        ],
-        en: [
-          "Lack of intuition in existing 2D screens (difficulty in checking doors, lights)",
-          "Optimization of high-quality 3D real-time rendering on mobile (heat, speed)",
-          "Designing substantial interactive experiences beyond simple viewers"
-        ]
-      },
-      solution: {
-        ko: [
-          "Immersive Interaction: 0.5초 이내 반응하는 실시간 동기화 애니메이션",
-          "다양한 상태 제어: 도어/트렁크 개폐, 공조 및 배터리 충전 상태의 3D 시각화",
-          "Technical Directing: 폴리곤 수 및 텍스처 가이드라인 수립으로 개발 부하 절감"
-        ],
-        en: [
-          "Immersive Interaction: Real-time syncing animation reacting under 0.5 seconds",
-          "Various State Controls: 3D visualization of door/trunk status, climate, and EV charging",
-          "Technical Directing: Guidelines for polygon count and textures to reduce dev load"
-        ]
-      },
-      impact: {
-        ko: [
-          "특허 출원: 독자적인 UI 디자인 권리 보호",
-          "양산 적용: EV9 등 주요 모델 실제 서비스 탑재",
-          "정성적 성과: 인지 속도 향상 및 첨단 이미지 구현 평가"
-        ],
-        en: [
-          "Patent Pending: Protection of exclusive UI design rights",
-          "Mass Production: Actual service deployment on key models like EV9",
-          "Qualitative Results: Improved recognition speed and high-tech image realization"
-        ]
-      }
-    }
-  },
-  {
-    id: "design-system",
-    number: "Project 03",
-    title: { ko: "통합 디자인 시스템 구축 (H/K/G)", en: "Unified Design System (H/K/G)" },
-    tagline: { ko: "\"3개 브랜드, 3벌의 파일을 '하나의 시스템'으로 통합하여 개발 효율과 규제 대응 속도를 혁신하다.\"", en: "\"Innovating dev efficiency and compliance speed by unifying 3 brands and 3 file sets into 'One System'.\"" },
-    subtitle: "Design Ops • Multi-brand",
-    role: "Design System Lead",
-    description: {
-      ko: "현대, 기아, 제네시스 3개 브랜드의 디자인 파일을 Figma Variables로 통합하여 단 1벌의 마스터 파일로 운영. 모드 전환만으로 3개 브랜드 디자인을 즉시 산출하고, 갑작스러운 EAA 규제에도 지연 없이 대응했습니다.",
-      en: "Unified design files for Hyundai, Kia, and Genesis using Figma Variables to operate as a single master file. Instantly produced 3 brand designs simply by switching modes, handling sudden EAA regulations without delay."
-    },
-    impactHighlights: {
-      ko: [
-        "파일 관리 리소스 66% 절감: 3벌 → 1벌 통합",
-        "개발 생산성 향상: 공통 컴포넌트로 동시 업데이트 가능",
-        "민첩한 리스크 관리: EAA 대응 프로세스 표준화"
-      ],
-      en: [
-        "File Management Resources Cut by 66%: Unified 3 sets into 1",
-        "Improved Dev Productivity: Shared components enabled simultaneous updates",
-        "Agile Risk Management: Standardized EAA compliance process"
-      ]
-    },
-    tags: ["Figma Variables", "Multi-brand", "EAA Compliance"],
-    backgroundColors: [
-      "#1a1a1a", "#1a1a1a", "#1a1a1a", "#f5f5f5", "#f8f8f8", "#f0f0f0", "#f5f5f5"
-    ],
-    images: [
-      "/p2v1.mp4", "/p2v2.mp4", "/p2v3.mp4", "/design-system-1.png", "/design-system-2.png", "/design-system-3.png", "/design-system-4.png"
-    ],
-    details: {
-      challenge: {
-        ko: [
-          "리소스의 파편화 (N x 3의 비효율): 3개 브랜드가 각각 별도의 디자인 라이브러리와 3벌의 스크린 파일을 운영하여 단순 수정에도 3번 반복 작업 필요, 휴먼 에러 발생 확률 증가",
-          "프로젝트 중간에 떨어진 'EAA 규제': 유럽 접근성 법안(EAA) 준수 요건 추가로, 기존 방식으로는 수백 장의 스크린을 수동 조절하거나 별도 라이브러리 스왑이 필요한 일정 지연 불가피 상황"
-        ],
-        en: [
-          "Resource Fragmentation (Inefficiency of N x 3): 3 brands operating separate libraries meant repetitive work and higher human errors",
-          "Unexpected EAA Regulation: Sudden addition of European Accessibility Act compliance requirements causing inevitable schedule delays"
-        ]
-      },
-      solution: {
-        ko: [
-          "Variable 기반의 파일 통합 (3 to 1): Figma Variables로 브랜드별 컬러·폰트·코너 라운드를 토큰화하여 3벌의 파일을 1벌의 마스터 파일로 통합, 모드 전환만으로 3개 브랜드 디자인 즉시 산출",
-          "EAA 대응 시뮬레이션 시스템: 별도 라이브러리 스왑 없이 'EAA Mode' 배리어블 추가로 명도 대비·텍스트 크기 이슈를 즉시 시뮬레이션 및 수정, 수동 작업 0으로 단축",
-          "개발 공통 컴포넌트(Common Component) 구축: 코드 레벨에서도 공통 컴포넌트 구조 수립, 브랜드별 스타일 값(CSS/Theme)만 호출하는 방식으로 디자인-개발 리드타임 최소화"
-        ],
-        en: [
-          "Variable-based File Unification (3 to 1): Tokenized brand colors, fonts, and corner radii with Figma Variables, compiling 3 files into 1 master",
-          "EAA Compliance Simulation System: Added 'EAA Mode' variables to instantly simulate contrast ratios and text sizing without swapping libraries",
-          "Common Component Construction: Established a common component structure at the code level, minimizing design-to-dev lead time"
-        ]
-      },
-      impact: {
-        ko: [
-          "운영 효율 극대화: 3벌의 디자인 원본 파일을 1벌로 통합하여 파일 관리 및 유지보수 리소스 66% 절감",
-          "개발 생산성 향상: 공통 컴포넌트 도입으로 중복 코딩 방지, 3사 브랜드 앱의 동시 업데이트 가능한 배포 파이프라인 구축 기여",
-          "민첩한 리스크 관리: 갑작스러운 EAA 이슈에도 프로젝트 지연 없이 대응 완료, 배리어블 모드 기반 테스트 프로세스는 글로벌 확장 시 표준 매뉴얼로 채택"
-        ],
-        en: [
-          "Operational Efficiency: 66% reduction in maintenance resources by unifying the source files",
-          "Dev Productivity: Prevented duplicate coding and contributed to a deployment pipeline capable of simultaneous multi-brand updates",
-          "Agile Risk Management: Dealt with sudden EAA requirements without delay, adopted as a standard manual for global expansion"
-        ]
-      }
-    }
-  },
-  {
     id: "design-ops-ai",
-    number: "Project 04",
+    hidden: true,
+    number: "Project 06",
     title: { ko: "피그마 플러그인 & 협업 툴 혁신", en: "Figma Plugin & Tool Innovation" },
     tagline: { ko: "\"보안과 언어의 장벽을 기술로 넘다. 워크플로우를 설계하고 도구를 만드는 Design Ops.\"", en: "\"Overcoming security and language barriers with tech. DesignOps that builds tools and workflows.\"" },
     subtitle: "Internal Productivity",
@@ -297,416 +442,267 @@ const projects: ProjectData[] = [
   }
 ];
 
-const ImageSlider = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
+const isVideo = (src: string) => src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov');
+
+/* ───────────── Media viewer: manual navigation + thumbnails ───────────── */
+const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
   const [index, setIndex] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [missing, setMissing] = useState<Record<string, boolean>>({});
 
-  const isVideo = (src: string) => {
-    return src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov');
-  };
-
-  const goToNext = () => {
-    setIndex((prev) => (prev + 1) % images.length);
-    setIsVideoPlaying(false);
-    setIsVideoLoaded(false);
-  };
-
-  // Intersection Observer to detect when slider is in viewport
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const inView = entry.isIntersecting;
-        setIsInView(inView);
-
-        // Reset to first slide when leaving view
-        if (!inView) {
-          setIndex(0);
-          setIsVideoPlaying(false);
-          setIsVideoLoaded(false);
-        }
-      },
-      { threshold: 0.4 } // Trigger when 40% visible
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
-  }, []);
-
-  // Auto-advance timer - only when in viewport AND content is ready
-  useEffect(() => {
-    if (images.length === 0 || !isInView) return;
-
-    const currentIsVideo = isVideo(images[index]);
-
-    // For videos: wait until loaded AND playing, or if playing has ended
-    if (currentIsVideo && (!isVideoLoaded || isVideoPlaying)) {
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      goToNext();
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, [images.length, index, isVideoPlaying, isVideoLoaded, isInView]);
-
-  const handleVideoStart = () => {
-    setIsVideoPlaying(true);
-  };
-
-  const handleVideoLoaded = () => {
-    setIsVideoLoaded(true);
-  };
-
-  const handleVideoEnded = () => {
-    goToNext();
-  };
-
-  const currentBgColor = backgroundColors && backgroundColors[index] ? backgroundColors[index] : '#e2e8f0';
+  const go = (i: number) => setIndex((i + images.length) % images.length);
+  const current = images[index];
+  const bg = backgroundColors?.[index] ?? '#e2e8f0';
+  const isDark = (() => {
+    const hex = bg.replace('#', '');
+    if (hex.length !== 6) return false;
+    const r = parseInt(hex.slice(0, 2), 16), g = parseInt(hex.slice(2, 4), 16), b = parseInt(hex.slice(4, 6), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 < 128;
+  })();
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-full overflow-hidden group transition-colors duration-700"
-      style={{ backgroundColor: currentBgColor }}
-    >
-      <AnimatePresence mode="wait">
-        {isVideo(images[index]) ? (
-          <motion.video
-            key={index}
-            ref={videoRef}
-            src={images[index]}
-            autoPlay
-            loop={false}
-            muted
-            playsInline
-            preload="auto"
-            onLoadedData={handleVideoLoaded}
-            onPlay={handleVideoStart}
-            onEnded={handleVideoEnded}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className={`absolute inset-0 w-full h-full object-contain transition-transform duration-700 ${cropFocus ? 'scale-110 origin-center' : ''}`}
-            style={cropFocus ? { objectPosition: 'center center' } : {}}
-          />
-        ) : (
-          <motion.img
-            key={index}
-            src={images[index]}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className={`absolute inset-0 w-full h-full object-contain transition-transform duration-700 ${cropFocus ? 'scale-110 origin-center' : ''}`}
-            style={cropFocus ? { objectPosition: 'center center' } : {}}
-          />
-        )}
-      </AnimatePresence>
-
-
-      <div className="absolute inset-x-0 bottom-6 px-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <button
-          onClick={() => setIndex((index - 1 + images.length) % images.length)}
-          className="w-10 h-10 flex items-center justify-center bg-white/95 backdrop-blur-sm rounded-full text-slate-800 shadow-md hover:bg-white transition-all transform active:scale-90"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <div className="flex gap-2 bg-slate-900/20 backdrop-blur-md px-3 py-1.5 rounded-full">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? 'w-6 bg-white shadow-sm' : 'w-1.5 bg-white/50'}`}
+    <div>
+      <div
+        className="relative aspect-[4/3] rounded-lg overflow-hidden group transition-colors duration-500 border border-slate-200/80"
+        style={{ backgroundColor: bg }}
+      >
+        <AnimatePresence mode="wait">
+          {isVideo(current) ? (
+            <motion.video
+              key={current}
+              src={current}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+              className={`absolute inset-0 w-full h-full object-contain ${cropFocus ? 'scale-110 origin-center' : ''}`}
             />
+          ) : missing[current] ? (
+            <motion.div
+              key={current}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+              className={`absolute inset-0 flex flex-col items-center justify-center gap-3 text-center px-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}
+            >
+              <div className={`w-12 h-12 rounded-lg border border-dashed flex items-center justify-center ${isDark ? 'border-slate-600' : 'border-slate-300'}`}>
+                <ImageIcon size={20} />
+              </div>
+              <div className="text-[11px] font-mono tracking-wider uppercase">Image pending</div>
+              <code className={`text-[11px] font-mono px-2 py-1 rounded ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>public{current}</code>
+            </motion.div>
+          ) : (
+            <motion.img
+              key={current}
+              src={current}
+              onError={() => setMissing(prev => ({ ...prev, [current]: true }))}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+              className={`absolute inset-0 w-full h-full object-contain ${cropFocus ? 'scale-110 origin-center' : ''}`}
+            />
+          )}
+        </AnimatePresence>
+
+        {images.length > 1 && (
+          <>
+            <button
+              aria-label="Previous"
+              onClick={() => go(index - 1)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              aria-label="Next"
+              onClick={() => go(index + 1)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 text-slate-800 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white"
+            >
+              <ChevronRight size={18} />
+            </button>
+            <div className={`absolute bottom-3 right-3 px-2 py-1 rounded font-mono text-[11px] tabular-nums ${isDark ? 'bg-black/40 text-white/80' : 'bg-white/70 text-slate-600'}`}>
+              {index + 1} / {images.length}
+            </div>
+          </>
+        )}
+      </div>
+
+      {images.length > 1 && (
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
+          {images.map((src, i) => {
+            const active = i === index;
+            const thumbBg = backgroundColors?.[i] ?? '#e2e8f0';
+            return (
+              <button
+                key={src + i}
+                onClick={() => setIndex(i)}
+                aria-label={`Slide ${i + 1}`}
+                className={`relative shrink-0 w-[72px] aspect-[4/3] rounded-md overflow-hidden border transition-all ${active ? 'border-slate-900 ring-1 ring-slate-900' : 'border-slate-200 opacity-70 hover:opacity-100'}`}
+                style={{ backgroundColor: thumbBg }}
+              >
+                {isVideo(src) ? (
+                  <>
+                    <video src={src} muted playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" />
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <span className="w-5 h-5 rounded-full bg-white/90 flex items-center justify-center">
+                        <Play size={10} className="text-slate-900 ml-[1px]" fill="currentColor" />
+                      </span>
+                    </span>
+                  </>
+                ) : missing[src] ? (
+                  <span className="absolute inset-0 flex items-center justify-center font-mono text-[10px] text-slate-400">{i + 1}</span>
+                ) : (
+                  <img
+                    src={src}
+                    alt=""
+                    onError={() => setMissing(prev => ({ ...prev, [src]: true }))}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ───────────── Problem / Approach / Result (collapsed by default) ───────────── */
+const DetailBlock = ({ index, title, items }: { index: string, title: string, items: string[] }) => (
+  <div className="grid grid-cols-[auto_1fr] gap-x-5 md:gap-x-7">
+    <div className="font-mono text-[11px] tracking-[0.18em] text-slate-400 tabular-nums pt-[2px]">{index}</div>
+    <div>
+      <h4 className="text-[13px] font-semibold text-slate-900 tracking-tight mb-2.5">{title}</h4>
+      <ul className="space-y-2">
+        {items.map((item, i) => {
+          const colon = item.indexOf(':');
+          const label = colon > 0 ? item.slice(0, colon) : null;
+          const body = colon > 0 ? item.slice(colon + 1).trim() : item;
+          return (
+            <li key={i} className="text-[13.5px] leading-[1.65] text-slate-600">
+              {label && <span className="font-semibold text-slate-900">{label} · </span>}
+              {body}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+);
+
+const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => {
+  const { language } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const L = language === 'ko'
+    ? { problem: '문제', approach: '접근', result: '결과', highlights: '요약', more: '과정 보기', less: '접기' }
+    : { problem: 'Problem', approach: 'Approach', result: 'Result', highlights: 'Highlights', more: 'Process', less: 'Close' };
+
+  return (
+    <article className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div className="lg:col-span-7 lg:sticky lg:top-28">
+        <MediaViewer images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 px-0.5">
+          {project.tags.map(t => (
+            <span key={t} className="text-[11px] font-mono tracking-wide text-slate-400">{t}</span>
           ))}
         </div>
-        <button
-          onClick={() => setIndex((index + 1) % images.length)}
-          className="w-10 h-10 flex items-center justify-center bg-white/95 backdrop-blur-sm rounded-full text-slate-800 shadow-md hover:bg-white transition-all transform active:scale-90"
-        >
-          <ChevronRight size={20} />
-        </button>
       </div>
-    </div>
-  );
-};
 
-const ImpactTicker = ({ items }: { items: string[] }) => {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % items.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [items.length]);
-
-  return (
-    <div className="h-14 overflow-hidden relative bg-brand-50/30 rounded-xl px-4 flex items-center border border-brand-100/50">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="flex items-center gap-3 text-brand-700 font-bold text-[13px] md:text-sm w-full"
-        >
-          <Trophy size={16} className="text-brand-500 shrink-0" />
-          <span className="truncate">{items[index]}</span>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-};
-
-const CaseStudyAccordion = ({ title, items, icon: Icon, colorClass, isOpen, onClick }: {
-  title: string,
-  items: string[],
-  icon: any,
-  colorClass: string,
-  isOpen: boolean,
-  onClick: () => void
-}) => {
-  return (
-    <div className={`mb-2 overflow-hidden transition-all duration-300 rounded-xl border ${isOpen ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-50 border-transparent hover:bg-slate-100/80'}`}>
-      <button
-        onClick={onClick}
-        className="w-full px-4 py-3 flex items-center justify-between group text-left"
-      >
-        <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-xl transition-all duration-300 ${isOpen ? colorClass : 'bg-slate-200 text-slate-500'}`}>
-            <Icon size={16} />
-          </div>
-          <span className={`font-bold text-[13px] md:text-[14px] transition-colors duration-300 ${isOpen ? 'text-slate-900' : 'text-slate-500'}`}>{title}</span>
+      <div className="lg:col-span-5">
+        <div className="flex items-baseline gap-3 mb-5">
+          <span className="font-mono text-[11px] tracking-[0.18em] text-slate-900">{project.number.replace('Project ', '')}</span>
+          <span className="w-6 h-px bg-slate-300" />
+          <span className="text-[12px] text-slate-400">{project.subtitle}</span>
         </div>
-        <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-          <Plus size={16} className={isOpen ? 'text-brand-500' : 'text-slate-400'} />
-        </div>
-      </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <div className="px-4 pb-4 pt-0 ml-9">
-              <ul className="space-y-3">
-                {items.map((item, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -5 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex gap-2.5 text-slate-600 text-[13px] md:text-[14px] leading-relaxed"
-                  >
-                    <ArrowRight size={14} className="mt-1 text-brand-400 shrink-0" />
-                    <span className="text-slate-700">
-                      {(() => {
-                        const colonIndex = item.indexOf(':');
-                        if (colonIndex > 0) {
-                          const label = item.substring(0, colonIndex + 1);
-                          const content = item.substring(colonIndex + 1);
-                          return (
-                            <>
-                              <strong className="font-bold text-slate-900">{label}</strong>
-                              {content}
-                            </>
-                          );
-                        }
-                        return item;
-                      })()}
-                    </span>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
+        <h3 className="text-[26px] md:text-[30px] font-bold text-slate-900 leading-[1.2] tracking-tight mb-3">
+          {project.title[language]}
+        </h3>
+        <p className="text-[15px] md:text-[16px] text-slate-800 leading-relaxed mb-4 font-medium">
+          {project.tagline[language]}
+        </p>
+        <p className="text-[14px] text-slate-500 leading-[1.75] mb-7">
+          {project.description[language]}
+        </p>
 
-const ProjectCard: React.FC<{ project: ProjectData, align: 'left' | 'right', onViewCaseStudy?: () => void }> = ({ project, align, onViewCaseStudy }) => {
-  const { language } = useTranslation();
-  const [openSection, setOpenSection] = useState<string | null>(null);
-
-  const toggleSection = (section: string) => {
-    setOpenSection(openSection === section ? null : section);
-  };
-
-  const isSystemicIcon = project.id === 'systemic-icon';
-
-  return (
-    <div className={`flex flex-col lg:flex-row gap-4 lg:gap-16 items-start ${align === 'right' ? 'lg:flex-row-reverse' : ''}`}>
-      {/* Left: Visual Display */}
-      <div className="w-full lg:w-[55%] lg:sticky lg:top-32 order-2 lg:order-1">
-        <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] border border-slate-100 bg-white group">
-          <ImageSlider images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
-        </div>
-        <div className="mt-6 flex flex-wrap items-center justify-between px-2 gap-4">
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map(t => (
-              <span key={t} className="px-3 py-1 bg-white text-slate-500 text-[11px] font-bold border border-slate-100 rounded-full uppercase tracking-tight">
-                {t}
-              </span>
+        <div className="border-y border-slate-200 py-4">
+          <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-2.5">{L.highlights}</div>
+          <ul className="space-y-1.5">
+            {project.impactHighlights[language].map((h, i) => (
+              <li key={i} className="flex gap-3 text-[13.5px] text-slate-800 leading-relaxed">
+                <span className="mt-[9px] w-1 h-1 rounded-full bg-slate-900 shrink-0" />
+                <span>{h}</span>
+              </li>
             ))}
-          </div>
-          <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">{project.role.split('•')[0].trim()}</div>
-        </div>
-      </div>
-
-      {/* Right: Content & Accordions wrapper */}
-      <div className="w-full lg:w-[45%] py-4 flex flex-col gap-4">
-        {/* Content - order-1 on mobile, natural flow on desktop */}
-        <div className="order-1 lg:order-none">
-          <div className="mb-0 lg:mb-10">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-brand-600 font-mono text-xs font-bold tracking-widest">{project.number}</span>
-              <div className="w-8 h-[2px] bg-brand-100 rounded-full" />
-              <span className="text-slate-400 font-medium text-xs tracking-wide">{project.subtitle}</span>
-            </div>
-
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
-              {project.title[language]}
-            </h3>
-            <p className="text-brand-600 font-semibold text-[14px] md:text-[15px] leading-relaxed mb-6">
-              {project.tagline[language]}
-            </p>
-
-            <p className="text-slate-500 leading-relaxed text-[15px] max-w-lg mb-2 lg:mb-8">
-              {project.description[language]}
-            </p>
-
-            <ImpactTicker items={project.impactHighlights[language]} />
-          </div>
+          </ul>
         </div>
 
-        {/* Accordions or Case Study Banner */}
-        <div className="order-3 lg:order-none">
-          {isSystemicIcon ? (
-            /* ── Case Study Banner for Systemic Icon ── */
-            <motion.button
-              onClick={onViewCaseStudy}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="w-full group overflow-hidden rounded-xl border border-slate-200 bg-white hover:border-brand-300 hover:shadow-md transition-all duration-300 cursor-pointer text-left"
+        <button
+          onClick={() => setOpen(o => !o)}
+          aria-expanded={open}
+          className="group w-full flex items-center justify-between py-4 border-b border-slate-200 text-[13px] font-medium text-slate-900 hover:text-brand-600 transition-colors"
+        >
+          <span className="flex items-center gap-3">
+            <span className="font-mono text-[11px] tracking-[0.18em] text-slate-400">{L.problem} · {L.approach} · {L.result}</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            {open ? L.less : L.more}
+            <ChevronDown size={14} className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
+          </span>
+        </button>
+
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              key="details"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="overflow-hidden"
             >
-              <div className="w-full px-4 py-4 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="p-2.5 rounded-xl bg-brand-50 text-brand-600 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300 shrink-0">
-                    <ArrowRight size={18} />
-                  </div>
-                  <div>
-                    <div className="text-slate-900 font-bold text-[14px] md:text-[15px] mb-0.5 group-hover:text-brand-600 transition-colors duration-300">
-                      {language === 'ko' ? '풀 케이스 스터디 보기' : 'View Full Case Study'}
-                    </div>
-                    <div className="text-[12px] text-slate-500">
-                      {language === 'ko'
-                        ? 'Auto-Weight 엔진, 1비트 압축, 팀 협업 시스템 상세 분석'
-                        : 'Auto-Weight engine, 1-bit compression, team sync deep dive'}
-                    </div>
-                  </div>
-                </div>
-                <motion.div
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="text-brand-400 group-hover:text-brand-600 transition-colors duration-300"
-                >
-                  <ChevronRight size={18} />
-                </motion.div>
+              <div className="pt-7 space-y-8">
+                <DetailBlock index="01" title={L.problem} items={project.details.challenge[language]} />
+                <DetailBlock index="02" title={L.approach} items={project.details.solution[language]} />
+                <DetailBlock index="03" title={L.result} items={project.details.impact[language]} />
               </div>
-            </motion.button>
-          ) : (
-            /* ── Standard Accordion for other projects ── */
-            <div className="space-y-1">
-              <CaseStudyAccordion
-                title="The Challenge"
-                items={project.details.challenge[language]}
-                icon={AlertCircle}
-                colorClass="bg-red-50 text-red-500"
-                isOpen={openSection === 'challenge'}
-                onClick={() => toggleSection('challenge')}
-              />
-              <CaseStudyAccordion
-                title="The Solution"
-                items={project.details.solution[language]}
-                icon={Lightbulb}
-                colorClass="bg-indigo-50 text-brand-600"
-                isOpen={openSection === 'solution'}
-                onClick={() => toggleSection('solution')}
-              />
-              <CaseStudyAccordion
-                title="The Impact"
-                items={project.details.impact[language]}
-                icon={CheckCircle2}
-                colorClass="bg-emerald-50 text-emerald-600"
-                isOpen={openSection === 'impact'}
-                onClick={() => toggleSection('impact')}
-              />
-            </div>
+            </motion.div>
           )}
-        </div>
+        </AnimatePresence>
       </div>
-    </div>
+    </article>
   );
 };
 
-export const Projects: React.FC<{ onViewCaseStudy?: () => void }> = ({ onViewCaseStudy }) => {
-  const { t, language } = useTranslation();
+export const Projects: React.FC<{ onViewCaseStudy?: () => void }> = () => {
+  const { t } = useTranslation();
+  const visible = projects.filter(p => !p.hidden);
+
   return (
-    <section id="projects" className="py-12 md:py-20 px-6 md:px-12 lg:px-24 bg-white relative">
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-20 md:mb-32 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 text-brand-600 font-bold text-[11px] mb-4 bg-brand-50 px-3 py-1.5 rounded-full uppercase tracking-widest border border-brand-100/50">
-            <Trophy size={14} className="animate-bounce" />
-            <span>{t('projects.badge')}</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">{t('projects.title')}</h2>
-          <p className="text-slate-500 text-sm md:text-base max-w-xl leading-relaxed">
-            {language === 'ko' ? (
-              <>
-                심미성을 넘어 <span className="text-brand-600 font-bold underline decoration-brand-200 decoration-2 underline-offset-4">데이터와 시스템</span>으로 <br />
-                복잡한 비즈니스 문제를 해결한 기록들입니다.
-              </>
-            ) : (
-              <>
-                Solving complex business problems with <span className="text-brand-600 font-bold underline decoration-brand-200 decoration-2 underline-offset-4">data and systems</span>, <br />
-                beyond mere aesthetics.
-              </>
-            )}
-          </p>
+    <section id="projects" className="py-20 md:py-28 px-6 md:px-12 lg:px-24 bg-white relative border-t border-slate-200">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-16 md:mb-24">
+          <Eyebrow>{t('projects.badge')}</Eyebrow>
+          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight leading-[1.1]">{t('projects.title')}</h2>
         </div>
 
-        <div className="space-y-32 md:space-y-48">
-          {projects.map((project, idx) => (
+        <div className="space-y-24 md:space-y-36">
+          {visible.map((project, idx) => (
             <ProjectCard
               key={project.id}
-              project={project}
-              align={idx % 2 === 0 ? 'left' : 'right'}
-              onViewCaseStudy={onViewCaseStudy}
+              project={{ ...project, number: `Project ${String(idx + 1).padStart(2, '0')}` }}
             />
           ))}
         </div>
+
       </div>
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
-        style={{ backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
     </section>
   );
 };
