@@ -23,8 +23,9 @@ export const Hero: React.FC = () => {
 
           {/* w-fit container takes the title's width; the paragraph (w-0 min-w-full) wraps to it at every breakpoint */}
           <div className="w-fit">
-            <h1 className="font-display italic text-[clamp(60px,10vw,96px)] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
-              {t('hero.title.1')}<br />
+            <h1 className="font-display italic text-[clamp(60px,10vw,96px)] font-bold leading-[1.02] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
+              {/* Line 1 smaller so its descender clears line 2 */}
+              <span className="block text-[0.8em] font-semibold text-slate-700 mb-[0.04em]">{t('hero.title.1')}</span>
               <span className="text-flow pr-1">{t('hero.title.2')}</span>
             </h1>
 
