@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
             {t('hero.badge')}
           </div>
 
-          <h1 className="font-display italic text-[56px] md:text-[96px] lg:text-[120px] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-10 pr-4">
+          <h1 className="font-display italic text-[52px] md:text-[80px] lg:text-[96px] font-bold leading-[0.95] tracking-[-0.04em] text-slate-900 mb-8 pr-4">
             {t('hero.title.1')}<br />
             <span className="text-brand-600">{t('hero.title.2')}</span>
           </h1>
