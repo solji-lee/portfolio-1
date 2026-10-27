@@ -83,7 +83,7 @@ const App: React.FC = () => {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-white text-slate-800 selection:bg-slate-900 selection:text-white font-sans overflow-x-hidden">
+      <div className="min-h-screen bg-white text-slate-800 selection:bg-slate-900 selection:text-white font-sans overflow-x-clip">
         <Navbar />
         <SpeedInsights />
         <Analytics />
