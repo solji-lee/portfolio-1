@@ -8,16 +8,16 @@
 
   <!-- SEO Meta Tags -->
   <meta name="description"
-    content="시스템을 설계하고 AI로 효율을 혁신하는 테크니컬 디자이너. Hyundai/Kia/Genesis 디자인 시스템 통합, 3D 인터랙션 UX, Design Ops 도구 개발." />
+    content="복잡한 기능을 직관적 경험으로, AI와 시스템적 사고로 빠르고 일관되게 만들어내는 테크니컬 프로덕트 디자이너 이솔지. EV9 3D 원격 제어, 멀티브랜드 디자인 시스템, 32개 언어 디자인 워크플로우." />
   <meta name="keywords"
-    content="Technical Product Designer, UX/UI Design, Design System, Figma, Design Ops, Hyundai, 이솔지, Product Designer, 디자인 시스템" />
+    content="Product Designer, Mobility, Connected Car, IVI, 3D Interaction, Hyundai, Kia, Genesis, 이솔지, 디자인 시스템" />
   <meta name="author" content="Solji Lee" />
 
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Solji Lee | Technical Product Designer - Designing Intelligence" />
+  <meta property="og:title" content="Solji Lee | Designing Intelligence" />
   <meta property="og:description"
-    content="시스템을 설계하고 AI로 효율을 혁신하는 테크니컬 디자이너. 3개 브랜드 디자인 시스템 통합, 3D 모바일 인터랙션, Design Ops 자동화." />
+    content="복잡한 기능을 직관적 경험으로. 테크니컬 프로덕트 디자이너 이솔지의 포트폴리오." />
   <meta property="og:url" content="https://solji.design" />
   <meta property="og:site_name" content="SOLJI.DESIGN" />
   <meta property="og:image" content="/og-image.png" />
@@ -27,7 +27,7 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Solji Lee | Technical Product Designer" />
-  <meta name="twitter:description" content="시스템을 설계하고 AI로 효율을 혁신하는 테크니컬 디자이너" />
+  <meta name="twitter:description" content="복잡한 기능을 직관적 경험으로. 테크니컬 프로덕트 디자이너 이솔지의 포트폴리오." />
   <meta name="twitter:image" content="/og-image.png" />
 
   <!-- Favicon -->
@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
   <script>
     tailwind.config = {
@@ -46,15 +46,16 @@
         extend: {
           fontFamily: {
             sans: ['Pretendard', 'Inter', 'system-ui', 'sans-serif'],
+            display: ['Inter', 'Pretendard', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
             brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              900: '#312e81',
+              50: '#eff4ff',
+              100: '#dbe6fe',
+              500: '#2b5cff',
+              600: '#1f49d6',
+              900: '#13296b',
             },
             accent: {
               400: '#fb7185',
@@ -74,10 +75,8 @@
   </script>
   <style>
     body {
-      background-color: #f8fafc;
+      background-color: #ffffff;
       color: #1e293b;
-      background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
-      background-size: 30px 30px;
       font-family: 'Pretendard', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -107,6 +106,48 @@
 
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
+    }
+
+    /* Hero title: blue → deep navy → purple, drifting slowly across the text */
+    .text-flow {
+      /* electric blue → deep navy → indigo → a brief cyan highlight → back to blue */
+      background-image: linear-gradient(100deg, #2f5bff 0%, #15245e 26%, #4f5df0 50%, #38b6ff 66%, #2f5bff 84%, #15245e 100%);
+      background-size: 300% 100%;
+      background-position: 0% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: text-flow 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes text-flow {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
+    }
+
+    /* Dot-matrix texture: the glyphs are 45% solid + a grid of dots that drifts diagonally */
+    .text-dots {
+      /* fine grain: 72% solid base + a 5px micro-dot grid, so it reads as texture, not a display */
+      -webkit-mask-image:
+        radial-gradient(circle, #000 0.75px, transparent 1.15px),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72));
+      mask-image:
+        radial-gradient(circle, #000 0.75px, transparent 1.15px),
+        linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72));
+      -webkit-mask-size: 5px 5px, 100% 100%;
+      mask-size: 5px 5px, 100% 100%;
+      -webkit-mask-position: 0 0, 0 0;
+      mask-position: 0 0, 0 0;
+      animation: text-flow 12s ease-in-out infinite alternate, text-dots 24s linear infinite;
+    }
+
+    @keyframes text-dots {
+      from { -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; }
+      to { -webkit-mask-position: 50px 25px, 0 0; mask-position: 50px 25px, 0 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .text-flow, .text-dots { animation: none; background-position: 40% 50%; }
     }
 
     .glass-panel {
