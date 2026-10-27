@@ -13,11 +13,11 @@ const translations: Record<Language, Translations> = {
         'nav.contact': 'Contact',
 
         // Hero
-        'hero.badge': 'Product Designer',
+        'hero.badge': 'Technical Product Designer',
         'hero.title.1': 'Designing',
         'hero.title.2': 'Intelligence',
-        'hero.desc': '사용자의 문제에서 출발해, 화면과 시스템으로 끝까지 만들어내는 ',
-        'hero.desc.strong': '프로덕트 디자이너 ',
+        'hero.desc': '더 나은 사용성을 AI와 시스템적 사고로 빠르고 일관되게 만들어내는 ',
+        'hero.desc.strong': '테크니컬 프로덕트 디자이너 ',
         'hero.desc.name': '이솔지',
         'hero.desc.end': '입니다.',
 
@@ -48,11 +48,11 @@ const translations: Record<Language, Translations> = {
         'nav.contact': 'Contact',
 
         // Hero
-        'hero.badge': 'Product Designer',
+        'hero.badge': 'Technical Product Designer',
         'hero.title.1': 'Designing',
         'hero.title.2': 'Intelligence',
-        'hero.desc': 'Starting from the user\'s problem and seeing it through in screens and systems, ',
-        'hero.desc.strong': 'product designer ',
+        'hero.desc': 'Building better usability, fast and consistently, with AI and systems thinking. ',
+        'hero.desc.strong': 'Technical product designer ',
         'hero.desc.name': 'Solji Lee',
         'hero.desc.end': '.',
 

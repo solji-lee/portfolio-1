@@ -26,7 +26,7 @@ export const Hero: React.FC = () => {
             <span className="text-brand-600">{t('hero.title.2')}</span>
           </h1>
 
-          <p className="text-[18px] md:text-[21px] text-slate-600 leading-relaxed max-w-2xl">
+          <p className="text-[15px] md:text-[17px] text-slate-600 leading-[1.7] max-w-[36rem]">
             {t('hero.desc')}
             <span className="text-slate-900 font-medium">{t('hero.desc.strong')}<span className="border-b-2 border-slate-900 pb-0.5">{t('hero.desc.name')}</span>{t('hero.desc.end')}</span>
           </p>
