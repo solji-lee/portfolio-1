@@ -694,7 +694,7 @@ export const Projects: React.FC<{ onViewCaseStudy?: () => void }> = () => {
           <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight leading-[1.1]">{t('projects.title')}</h2>
         </div>
 
-        <div className="space-y-24 md:space-y-36">
+        <div className="space-y-32 md:space-y-56">
           {visible.map((project, idx) => (
             <ProjectCard
               key={project.id}
