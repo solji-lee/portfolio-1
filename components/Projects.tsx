@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, ChevronDown, Play, Image as ImageIcon } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ChevronDown, Play, Image as ImageIcon, ArrowUpRight } from 'lucide-react';
 import { useTranslation } from '../lib/i18n';
 import { Eyebrow } from './Eyebrow';
 
@@ -25,6 +25,7 @@ interface ProjectData {
   cropFocus?: boolean;
   backgroundColors?: string[];
   hidden?: boolean;
+  articleSlug?: string;
 }
 
 const projects: ProjectData[] = [
@@ -240,7 +241,7 @@ const projects: ProjectData[] = [
   },
   {
     id: "design-system",
-    number: "Project 04",
+    number: "Project 02",
     title: { ko: "현대·기아·제네시스 통합 디자인 시스템", en: "Hyundai · Kia · Genesis Unified Design System" },
     tagline: { ko: "세 브랜드, 세 벌의 파일을 한 벌로. 모드 전환으로 세 앱의 디자인 산출", en: "Three brands, three file sets, one master. Switch a mode, get all three apps" },
     subtitle: "Design Ops · Multi-brand",
@@ -305,7 +306,75 @@ const projects: ProjectData[] = [
       }
     }
   },
-  // Hidden from the site. Remove `hidden` to bring one back.
+  {
+    id: "design-ops-ai",
+    number: "Project 03",
+    title: { ko: "32개 언어 디자인 워크플로우", en: "32-language Design Workflow" },
+    tagline: { ko: "32개 언어 검수와 끊어진 Jira 연동을, 디자인 팀이 직접 만든 플러그인으로", en: "32-language QA and a severed Jira link, solved with plugins the design team built itself" },
+    subtitle: "Hyundai Motor Group · Internal Tools",
+    role: "Product Owner • Tool Design",
+    description: {
+      ko: "글로벌 앱은 32개 언어로 나갑니다. 언어별 UI 깨짐을 사람이 다 볼 수 없었고, 보안 정책 때문에 Jira와 Figma 연동도 막혀 있었습니다. 둘 다 내부 도구로 풀기로 하고, 기획부터 로직 설계까지 PO 역할로 사내 개발팀과 함께 만들었습니다.",
+      en: "The app ships in 32 languages. Nobody could check every layout break by eye, and security policy blocked the Jira to Figma integration. Both became internal tools; I took the product owner role from spec to logic design, working with the in-house dev team."
+    },
+    impactHighlights: {
+      ko: [
+        "Lokalise 스트링 → Figma Variables 자동 주입 플러그인",
+        "보안 정책 안에서 동작하는 Jira 연동 플러그인",
+        "MCP 기반 32개 언어 AI QA 준비 중"
+      ],
+      en: [
+        "Plugin that injects Lokalise strings into Figma Variables",
+        "Jira plugin that works within security policy",
+        "MCP-based AI QA across 32 languages in progress"
+      ]
+    },
+    tags: ["Design Ops", "Figma Plugin", "Localization"],
+    articleSlug: "design-ops-inside-the-firewall",
+    backgroundColors: [
+      "#1a1a1a", "#1a1a1a", "#1a1a1a", "#3a3a3a", "#2a2a2a"
+    ],
+    images: [
+      "/p3v1.mp4", "/p3v2.mp4", "/p3v3.mp4", "/design-ops-2.jpg", "/design-ops-5.jpg"
+    ],
+    details: {
+      challenge: {
+        ko: [
+          "32개 언어 검수: 언어별 UI 깨짐·오역을 사람이 일일이 확인, 놓친 건 QA에서 되돌아옴",
+          "보안망 단절: Jira–Figma 표준 연동 차단, 디자이너가 보안망 안팎을 오가며 티켓 확인"
+        ],
+        en: [
+          "32-language QA: layout breaks and mistranslations checked by eye, misses bounced back from QA",
+          "Firewall gap: standard Jira–Figma integration blocked, designers crossing networks to check tickets"
+        ]
+      },
+      solution: {
+        ko: [
+          "Lokalise 파이프라인: 번역 스트링을 Figma Variables로 자동 변환·주입, 모드 전환으로 32개 언어 미리보기",
+          "Jira 플러그인: 보안 정책 허용 범위 안에서 티켓 데이터를 호출, 피그마 안에서 디자인에 연결된 티켓 상태 동기화",
+          "AI QA (진행 중): MCP로 LLM이 언어별 오버플로우·문맥 오류를 먼저 걸러내는 구조"
+        ],
+        en: [
+          "Lokalise pipeline: translation strings converted and injected as Figma Variables, 32 languages previewed by switching modes",
+          "Jira plugin: ticket data fetched within what security policy allows, ticket status synced to designs inside Figma",
+          "AI QA (in progress): MCP lets an LLM flag per-language overflow and context errors first"
+        ]
+      },
+      impact: {
+        ko: [
+          "QA에서 돌아오던 다국어 이슈를 디자인 단계로 앞당김",
+          "기획–디자인–개발 사이 끊긴 연결 복구, 히스토리 자동 기록",
+          "'불편은 기술로 푼다'는 팀 문화 정착"
+        ],
+        en: [
+          "Localisation issues caught at design time instead of QA",
+          "Planning–design–dev link restored, history recorded automatically",
+          "A team habit of solving friction with tools"
+        ]
+      }
+    }
+  },
+  // Hidden from the site. Remove `hidden` to bring it back.
   {
     id: "systemic-icon",
     hidden: true,
@@ -368,74 +437,6 @@ const projects: ProjectData[] = [
           "90%+ Reduction in Icon Management: Instant indexing and search of 40,000+ icons",
           "Guaranteed Design Consistency: Forced system stroke rules eliminate human error",
           "Enhanced Team Synergy: Ultra-fast bitmask-based sync resolved collaboration bottlenecks"
-        ]
-      }
-    }
-  },
-  {
-    id: "design-ops-ai",
-    hidden: true,
-    number: "Project 06",
-    title: { ko: "피그마 플러그인 & 협업 툴 혁신", en: "Figma Plugin & Tool Innovation" },
-    tagline: { ko: "\"보안과 언어의 장벽을 기술로 넘다. 워크플로우를 설계하고 도구를 만드는 Design Ops.\"", en: "\"Overcoming security and language barriers with tech. DesignOps that builds tools and workflows.\"" },
-    subtitle: "Internal Productivity",
-    role: "Product Owner • Tool Developer",
-    description: {
-      ko: "32개 언어 관리와 보안망 제약을 내부 툴 개발로 해결. Lokalise-Figma 파이프라인과 Jira 연동 플러그인을 직접 설계하여 글로벌 워크플로우를 혁신했습니다.",
-      en: "Solved 32-language management and security constraints by developing internal tools. Innovated global workflows by designing a Lokalise-Figma pipeline and Jira plugin firsthand."
-    },
-    impactHighlights: {
-      ko: [
-        "협업 속도 증대: 보안망 단절 해소, 기획-디자인-개발 연결",
-        "AI 자동화 준비: MCP 기반 32개국어 QA 시스템 설계",
-        "Design Ops 문화: 기술로 불편함을 해결하는 리더십 정착"
-      ],
-      en: [
-        "Boosted Synergy: Connected planning, design, and dev teams despite security walls",
-        "AI Automation Prep: Designed an MCP-based QA system for 32 languages",
-        "DesignOps Culture: Established leadership resolving issues through tech"
-      ]
-    },
-    tags: ["Lokalise", "MCP", "Figma Plugin"],
-    backgroundColors: [
-      "#1a1a1a", "#1a1a1a", "#1a1a1a", "#3a3a3a", "#2a2a2a", "#1a1a1a"
-    ],
-    images: [
-      "/p3v1.mp4", "/p3v2.mp4", "/p3v3.mp4", "/design-ops-2.jpg", "/design-ops-5.jpg", "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
-    ],
-    details: {
-      challenge: {
-        ko: [
-          "32개국어 검수의 한계: 글로벌 서비스 운영 시 각 언어별 UI 깨짐과 오역을 사람이 일일이 검수하는 것은 불가능에 가까웠고, 품질 리스크로 직결",
-          "보안망에 갇힌 비효율: 높은 보안 정책으로 Jira-Figma 표준 연동 차단, 디자이너들이 보안망을 넘나들며 티켓 상태를 확인해야 하는 커뮤니케이션 로스 발생"
-        ],
-        en: [
-          "Limits of 32 Language QA: Impossible to manually inspect UI breaks and mistranslations for global services, leading to quality risks",
-          "Inefficiency Trapped by Security: Strict policies blocked Jira-Figma standard integration, causing communication loss as designers crossed security networks"
-        ]
-      },
-      solution: {
-        ko: [
-          "Product Owner of Internal Tools: 디자인 팀 병목을 해결하는 내부 툴의 PO 역할 수행, 문제 정의부터 로직 설계까지 사내 개발팀과 협업",
-          "Lokalise Pipeline & AI Vision: (Step 1) Lokalise 스트링을 Figma Variable로 자동 변환/주입하는 플러그인 개발, (Step 2 - Future) MCP(Model Context Protocol) 활용, 32개국어의 UI 오버플로우 및 문맥 오류를 AI가 자동 탐지하는 QA 자동화 시스템 준비 중",
-          "Security-Compliant Jira Plugin: 보안망을 우회하지 않으면서 Jira 데이터를 안전하게 호출하는 로직 고안, 피그마 내에서 디자인과 연결된 Jira 티켓 상태를 실시간 동기화·관리하는 커스텀 플러그인 구축"
-        ],
-        en: [
-          "Product Owner of Internal Tools: Acted as PO for internal tools to resolve design team bottlenecks, collaborating with developers from problem definition to logic design",
-          "Lokalise Pipeline & AI Vision: (1) Developed a plugin automating localization string injection into Figma Variables. (2) Exploring an MCP-based QA automation system for 32 languages.",
-          "Security-Compliant Jira Plugin: Designed logic to safely fetch Jira data without bypassing the firewall, syncing ticket statuses directly within Figma"
-        ]
-      },
-      impact: {
-        ko: [
-          "Workflow Innovation: 보안 이슈로 단절된 기획-디자인-개발 연결 고리를 잇는 플러그인 도입으로 협업 속도 증대 및 히스토리 관리 자동화",
-          "Scalability for AI: 단순 다국어 적용을 넘어 AI(LLM)가  디자인 데이터를 읽고 검수할 수 있는 'Machine Readable'한 Variable 구조 마련, 차세대 자동화 초석 구축",
-          "Leadership: '불편함은 감수하는 것이 아니라 기술로 해결하는 것'이라는 Design Ops 문화를 팀 내 정착"
-        ],
-        en: [
-          "Workflow Innovation: Reconnected planning, design, and dev teams broken by security walls, boosting synergy and automating history management",
-          "Scalability for AI: Laid the foundation for next-gen automation via 'Machine Readable' variables that LLMs can digest and QA",
-          "Leadership: Established a DesignOps culture that 'inconvenience is not endured, but solved with tech'"
         ]
       }
     }
@@ -658,6 +659,15 @@ const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => {
           </span>
           <ChevronDown size={16} className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
         </button>
+
+        {project.articleSlug && (
+          <a
+            href={`#insights/${project.articleSlug}`}
+            className="inline-flex items-center gap-1.5 mt-4 text-[13px] font-medium text-slate-900 hover:text-brand-600 transition-colors"
+          >
+            {language === 'ko' ? '자세한 글 보기' : 'Read the full story'} <ArrowUpRight size={14} />
+          </a>
+        )}
 
         <AnimatePresence initial={false}>
           {open && (

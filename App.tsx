@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from './components/Navbar';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
@@ -11,24 +11,37 @@ import { SystemicIconPage } from './components/SystemicIconPage';
 import { InsightsPage } from './components/InsightsPage';
 import { ArticlePage } from './components/ArticlePage';
 import { findArticle } from './lib/articles';
+import { PortfolioPacketCaseStudyPage } from './components/PortfolioPacketCaseStudyPage';
+import { PortfolioExportPacket, fetchPortfolioPacket } from './lib/portfolioPacket';
 
 type Route =
   | { page: 'home' }
   | { page: 'systemic-icon' }
   | { page: 'insights' }
-  | { page: 'article'; slug: string };
+  | { page: 'article'; slug: string }
+  | { page: 'packet-case-study'; slug: string };
 
 const routeFromHash = (): Route => {
-  const h = window.location.hash;
-  if (h === '#systemic-icon') return { page: 'systemic-icon' };
-  if (h === '#insights') return { page: 'insights' };
-  if (h.startsWith('#insights/')) return { page: 'article', slug: h.slice('#insights/'.length) };
+  const h = window.location.hash.replace(/^#/, '').trim();
+  if (h === 'systemic-icon') return { page: 'systemic-icon' };
+  if (h === 'insights') return { page: 'insights' };
+  if (h.startsWith('insights/')) return { page: 'article', slug: h.slice('insights/'.length) };
+  if (h.startsWith('case-study/')) {
+    const slug = decodeURIComponent(h.slice('case-study/'.length));
+    if (slug) return { page: 'packet-case-study', slug };
+  }
   return { page: 'home' };
 };
 
 const App: React.FC = () => {
   // Support direct linking via hash
   const [route, setRoute] = useState<Route>(routeFromHash);
+
+  // Export packets (case studies produced by the sj_tool pipeline), loaded on demand
+  const [packetMap, setPacketMap] = useState<Record<string, PortfolioExportPacket>>({});
+  const [packetErrors, setPacketErrors] = useState<Record<string, string>>({});
+  const [loadingSlugs, setLoadingSlugs] = useState<string[]>([]);
+  const requestedSlugsRef = useRef(new Set<string>());
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -40,6 +53,31 @@ const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  useEffect(() => {
+    if (route.page !== 'packet-case-study') return;
+    const slug = route.slug;
+    if (requestedSlugsRef.current.has(slug)) return;
+    requestedSlugsRef.current.add(slug);
+
+    setLoadingSlugs((prev) => [...prev, slug]);
+    setPacketErrors((prev) => {
+      const next = { ...prev };
+      delete next[slug];
+      return next;
+    });
+
+    fetchPortfolioPacket(slug)
+      .then((packet) => setPacketMap((prev) => ({ ...prev, [slug]: packet })))
+      .catch((error) => {
+        requestedSlugsRef.current.delete(slug);
+        setPacketErrors((prev) => ({
+          ...prev,
+          [slug]: error instanceof Error ? error.message : 'Failed to load export packet',
+        }));
+      })
+      .finally(() => setLoadingSlugs((prev) => prev.filter((item) => item !== slug)));
+  }, [route]);
+
   const navigateHome = () => {
     window.location.hash = '';
     setTimeout(() => {
@@ -47,6 +85,21 @@ const App: React.FC = () => {
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
+
+  if (route.page === 'packet-case-study') {
+    return (
+      <LanguageProvider>
+        <SpeedInsights />
+        <Analytics />
+        <PortfolioPacketCaseStudyPage
+          packet={packetMap[route.slug] || null}
+          onBack={navigateHome}
+          isLoading={loadingSlugs.includes(route.slug)}
+          error={packetErrors[route.slug] || null}
+        />
+      </LanguageProvider>
+    );
+  }
 
   if (route.page === 'article') {
     const article = findArticle(route.slug);
