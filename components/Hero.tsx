@@ -26,7 +26,7 @@ export const Hero: React.FC = () => {
             <h1 className="font-display italic text-[clamp(60px,10vw,96px)] font-bold leading-[1.02] tracking-[-0.04em] text-slate-900 mb-8 pr-3">
               {/* Line 1 smaller so its descender clears line 2 */}
               <span className="block text-[0.8em] font-semibold text-slate-700 mb-[0.04em]">{t('hero.title.1')}</span>
-              <span className="text-flow pr-1">{t('hero.title.2')}</span>
+              <span className="text-flow text-dots pr-1">{t('hero.title.2')}</span>
             </h1>
 
             <p className="w-0 min-w-full text-[15px] md:text-[17px] text-slate-600 leading-[1.7]">

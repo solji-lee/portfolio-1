@@ -124,8 +124,28 @@
       to { background-position: 100% 50%; }
     }
 
+    /* Dot-matrix texture: the glyphs are 45% solid + a grid of dots that drifts diagonally */
+    .text-dots {
+      -webkit-mask-image:
+        radial-gradient(circle, #000 1.15px, transparent 1.6px),
+        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
+      mask-image:
+        radial-gradient(circle, #000 1.15px, transparent 1.6px),
+        linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
+      -webkit-mask-size: 7px 7px, 100% 100%;
+      mask-size: 7px 7px, 100% 100%;
+      -webkit-mask-position: 0 0, 0 0;
+      mask-position: 0 0, 0 0;
+      animation: text-flow 9s ease-in-out infinite alternate, text-dots 14s linear infinite;
+    }
+
+    @keyframes text-dots {
+      from { -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; }
+      to { -webkit-mask-position: 70px 35px, 0 0; mask-position: 70px 35px, 0 0; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      .text-flow { animation: none; background-position: 40% 50%; }
+      .text-flow, .text-dots { animation: none; background-position: 40% 50%; }
     }
 
     .glass-panel {
