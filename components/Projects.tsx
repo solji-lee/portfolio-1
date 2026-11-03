@@ -91,12 +91,12 @@ const projects: ProjectData[] = [
       impact: {
         ko: [
           "기아 EV9부터 실배포. 3D 차량 모델 + UI로 디자인 특허 출원",
-          "내·외부 평가: 상태 인지 빨라짐, 기존과 다른 제어 경험. EV9 오너스 카페에서도 긍정적 반응",
+          "내·외부 평가에서 상태 인지가 빨라지고 기존과 다른 제어 경험이라는 반응. EV9 오너스 카페에서도 긍정적",
           "차종별 파라미터 규칙이 이후 모델 적용 기준이 됨"
         ],
         en: [
           "Live from the Kia EV9 onwards. Design patent filed for the 3D car model + UI",
-          "Internal and external feedback: faster state recognition, a control experience unlike before. Positive response in the EV9 owners' community too",
+          "Internal and external reviews found state recognition faster and the control experience unlike before. Positive response in the EV9 owners' community too",
           "The per-model parameter rules became the baseline for later models"
         ]
       }
