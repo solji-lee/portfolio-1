@@ -43,14 +43,14 @@ const projects: ProjectData[] = [
     },
     impactHighlights: {
       ko: [
-        "EV9 오너스 카페에서 긍정적 평가",
-        "EV9 양산 적용, 최초 실행 웰커밍 애니메이션",
-        "차종별 카메라 높이·중심점·회전 범위 규칙 정의"
+        "3D 모델 위에서 제어하는 새로운 경험 → EV9 오너스 카페에서 긍정적 평가",
+        "기아 EV9에 최초 적용, 이후 신규 EV 차종으로 확대",
+        "차종·컬러·옵션별 엣지 케이스를 아우르는 범용 UI 규칙 정의"
       ],
       en: [
-        "Positive response in the EV9 owners' community",
-        "Shipped on EV9, welcome animation on first launch",
-        "Per-model rules for camera height, pivot and rotation range"
+        "A new way to control the car on a 3D model → well received in the EV9 owners' community",
+        "First on the Kia EV9, then rolled out to new EV models",
+        "Universal UI rules covering edge cases across models, colors and options"
       ]
     },
     tags: ["3D Interaction", "Real-time Status", "Motion"],
