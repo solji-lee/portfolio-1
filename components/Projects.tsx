@@ -107,11 +107,11 @@ const projects: ProjectData[] = [
     number: "Project 02",
     title: { ko: "근거리 차량 리모컨", en: "Short-range Car Remote" },
     tagline: { ko: "로그인 없이, 차 밖 30m에서도 바로 쓰는 차량 리모컨", en: "A car remote with no login, ready to use up to 30 m outside the car" },
-    subtitle: "Hyundai Motor Group · Wi-Fi Remote",
+    subtitle: "Hyundai Motor Group · BLE Remote",
     role: "Product Design • IVI Consistency",
     description: {
-      ko: "Wi-Fi 연결 근거리 리모컨 앱(내비 미러링, 도어·공조·창문 제어, 미디어 컨트롤 등). 기존 모바일 앱과 후석 제어기(RSE) 사이에 포지셔닝.",
-      en: "A short-range remote app over Wi-Fi (navigation mirroring, door, climate and window control, media and more). Positioned between the existing mobile app and the rear-seat unit (RSE)."
+      ko: "BLE(블루투스) 연결 근거리 리모컨 앱(내비 미러링, 도어·공조·창문 제어, 미디어 컨트롤 등). 기존 모바일 앱과 후석 제어기(RSE) 사이에 포지셔닝.",
+      en: "A short-range remote app over BLE (Bluetooth) (navigation mirroring, door, climate and window control, media and more). Positioned between the existing mobile app and the rear-seat unit (RSE)."
     },
     impactHighlights: {
       ko: [
@@ -148,13 +148,13 @@ const projects: ProjectData[] = [
         ko: [
           "포지셔닝: 빠른 연결, 로그인 없음, 30m 근거리. 이 세 조건으로 'RSE 없는 차의 뒷좌석 제어'와 '차박·캠핑 등 차 밖 사용' 두 맥락을 잡음",
           "IoT 리모컨 패턴: 홈에는 빠른 제어와 자주 쓰는 버튼 편집, 세부 제어는 한 뎁스 아래 배치. 가장 자주 하는 동작은 첫 화면에서 끝남",
-          "IVI와 통일성: Connect 차량 IVI와 같은 버튼 동작·상태 표현·디자인 언어. 기기를 오가도 새로 배울 게 없음",
+          "IVI와 통일성: Connect 차량 IVI와 같은 버튼 동작·상태 표현·디자인 언어. 기기를 오가도 익숙한 사용성을 유지",
           "모션: 주행 중·정차 중·라디오 같은 핵심 정보에 모션을 붙여 글을 안 읽어도 상태가 보임"
         ],
         en: [
           "Positioning: fast pairing, no login, 30 m range. Those three set two contexts, rear-seat control in cars without RSE, and use outside the car such as camping",
           "IoT remote pattern: quick controls and editable favourites on home, detailed control one depth down. The most frequent actions end on the first screen",
-          "Consistent with IVI: same button behaviour, states and visual language as the Connect IVI. Nothing to relearn when switching devices",
+          "Consistent with IVI: same button behaviour, states and visual language as the Connect IVI. Stays familiar when switching devices",
           "Motion: driving, parked and radio states carry motion, so the state reads without reading"
         ]
       },
