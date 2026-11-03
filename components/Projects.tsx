@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, ChevronDown, Play, Image as ImageIcon, ArrowUpRight, X, Maximize2 } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ChevronDown, Play, Pause, Image as ImageIcon, ArrowUpRight, X, Maximize2 } from 'lucide-react';
 import { useTranslation } from '../lib/i18n';
 import { Eyebrow } from './Eyebrow';
 
@@ -456,11 +456,103 @@ const projects: ProjectData[] = [
 
 const isVideo = (src: string) => src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov');
 
+const fmtTime = (t: number) => {
+  if (!isFinite(t)) return '0:00';
+  const m = Math.floor(t / 60), sec = Math.floor(t % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+};
+
+/* Slim play/pause + seek bar for the inline (muted, looping) video */
+const VideoScrubber = ({ video, isDark }: { video: HTMLVideoElement | null, isDark: boolean }) => {
+  const [playing, setPlaying] = useState(true);
+  const [time, setTime] = useState({ cur: 0, dur: 0 });
+  const fillRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+
+  useEffect(() => {
+    const v = video;
+    if (fillRef.current) fillRef.current.style.width = '0%';
+    setTime({ cur: 0, dur: 0 });
+    if (!v) return;
+    let raf = 0;
+    const tick = () => {
+      if (fillRef.current && v.duration) fillRef.current.style.width = `${(v.currentTime / v.duration) * 100}%`;
+      raf = requestAnimationFrame(tick);
+    };
+    const onTime = () => setTime({ cur: v.currentTime, dur: v.duration || 0 });
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    v.addEventListener('timeupdate', onTime);
+    v.addEventListener('loadedmetadata', onTime);
+    v.addEventListener('play', onPlay);
+    v.addEventListener('pause', onPause);
+    setPlaying(!v.paused);
+    onTime();
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      v.removeEventListener('timeupdate', onTime);
+      v.removeEventListener('loadedmetadata', onTime);
+      v.removeEventListener('play', onPlay);
+      v.removeEventListener('pause', onPause);
+    };
+  }, [video]);
+
+  const seekTo = (clientX: number) => {
+    const v = video, bar = barRef.current;
+    if (!v || !bar || !v.duration) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    v.currentTime = ratio * v.duration;
+    if (fillRef.current) fillRef.current.style.width = `${ratio * 100}%`;
+    setTime({ cur: v.currentTime, dur: v.duration });
+  };
+
+  const toggle = () => {
+    const v = video;
+    if (!v) return;
+    if (v.paused) v.play(); else v.pause();
+  };
+
+  return (
+    <div
+      className={`absolute bottom-3 left-3 right-3 flex items-center gap-2.5 px-2.5 h-8 rounded-full backdrop-blur-sm transition-opacity ${isDark ? 'bg-black/45 text-white/85' : 'bg-white/80 text-slate-700'} ${playing ? 'opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100' : 'opacity-100'}`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button aria-label={playing ? 'Pause' : 'Play'} onClick={toggle} className="w-5 h-5 flex items-center justify-center shrink-0">
+        {playing ? <Pause size={13} fill="currentColor" /> : <Play size={13} fill="currentColor" />}
+      </button>
+      <div
+        ref={barRef}
+        role="slider"
+        aria-label="Seek"
+        aria-valuemin={0}
+        aria-valuemax={Math.round(time.dur)}
+        aria-valuenow={Math.round(time.cur)}
+        className="relative flex-1 h-5 flex items-center cursor-pointer touch-none"
+        onPointerDown={(e) => { dragging.current = true; e.currentTarget.setPointerCapture(e.pointerId); seekTo(e.clientX); }}
+        onPointerMove={(e) => { if (dragging.current) seekTo(e.clientX); }}
+        onPointerUp={(e) => { dragging.current = false; e.currentTarget.releasePointerCapture(e.pointerId); }}
+        onPointerCancel={() => { dragging.current = false; }}
+      >
+        <div className={`w-full h-[3px] rounded-full ${isDark ? 'bg-white/25' : 'bg-slate-900/15'}`}>
+          <div ref={fillRef} className={`h-full rounded-full ${isDark ? 'bg-white' : 'bg-slate-900'}`} style={{ width: 0 }} />
+        </div>
+      </div>
+      <span className="font-mono text-[10px] tabular-nums shrink-0">{fmtTime(time.cur)} / {fmtTime(time.dur)}</span>
+    </div>
+  );
+};
+
 /* ───────────── Media viewer: manual navigation + thumbnails ───────────── */
 const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
   const [index, setIndex] = useState(0);
   const [missing, setMissing] = useState<Record<string, boolean>>({});
   const [open, setOpen] = useState(false);
+  // Callback ref: the exiting element's null must not clobber the entering one during the crossfade
+  const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null);
+  const videoRef = useCallback((el: HTMLVideoElement | null) => { if (el) setVideoEl(el); }, []);
 
   const go = (i: number) => setIndex((i + images.length) % images.length);
   const current = images[index];
@@ -493,10 +585,11 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
         className="relative aspect-[4/3] rounded-lg overflow-hidden group transition-colors duration-500 border border-slate-200/80"
         style={{ backgroundColor: bg }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false}>
           {isVideo(current) ? (
             <motion.video
               key={current}
+              ref={videoRef}
               src={current}
               onClick={() => setOpen(true)}
               autoPlay
@@ -507,7 +600,7 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: 0.2 }}
               className={`absolute inset-0 w-full h-full object-contain cursor-zoom-in ${cropFocus ? 'scale-110 origin-center' : ''}`}
             />
           ) : missing[current] ? (
@@ -516,7 +609,7 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: 0.2 }}
               className={`absolute inset-0 flex flex-col items-center justify-center gap-3 text-center px-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}
             >
               <div className={`w-12 h-12 rounded-lg border border-dashed flex items-center justify-center ${isDark ? 'border-slate-600' : 'border-slate-300'}`}>
@@ -534,17 +627,19 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: 0.2 }}
               className={`absolute inset-0 w-full h-full object-contain cursor-zoom-in ${cropFocus ? 'scale-110 origin-center' : ''}`}
             />
           )}
         </AnimatePresence>
 
+        {isVideo(current) && <VideoScrubber video={videoEl} isDark={isDark} />}
+
         {canOpen && (
           <button
             aria-label="Open full size"
             onClick={() => setOpen(true)}
-            className={`absolute bottom-3 left-3 w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'bg-black/40 text-white/80 hover:bg-black/60' : 'bg-white/80 text-slate-700 hover:bg-white'}`}
+            className={`absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'bg-black/40 text-white/80 hover:bg-black/60' : 'bg-white/80 text-slate-700 hover:bg-white'}`}
           >
             <Maximize2 size={14} />
           </button>
@@ -566,7 +661,7 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
             >
               <ChevronRight size={18} />
             </button>
-            <div className={`absolute bottom-3 right-3 px-2 py-1 rounded font-mono text-[11px] tabular-nums ${isDark ? 'bg-black/40 text-white/80' : 'bg-white/70 text-slate-600'}`}>
+            <div className={`absolute top-3 left-3 px-2 py-1 rounded font-mono text-[11px] tabular-nums ${isDark ? 'bg-black/40 text-white/80' : 'bg-white/70 text-slate-600'}`}>
               {index + 1} / {images.length}
             </div>
           </>
@@ -638,7 +733,16 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
                 onClick={(e) => e.stopPropagation()}
               >
                 {isVideo(current) ? (
-                  <video src={current} autoPlay loop muted playsInline controls className="max-w-[94vw] max-h-[80vh] md:max-h-[88vh] object-contain rounded-md" />
+                  <video
+                    src={current}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls
+                    onLoadedMetadata={(e) => { e.currentTarget.currentTime = videoEl?.currentTime ?? 0; }}
+                    className="max-w-[94vw] max-h-[80vh] md:max-h-[88vh] object-contain rounded-md"
+                  />
                 ) : (
                   <img src={current} alt="" className="max-w-[94vw] max-h-[80vh] md:max-h-[88vh] object-contain rounded-md" />
                 )}
