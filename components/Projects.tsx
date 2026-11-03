@@ -129,7 +129,7 @@ const projects: ProjectData[] = [
       "#111318", "#111318", "#111318"
     ],
     images: [
-      "/remote/remote-hero.mp4", "/remote/remote-depth.jpg", "/remote/remote-states.jpg"
+      "/remote/remote-hero.mp4", "/remote/remote-depth.jpg", "/remote/remote-states.mp4"
     ],
     details: {
       challenge: {
