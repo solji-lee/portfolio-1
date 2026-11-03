@@ -584,7 +584,7 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[100] bg-slate-950/95 flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+              className="fixed inset-0 z-[100] bg-slate-950 flex items-center justify-center p-4 pb-16 md:p-10 cursor-zoom-out"
               onClick={() => setOpen(false)}
             >
               <button
@@ -599,19 +599,33 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
                   <button
                     aria-label="Previous"
                     onClick={(e) => { e.stopPropagation(); go(index - 1); }}
-                    className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                    className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white items-center justify-center transition-colors"
                   >
                     <ChevronLeft size={22} />
                   </button>
                   <button
                     aria-label="Next"
                     onClick={(e) => { e.stopPropagation(); go(index + 1); }}
-                    className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                    className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white items-center justify-center transition-colors"
                   >
                     <ChevronRight size={22} />
                   </button>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-wide text-white/60 tabular-nums">
-                    {index + 1} / {images.length}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-5 font-mono text-[11px] tracking-wide text-white/60 tabular-nums">
+                    <button
+                      aria-label="Previous"
+                      onClick={(e) => { e.stopPropagation(); go(index - 1); }}
+                      className="md:hidden w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <span>{index + 1} / {images.length}</span>
+                    <button
+                      aria-label="Next"
+                      onClick={(e) => { e.stopPropagation(); go(index + 1); }}
+                      className="md:hidden w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
                   </div>
                 </>
               )}
@@ -624,9 +638,9 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
                 onClick={(e) => e.stopPropagation()}
               >
                 {isVideo(current) ? (
-                  <video src={current} autoPlay loop muted playsInline controls className="max-w-[94vw] max-h-[88vh] object-contain rounded-md" />
+                  <video src={current} autoPlay loop muted playsInline controls className="max-w-[94vw] max-h-[80vh] md:max-h-[88vh] object-contain rounded-md" />
                 ) : (
-                  <img src={current} alt="" className="max-w-[94vw] max-h-[88vh] object-contain rounded-md" />
+                  <img src={current} alt="" className="max-w-[94vw] max-h-[80vh] md:max-h-[88vh] object-contain rounded-md" />
                 )}
               </motion.div>
             </motion.div>
@@ -709,7 +723,7 @@ const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => {
   return (
     <article className="grid lg:grid-cols-12 gap-10 lg:gap-16">
       {/* Grid cell stretches to the row; the inner wrapper sticks while the text column scrolls */}
-      <div className="lg:col-span-7">
+      <div className="lg:col-span-7 min-w-0">
         <div className="lg:sticky lg:top-24">
           <MediaViewer images={project.images} cropFocus={project.cropFocus} backgroundColors={project.backgroundColors} />
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 px-0.5">
@@ -720,7 +734,7 @@ const ProjectCard: React.FC<{ project: ProjectData }> = ({ project }) => {
         </div>
       </div>
 
-      <div className="lg:col-span-5">
+      <div className="lg:col-span-5 min-w-0">
         <div className="flex items-baseline gap-3 mb-5">
           <span className="font-mono text-[11px] tracking-[0.18em] text-slate-900">{project.number.replace('Project ', '')}</span>
           <span className="w-6 h-px bg-slate-300" />
