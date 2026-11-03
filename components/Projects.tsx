@@ -67,13 +67,11 @@ const projects: ProjectData[] = [
           "상태 인지: 문 열림·충전 중 같은 상태가 텍스트와 버튼 색으로만 표시됨. 한눈에 안 읽히고 내 차라는 연결감이 약함",
           "단순한 화면 흐름: 단편적인 이미지와 텍스트 나열로 정보 전달. 세부 정보는 페이지 뎁스를 이동해 보여주는 단순한 흐름",
           "차종 반영 한계: 차량 색상·트림·모델을 고려하지 않고 3종류 목업으로 대체",
-          "모바일 3D 부하: 발열·로딩 없이 0.5초 안에 상태 변화가 보여야 함"
         ],
         en: [
           "State recognition: open doors or charging shown only as text and button colour. Hard to read at a glance, and it never feels like your car",
           "Flat screen flow: information delivered as scattered images and text. Details lived a page depth away, in a plain linear flow",
-          "No room for the actual car: colour, trim and model ignored, replaced by three generic mock-ups",
-          "3D load on mobile: state changes must appear within 0.5 s with no heat or loading"
+          "No room for the actual car: colour, trim and model ignored, replaced by three generic mock-ups"
         ]
       },
       solution: {
@@ -81,13 +79,13 @@ const projects: ProjectData[] = [
           "상태 인지: 도어·트렁크·공조·충전 상태를 3D 모델 위에 바로 표시. 모델이 주인공이 되도록 버튼 상태·레이아웃·색을 2D 버전과 다르게 잡음",
           "화면 흐름: 제어 페이지로 들어갈 때 카메라가 차를 축으로 돌아 페이지 간 연결이 끊기지 않음",
           "차종 반영: 차량 색상·트림·모델에 맞는 3D 모델 적용. 카메라 높이·중심점·회전 범위를 모델별 값으로 정의해 모델이 추가돼도 레이아웃이 안 깨짐",
-          "모바일 3D 부하: 폴리곤 수·텍스처 가이드를 정해 개발 부하를 줄임. 최초 실행 웰커밍 애니메이션도 이 예산 안에서 구현"
+          "모바일 환경 3D 용량 부하: 폴리곤 수·텍스처 가이드를 정해 개발 부하를 줄임. 최초 실행 웰커밍 애니메이션도 이 예산 안에서 구현"
         ],
         en: [
           "State recognition: door, trunk, climate and charging states shown directly on the 3D model. Button states, layout and colour set apart from the 2D version so the car stays the hero",
           "Screen flow: entering a control page orbits the camera around the car, so pages stay connected",
           "The actual car: a 3D model that matches colour, trim and model. Camera height, pivot and rotation range defined per model, so new models don't break the layout",
-          "3D load on mobile: polygon count and texture guidelines keep dev load down. The first-launch welcome animation fits inside the same budget"
+          "3D asset budget on mobile: polygon count and texture guidelines keep dev load down. The first-launch welcome animation fits inside the same budget"
         ]
       },
       impact: {
