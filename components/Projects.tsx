@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, ChevronDown, Play, Image as ImageIcon, ArrowUpRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft, ChevronDown, Play, Image as ImageIcon, ArrowUpRight, X, Maximize2 } from 'lucide-react';
 import { useTranslation } from '../lib/i18n';
 import { Eyebrow } from './Eyebrow';
 
@@ -459,9 +460,25 @@ const isVideo = (src: string) => src.endsWith('.mp4') || src.endsWith('.webm') |
 const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[], cropFocus?: boolean, backgroundColors?: string[] }) => {
   const [index, setIndex] = useState(0);
   const [missing, setMissing] = useState<Record<string, boolean>>({});
+  const [open, setOpen] = useState(false);
 
   const go = (i: number) => setIndex((i + images.length) % images.length);
   const current = images[index];
+  const canOpen = !missing[current];
+
+  // Lightbox: Esc closes, arrows navigate, page scroll locked while open
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'ArrowLeft') setIndex(i => (i - 1 + images.length) % images.length);
+      if (e.key === 'ArrowRight') setIndex(i => (i + 1) % images.length);
+    };
+    window.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+  }, [open, images.length]);
   const bg = backgroundColors?.[index] ?? '#e2e8f0';
   const isDark = (() => {
     const hex = bg.replace('#', '');
@@ -481,6 +498,7 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
             <motion.video
               key={current}
               src={current}
+              onClick={() => setOpen(true)}
               autoPlay
               loop
               muted
@@ -490,7 +508,7 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35 }}
-              className={`absolute inset-0 w-full h-full object-contain ${cropFocus ? 'scale-110 origin-center' : ''}`}
+              className={`absolute inset-0 w-full h-full object-contain cursor-zoom-in ${cropFocus ? 'scale-110 origin-center' : ''}`}
             />
           ) : missing[current] ? (
             <motion.div
@@ -511,15 +529,26 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
             <motion.img
               key={current}
               src={current}
+              onClick={() => setOpen(true)}
               onError={() => setMissing(prev => ({ ...prev, [current]: true }))}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35 }}
-              className={`absolute inset-0 w-full h-full object-contain ${cropFocus ? 'scale-110 origin-center' : ''}`}
+              className={`absolute inset-0 w-full h-full object-contain cursor-zoom-in ${cropFocus ? 'scale-110 origin-center' : ''}`}
             />
           )}
         </AnimatePresence>
+
+        {canOpen && (
+          <button
+            aria-label="Open full size"
+            onClick={() => setOpen(true)}
+            className={`absolute bottom-3 left-3 w-8 h-8 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'bg-black/40 text-white/80 hover:bg-black/60' : 'bg-white/80 text-slate-700 hover:bg-white'}`}
+          >
+            <Maximize2 size={14} />
+          </button>
+        )}
 
         {images.length > 1 && (
           <>
@@ -543,6 +572,68 @@ const MediaViewer = ({ images, cropFocus, backgroundColors }: { images: string[]
           </>
         )}
       </div>
+
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              key="lightbox"
+              role="dialog"
+              aria-modal="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] bg-slate-950/95 flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+              onClick={() => setOpen(false)}
+            >
+              <button
+                aria-label="Close"
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              >
+                <X size={20} />
+              </button>
+              {images.length > 1 && (
+                <>
+                  <button
+                    aria-label="Previous"
+                    onClick={(e) => { e.stopPropagation(); go(index - 1); }}
+                    className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                  >
+                    <ChevronLeft size={22} />
+                  </button>
+                  <button
+                    aria-label="Next"
+                    onClick={(e) => { e.stopPropagation(); go(index + 1); }}
+                    className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                  >
+                    <ChevronRight size={22} />
+                  </button>
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-wide text-white/60 tabular-nums">
+                    {index + 1} / {images.length}
+                  </div>
+                </>
+              )}
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+                className="cursor-default"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {isVideo(current) ? (
+                  <video src={current} autoPlay loop muted playsInline controls className="max-w-[94vw] max-h-[88vh] object-contain rounded-md" />
+                ) : (
+                  <img src={current} alt="" className="max-w-[94vw] max-h-[88vh] object-contain rounded-md" />
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
       {images.length > 1 && (
         <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:thin]">
