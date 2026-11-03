@@ -32,22 +32,22 @@ const projects: ProjectData[] = [
   {
     id: "hyundai-3d",
     number: "Project 01",
-    title: { ko: "기아 EV9 3D 원격 제어", en: "Kia EV9 3D Remote Control" },
-    tagline: { ko: "공용 2D 이미지와 버튼 나열 대신, 내 차를 보면서 제어하는 화면", en: "Instead of a shared 2D silhouette and a stack of buttons, a screen where you control the car while looking at it" },
+    title: { ko: "기아 3D 원격 제어", en: "Kia 3D Remote Control" },
+    tagline: { ko: "2D 차량 목업과 버튼 나열 대신, 내 차를 보며 직접 제어하는 경험", en: "Instead of a 2D car mock-up and a stack of buttons, control your own car while looking at it" },
     subtitle: "Kia · Hyundai · Genesis App",
     role: "Product Design • 3D Interaction",
     description: {
-      ko: "EV9 전용. 원격 제어 화면은 세단·SUV·해치백 3종 공용 2D 이미지에 버튼을 나열한 구조였음. 여기에 3D 모델을 넣어 도어·트렁크·공조·충전 상태를 차 위에서 바로 보이게 함.",
-      en: "EV9 only. The remote control screen was one of three shared 2D silhouettes with buttons stacked on top. A 3D model replaced it, so door, trunk, climate and charging states show on the car itself."
+      ko: "기아 EV9부터 적용. 원격 제어 화면은 세단·SUV·해치백 3종 공용 2D 이미지에 버튼을 나열한 구조였음. 3D 차량 모델을 도입해 내 차의 상태 확인과 제어를 앱 위에서 바로 하게 함.",
+      en: "Rolled out from the Kia EV9. The remote control screen used to be one of three shared 2D silhouettes (sedan, SUV, hatchback) with buttons stacked on top. A 3D model of the car brings status and control onto the car itself, right in the app."
     },
     impactHighlights: {
       ko: [
-        "3D 모델 + 애니메이션 UI, 디자인 특허 출원",
+        "EV9 오너스 카페에서 긍정적 평가",
         "EV9 양산 적용, 최초 실행 웰커밍 애니메이션",
         "차종별 카메라 높이·중심점·회전 범위 규칙 정의"
       ],
       en: [
-        "Design patent filed for the 3D + animation UI",
+        "Positive response in the EV9 owners' community",
         "Shipped on EV9, welcome animation on first launch",
         "Per-model rules for camera height, pivot and rotation range"
       ]
@@ -63,40 +63,42 @@ const projects: ProjectData[] = [
     details: {
       challenge: {
         ko: [
-          "공용 2D 이미지: 문 열림, 충전 중 같은 상태가 텍스트와 버튼 색으로만 표시돼 한눈에 안 들어옴. 내 차 같지도 않음",
-          "차종별 형상 차이: 모델마다 색·크기·비율이 달라 같은 2D 레이아웃 안에서 카메라 높이, 중심점, 회전 한계를 모델별로 따로 잡아야 했음",
+          "상태 인지: 문 열림·충전 중 같은 상태가 텍스트와 버튼 색으로만 표시됨. 한눈에 안 읽히고 내 차라는 연결감이 약함",
+          "단순한 화면 흐름: 단편적인 이미지와 텍스트 나열로 정보 전달. 세부 정보는 페이지 뎁스를 이동해 보여주는 단순한 흐름",
+          "차종 반영 한계: 차량 색상·트림·모델을 고려하지 않고 3종류 목업으로 대체",
           "모바일 3D 부하: 발열·로딩 없이 0.5초 안에 상태 변화가 보여야 함"
         ],
         en: [
-          "Shared 2D image: open doors or charging shown only as text and button colour, hard to read at a glance, and it never looks like your car",
-          "Every model differs: colour, size and proportions change per model, so camera height, pivot and rotation limits had to be set one by one inside the same 2D layout",
-          "3D on a phone: state changes must appear within 0.5 s with no heat or loading"
+          "State recognition: open doors or charging shown only as text and button colour. Hard to read at a glance, and it never feels like your car",
+          "Flat screen flow: information delivered as scattered images and text. Details lived a page depth away, in a plain linear flow",
+          "No room for the actual car: colour, trim and model ignored, replaced by three generic mock-ups",
+          "3D load on mobile: state changes must appear within 0.5 s with no heat or loading"
         ]
       },
       solution: {
         ko: [
-          "상태 시각화: 도어·트렁크·공조·충전 상태를 텍스트 대신 3D 모델 위에 표시. 주행 중에도 흘깃 보면 읽힘",
-          "차량 중심 트랜지션: 제어 페이지로 들어갈 때 카메라가 차를 축으로 돌아 화면이 끊기지 않음",
-          "차종별 파라미터: 카메라 높이·중심점·회전 범위를 모델별 값으로 정의. 모델이 추가돼도 레이아웃이 안 깨짐. 폴리곤·텍스처 가이드로 개발 부하 줄임",
-          "3D 전용 UI: 모델이 주인공이 되도록 버튼 상태, 레이아웃, 플로우, 색을 2D 버전과 다르게 잡음"
+          "상태 인지: 도어·트렁크·공조·충전 상태를 3D 모델 위에 바로 표시. 모델이 주인공이 되도록 버튼 상태·레이아웃·색을 2D 버전과 다르게 잡음",
+          "화면 흐름: 제어 페이지로 들어갈 때 카메라가 차를 축으로 돌아 페이지 간 연결이 끊기지 않음",
+          "차종 반영: 차량 색상·트림·모델에 맞는 3D 모델 적용. 카메라 높이·중심점·회전 범위를 모델별 값으로 정의해 모델이 추가돼도 레이아웃이 안 깨짐",
+          "모바일 3D 부하: 폴리곤 수·텍스처 가이드를 정해 개발 부하를 줄임. 최초 실행 웰커밍 애니메이션도 이 예산 안에서 구현"
         ],
         en: [
-          "State on the model: door, trunk, climate and charging shown on the 3D car instead of text. A glance while driving is enough",
-          "Car-centred transitions: entering a control page orbits the camera around the car, so the screen never cuts",
-          "Per-model parameters: camera height, pivot and rotation range defined per model. New models don't break the layout. Polygon and texture guidelines keep dev load down",
-          "UI built for 3D: button states, layout, flow and colour set apart from the 2D version so the model stays the hero"
+          "State recognition: door, trunk, climate and charging states shown directly on the 3D model. Button states, layout and colour set apart from the 2D version so the car stays the hero",
+          "Screen flow: entering a control page orbits the camera around the car, so pages stay connected",
+          "The actual car: a 3D model that matches colour, trim and model. Camera height, pivot and rotation range defined per model, so new models don't break the layout",
+          "3D load on mobile: polygon count and texture guidelines keep dev load down. The first-launch welcome animation fits inside the same budget"
         ]
       },
       impact: {
         ko: [
-          "디자인 특허 출원",
-          "기아 EV9 양산 탑재",
-          "내부 평가: 상태 인지 빨라짐, 기술 브랜드 이미지에 기여"
+          "기아 EV9부터 실배포. 3D 차량 모델 + UI로 디자인 특허 출원",
+          "내·외부 평가: 상태 인지 빨라짐, 기존과 다른 제어 경험. EV9 오너스 카페에서도 긍정적 반응",
+          "차종별 파라미터 규칙이 이후 모델 적용 기준이 됨"
         ],
         en: [
-          "Design patent filed",
-          "Shipped in the Kia EV9",
-          "Internal review: faster state recognition, stronger tech image"
+          "Live from the Kia EV9 onwards. Design patent filed for the 3D car model + UI",
+          "Internal and external feedback: faster state recognition, a control experience unlike before. Positive response in the EV9 owners' community too",
+          "The per-model parameter rules became the baseline for later models"
         ]
       }
     }
@@ -105,42 +107,40 @@ const projects: ProjectData[] = [
     id: "car-remote",
     number: "Project 02",
     title: { ko: "근거리 차량 리모컨", en: "Short-range Car Remote" },
-    tagline: { ko: "로그인 없이, 차 밖 30m에서도 쓰는 리모컨. 핵심 제어만, IVI와 같은 손맛", en: "A remote with no login that works 30 m outside the car. Core controls only, same feel as the IVI" },
+    tagline: { ko: "로그인 없이, 차 밖 30m에서도 바로 쓰는 차량 리모컨", en: "A car remote with no login, ready to use up to 30 m outside the car" },
     subtitle: "Hyundai Motor Group · Wi-Fi Remote",
     role: "Product Design • IVI Consistency",
     description: {
-      ko: "Wi-Fi 근거리 연결 리모컨 앱. 내비 미러링, 도어·공조·시트 폴딩·창문 제어, 미디어 컨트롤. 원격제어 앱과 후석 제어기(RSE) 사이의 빈자리를 노림.",
-      en: "A Wi-Fi short-range remote app. Navigation mirroring, door, climate, seat folding and window control, media. Aimed at the gap between the remote-control app and the rear-seat unit (RSE)."
+      ko: "Wi-Fi 연결 근거리 리모컨 앱(내비 미러링, 도어·공조·창문 제어, 미디어 컨트롤 등). 기존 모바일 앱과 후석 제어기(RSE) 사이에 포지셔닝.",
+      en: "A short-range remote app over Wi-Fi (navigation mirroring, door, climate and window control, media and more). Positioned between the existing mobile app and the rear-seat unit (RSE)."
     },
     impactHighlights: {
       ko: [
-        "원격제어 앱·RSE와 겹치지 않는 세 번째 자리 정의",
-        "Connect 차량 IVI와 같은 버튼 동작·디자인 언어",
-        "주행·정차·라디오 상태를 모션으로 표시"
+        "원격제어 앱·RSE와 겹치지 않는 고유한 가치 정의",
+        "Connect 차량 IVI와 같은 버튼 동작·디자인 언어로 이어지는 경험"
       ],
       en: [
-        "A third position that overlaps neither the remote app nor RSE",
-        "Same button behaviour and visual language as the Connect IVI",
-        "Driving, parked and radio states shown with motion"
+        "A value of its own, overlapping neither the remote app nor RSE",
+        "Same button behaviour and visual language as the Connect IVI, so the experience carries over"
       ]
     },
     tags: ["Mobile ↔ IVI Consistency", "Quick Control", "Motion"],
     
     backgroundColors: [
-      "#111318", "#15181f", "#111318", "#15181f", "#111318"
+      "#111318", "#111318", "#111318"
     ],
     images: [
-      "/remote/remote-1.png", "/remote/remote-2.png", "/remote/remote-3.png", "/remote/remote-4.png", "/remote/remote-5.png"
+      "/remote/remote-hero.mp4", "/remote/remote-depth.jpg", "/remote/remote-states.jpg"
     ],
     details: {
       challenge: {
         ko: [
-          "포지셔닝: 원격제어 앱과 RSE가 이미 있음. 세 번째 제어 수단이 왜 필요한지부터 정해야 했음",
+          "포지셔닝: 원격제어 앱과 RSE가 이미 있음에도 근거리 리모컨이 왜 필요한지부터 정해야 했음",
           "속도: 로그인과 긴 연결 과정을 거치면 리모컨이 아님. 핵심 기능까지 가는 시간을 최대한 줄여야 함",
           "일관성: IVI와 리모컨을 번갈아 쓰는 사용자. 버튼 동작이 조금만 달라도 헷갈림"
         ],
         en: [
-          "Positioning: the remote app and RSE already exist. First job was deciding why a third control surface should",
+          "Positioning: with the remote app and RSE already there, first job was deciding why a short-range remote was needed at all",
           "Speed: a login and a long pairing flow and it's no longer a remote. Time to the core action had to be cut hard",
           "Consistency: people switch between IVI and remote. Slightly different button behaviour is enough to confuse"
         ]
@@ -148,27 +148,27 @@ const projects: ProjectData[] = [
       solution: {
         ko: [
           "포지셔닝: 빠른 연결, 로그인 없음, 30m 근거리. 이 세 조건으로 'RSE 없는 차의 뒷좌석 제어'와 '차박·캠핑 등 차 밖 사용' 두 맥락을 잡음",
-          "IoT 리모컨 패턴: 홈에는 빠른 제어와 자주 쓰는 버튼 편집, 세부 제어는 한 단계 안쪽. 가장 자주 하는 동작은 첫 화면에서 끝남",
-          "IVI와 통일: Connect 차량 IVI와 같은 버튼 동작·상태 표현·디자인 언어. 기기를 오가도 새로 배울 게 없음",
+          "IoT 리모컨 패턴: 홈에는 빠른 제어와 자주 쓰는 버튼 편집, 세부 제어는 한 뎁스 아래 배치. 가장 자주 하는 동작은 첫 화면에서 끝남",
+          "IVI와 통일성: Connect 차량 IVI와 같은 버튼 동작·상태 표현·디자인 언어. 기기를 오가도 새로 배울 게 없음",
           "모션: 주행 중·정차 중·라디오 같은 핵심 정보에 모션을 붙여 글을 안 읽어도 상태가 보임"
         ],
         en: [
           "Positioning: fast pairing, no login, 30 m range. Those three set two contexts, rear-seat control in cars without RSE, and use outside the car such as camping",
-          "IoT remote pattern: quick controls and editable favourites on home, detailed control one level down. The most frequent actions end on the first screen",
-          "Matched to IVI: same button behaviour, states and visual language as the Connect IVI. Nothing to relearn when switching devices",
+          "IoT remote pattern: quick controls and editable favourites on home, detailed control one depth down. The most frequent actions end on the first screen",
+          "Consistent with IVI: same button behaviour, states and visual language as the Connect IVI. Nothing to relearn when switching devices",
           "Motion: driving, parked and radio states carry motion, so the state reads without reading"
         ]
       },
       impact: {
         ko: [
-          "RSE 없는 차에도 뒷좌석 제어 제공",
-          "IVI ↔ 리모컨 사용성 통일",
-          "주행·정차 상태별 정보 우선순위와 제어 제한 기준 정리"
+          "RSE 없는 차에도 뒷좌석 제어 기능 제공",
+          "IVI ↔ 리모컨 사용성 통일. 러닝 커브 낮추고 일관된 경험 전달",
+          "주행·정차 상태에 따른 정보 우선순위와 제어 제한 기준 정리"
         ],
         en: [
           "Rear-seat control for cars without RSE",
-          "One usability across IVI and remote",
-          "Information priority and control limits set per driving/parked state"
+          "One usability across IVI and remote: lower learning curve, consistent experience",
+          "Information priority and control limits set for driving and parked states"
         ]
       }
     }
@@ -177,66 +177,70 @@ const projects: ProjectData[] = [
     id: "geo-fence",
     number: "Project 03",
     title: { ko: "Geo-fence 알림 설정", en: "Geo-fence Alert Settings" },
-    tagline: { ko: "흩어진 설정 페이지를 지도 위 한 화면으로. 조정하면서 결과를 바로 봄", en: "Scattered settings pages onto one map screen. Adjust and see the result right there" },
+    tagline: { ko: "다섯 페이지, 중복 저장이던 설정을 한 화면, 한 플로우로", en: "Five pages and duplicate saves, down to one screen and one flow" },
     subtitle: "Kia · Hyundai · Genesis App · MyCar · Europe",
     role: "Product Design • Information Architecture",
     description: {
-      ko: "유럽 특화 기능. 범위(in/out)와 시간을 정해두면 차가 쓰일 때 알림이 옴. 자녀 통학용으로 차를 넘길 때 쓰는 기능인데, 같은 목적의 알림이 페이지와 저장 버튼마다 따로 흩어져 있었음.",
-      en: "Europe only. Set a boundary (in/out) and a time window and you're alerted when the car is used, typically after handing it to a teenager for school. Alerts with the same purpose were split across pages and save buttons."
+      ko: "유럽 전용 Alert Service. 발렛·Geo-fence·속도·시간·공회전 알림을 정해 두면 차가 그 조건으로 쓰일 때 알림이 오는 서비스. 백엔드 구조 때문에 플로우가 비효율적이었음.",
+      en: "Europe only. Alert Service covers valet, geo-fence, speed, time-fencing and idle alerts: set them and you're notified when the car is used that way. The backend structure made the flow inefficient."
     },
     impactHighlights: {
       ko: [
-        "여러 알림을 한 설정 페이지에서 바로 on/off",
-        "지도 위 바텀시트에서 반경·이름·in/out 동시 설정",
-        "설정 → 저장 → 확인 왕복 없앰"
+        "백엔드 비효율을 UI로 극복. 저장 2번 → 1번",
+        "Geo-fence 등록 화면 5개 → 3개",
+        "서로 이어지는 두 입력을 한 화면으로 합쳐 사용성을 높임"
       ],
       en: [
-        "All alerts toggled from one settings page",
-        "Radius, name and in/out set together in a map bottom sheet",
-        "No more set → save → go check round-trips"
+        "Backend inefficiency solved in the UI. Two saves down to one",
+        "Geo-fence registration from five screens to three",
+        "Two linked inputs merged into one screen for better usability"
       ]
     },
-    tags: ["Settings Flow Redesign", "Live Preview"],
+    tags: ["Settings Flow Redesign", "Map Bottom Sheet"],
     
     backgroundColors: [
-      "#f4f5f7", "#eef0f3", "#f4f5f7", "#eef0f3"
+      "#111318", "#111318", "#111318"
     ],
     images: [
-      "/geofence/geofence-1.png", "/geofence/geofence-2.png", "/geofence/geofence-3.png", "/geofence/geofence-4.png"
+      "/geofence/geofence-hero.jpg", "/geofence/geofence-flow.jpg", "/geofence/geofence-onepage.jpg"
     ],
     details: {
       challenge: {
         ko: [
-          "끊어진 흐름: 목적이 같은 Geo-fence 기능들이 별도 페이지, 별도 저장 버튼으로 관리됨. 전체 설정 상태를 한눈에 볼 수 없었음",
-          "안 보이는 반경: 위치·반경·이름·in/out을 함께 정해야 하는데 페이지가 쪼개져 있어 범위가 어디까지인지 보려면 화면을 오가야 했음"
+          "이중 저장: 백엔드 구조상 각 알림 설정 페이지에서 한 번, 전체 설정 확인 페이지에서 또 한 번 저장해야 반영됨. 어디까지 저장된 건지 알기 어려움",
+          "선형 흐름: Geo-fence는 리스트 확인 → 추가 → 지도 마킹 → 이름·반경 입력 → 저장 → 전체 페이지에서 다시 저장. 하나 등록에 페이지 다섯 개",
+          "반경 확인 어려움: 지도 마킹과 반경 입력이 다른 페이지라 범위가 어디까지인지 보려면 화면을 오가야 했음"
         ],
         en: [
-          "Broken flow: geo-fence features with the same purpose lived on separate pages with separate save buttons. No way to see the overall state at once",
-          "Invisible radius: location, radius, name and in/out had to be set together, but the pages were split, so seeing where the boundary fell meant bouncing between screens"
+          "Double save: the backend needed a save on each alert's page and another on the overview page. Hard to tell what was actually saved",
+          "Linear flow: list → add → mark on map → enter name and radius → save → save again on the overview. Five pages for one geo-fence",
+          "Hard to check the radius: map marking and radius input lived on different pages, so seeing where the boundary fell meant bouncing between screens"
         ]
       },
       solution: {
         ko: [
-          "설정 통합: 한 페이지에서 여러 알림을 바로 on/off",
-          "지도 위 바텀시트: 반경·이름·in/out을 바꾸면 지도 위 범위가 즉시 바뀜. 조정하면서 결과를 봄",
-          "직접 조작: 숫자 입력 대신 지도 위 시각 피드백 중심"
+          "저장 1번: 각 알림 설정 페이지에서 한 번만 저장. 전체 설정 페이지는 확인 전용으로 바꿔 현재 상태만 보여줌",
+          "3단계: 리스트 확인 → 추가 → 지도 위에서 마킹·이름·반경·in/out을 한 페이지에서 정하고 저장",
+          "지도 위 바텀시트: 반경을 바꾸면 지도 위 범위가 즉시 바뀜. 조정하면서 결과를 봄"
         ],
         en: [
-          "One settings page: every alert toggled in place",
-          "Bottom sheet over the map: change radius, name or in/out and the boundary on the map updates at once. Adjust and see",
-          "Direct manipulation: visual feedback on the map instead of typing numbers"
+          "One save: save once on each alert's own page. The overview page became read-only and only shows current state",
+          "Three steps: list → add → mark, name, radius and in/out on one map page, then save",
+          "Bottom sheet over the map: change the radius and the boundary on the map updates at once. Adjust and see"
         ]
       },
       impact: {
         ko: [
-          "페이지 이동·개별 저장 없앰",
-          "반경이 바로 보여 잘못 저장하는 일 줄어듦",
-          "'조정과 결과를 한 화면에'. 공조·미디어 제어에도 그대로 쓸 수 있는 구조"
+          "저장 2번 → 1번, Geo-fence 등록 페이지 5개 → 3개",
+          "전체 설정 페이지 역할이 '저장 전 확인'에서 '현재 상태 확인'으로 분명해짐",
+          "'조정과 결과를 한 화면에'. 다른 알림 설정에도 같은 구조 적용 가능"
+          // "남은 과제: 전체 설정 페이지에서 알림을 토글로 켜고 끄는 건 백엔드 제약으로 다음 단계로 남김"
         ],
         en: [
-          "No page hops, no per-item saves",
-          "Boundary visible immediately, fewer wrong saves",
-          "'Adjustment and result on one screen'. Reusable for climate and media controls"
+          "Two saves to one, five pages to three per geo-fence",
+          "The overview page's role is now clear: current state, not a pre-save check",
+          "'Adjustment and result on one screen'. The same structure applies to the other alert settings"
+          // "Still open: toggling alerts on the overview page waits on a backend change"
         ]
       }
     }
@@ -245,12 +249,12 @@ const projects: ProjectData[] = [
     id: "design-system",
     number: "Project 04",
     title: { ko: "현대·기아·제네시스 통합 디자인 시스템", en: "Hyundai · Kia · Genesis Unified Design System" },
-    tagline: { ko: "세 브랜드 세 벌의 파일을 한 벌로. 모드 전환 하나로 세 앱 디자인이 나옴", en: "Three brands, three file sets, one master. Switch a mode and all three apps come out" },
+    tagline: { ko: "세 브랜드 세 벌의 파일을 하나로. 모드 전환 하나로 세 디자인 대응", en: "Three brands, three file sets, one master. One mode switch covers all three designs" },
     subtitle: "Design Ops · Multi-brand",
     role: "Design System Lead",
     description: {
-      ko: "브랜드별로 따로 굴리던 디자인 파일을 Figma Variables로 토큰화해 마스터 파일 한 벌로 합침. 프로젝트 중간에 들어온 유럽 접근성 법안(EAA) 대응도 일정 지연 없이 처리.",
-      en: "Design files run separately per brand, tokenised with Figma Variables and merged into one master. The European Accessibility Act (EAA) requirement that landed mid-project was handled with no schedule slip."
+      ko: "브랜드별로 따로 운영하던 디자인 파일을 Figma Variables로 토큰화해 마스터 파일 한 벌로 합침. 유럽 접근성 법(EAA)도 라이브러리 교체 없이 변수 모드(다국어, 명도 대비, 텍스트 크기 등)로 대응함.",
+      en: "Design files run separately per brand, tokenised with Figma Variables and merged into one master. The European Accessibility Act (EAA) was handled with variable modes (language, contrast, text size and more) instead of a library swap."
     },
     impactHighlights: {
       ko: [
@@ -275,34 +279,36 @@ const projects: ProjectData[] = [
     details: {
       challenge: {
         ko: [
-          "N × 3: 브랜드마다 라이브러리와 스크린 파일을 따로 운영. 단순 수정도 세 번 반복, 그만큼 실수도 늘어남",
+          "세 벌 운영: 브랜드마다 라이브러리와 스크린 파일을 따로 관리. 단순 수정도 세 번 반복, 그만큼 실수도 늘어남",
+          "디자인–개발 간극: 브랜드별 스타일 값이 코드에 흩어져 있어 디자인 변경이 개발에 반영되기까지 리드타임이 김",
           "중간에 들어온 EAA: 기존 방식이면 수백 장을 손으로 고치거나 라이브러리를 통째로 바꿔야 했음. 일정 지연 확정"
         ],
         en: [
-          "N × 3: separate libraries and screen files per brand. Every change done three times, three chances to slip",
+          "Three sets to run: separate libraries and screen files per brand. Every change done three times, three chances to slip",
+          "Design-to-dev gap: brand style values scattered through the code, so a design change took a long time to reach development",
           "EAA mid-project: under the old setup, hundreds of screens to hand-edit or a full library swap. A guaranteed delay"
         ]
       },
       solution: {
         ko: [
-          "변수 기반 통합(3 → 1): 컬러·폰트·코너 라운드를 토큰화. 모드 전환으로 브랜드별 디자인이 바로 나옴",
-          "EAA 모드: 라이브러리를 바꾸지 않고 변수만 추가해 명도 대비·텍스트 크기 이슈를 파일 안에서 바로 확인",
-          "공통 컴포넌트: 코드에서도 브랜드별 스타일 값만 호출하는 구조. 디자인–개발 리드타임 줄임"
+          "한 벌로 통합: 컬러·폰트·코너 라운드를 토큰화. 모드 전환으로 브랜드별 디자인이 바로 나옴",
+          "공통 컴포넌트: 코드에서도 브랜드별 스타일 값만 호출하는 구조. 디자인–개발 리드타임 줄임",
+          "EAA 모드: 라이브러리를 바꾸지 않고 변수만 추가해 명도 대비·텍스트 크기 이슈를 파일 안에서 바로 확인"
         ],
         en: [
-          "Variable-based merge (3 → 1): colour, type and radius tokenised. Switch a mode, get each brand's design",
-          "EAA mode: variables added instead of swapping libraries, contrast and text-size issues checked inside the file",
-          "Shared components: code calls only brand style values. Shorter design-to-dev lead time"
+          "One master: colour, type and radius tokenised. Switch a mode, get each brand's design",
+          "Shared components: code calls only brand style values. Shorter design-to-dev lead time",
+          "EAA mode: variables added instead of swapping libraries, contrast and text-size issues checked inside the file"
         ]
       },
       impact: {
         ko: [
-          "파일 관리·유지보수 리소스 66% 절감",
-          "세 브랜드 앱 동시 업데이트 가능한 배포 흐름",
+          "파일 3벌 → 1벌, 관리·유지보수 리소스 66% 절감",
+          "세 브랜드 앱을 동시에 업데이트하는 배포 흐름",
           "EAA 지연 없이 대응. 변수 모드 테스트 방식은 글로벌 확장 표준 매뉴얼로 채택"
         ],
         en: [
-          "66% less file management and maintenance",
+          "Three file sets to one, 66% less management and maintenance",
           "A release flow that updates all three brand apps together",
           "EAA met without delay. The variable-mode test became the standard manual for global rollout"
         ]
